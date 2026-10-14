@@ -10,10 +10,11 @@ import {
 } from 'react';
 import { XIcon } from '@phosphor-icons/react';
 import { Button, type ButtonProps } from '../button/Button';
+import { ButtonGroup, type ButtonGroupItem } from '../button-group/ButtonGroup';
 import { IconButton } from '../icon-button/IconButton';
 import {
   modalBodyStyles,
-  modalFooterStyles,
+  modalFormWithFooterStyles,
   modalStyles,
   modalTitleStyles,
   type ModalStyleProps,
@@ -28,7 +29,7 @@ export type ModalProps = Omit<
   description: ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
-  actions?: ReactNode;
+  actions?: ButtonGroupItem[];
 } & ModalStyleProps;
 
 export function Modal({
@@ -82,8 +83,11 @@ export function Modal({
         aria-describedby={`${id}-body`}
         className={modalStyles({ size, className })}
       >
-        <form method="dialog">
-          <div className="flex items-center justify-between">
+        <form
+          method="dialog"
+          className={actions?.length ? modalFormWithFooterStyles() : undefined}
+        >
+          <div className="flex items-center justify-between mb-4">
             <h3 id={`${id}-title`} className={modalTitleStyles()}>
               {title}
             </h3>
@@ -99,9 +103,9 @@ export function Modal({
           <p id={`${id}-body`} className={modalBodyStyles()}>
             {description}
           </p>
-          {actions && (
-            <footer className={modalFooterStyles()}>{actions}</footer>
-          )}
+          {actions?.length ? (
+            <ButtonGroup position="bottom" items={actions} />
+          ) : null}
         </form>
       </dialog>
     </>

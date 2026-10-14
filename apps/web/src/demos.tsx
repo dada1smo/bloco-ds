@@ -1,6 +1,6 @@
 import { PlusIcon } from '@phosphor-icons/react';
 import type { ReactNode } from 'react';
-import { BLAccordion, BLButton, BLDropdown, BLIconButton, BLModal, BLTypography, type BLDropdownItem } from '@bloco/ui';
+import { BLAccordion, BLButton, BLButtonGroup, BLDropdown, BLIconButton, BLModal, BLTypography, type BLDropdownItem } from '@bloco/ui';
 
 const levels = ['solid', 'outline', 'subtle'] as const;
 const colors = ['primary', 'accent'] as const;
@@ -60,6 +60,22 @@ export const demos: Record<string, Demo[]> = {
       ),
     },
   ],
+  'button-group': [
+    {
+      id: 'default.tsx',
+      render: () => (
+        <BLButtonGroup
+          className="w-96"
+          items={[
+            { cols: 2, element: <BLButton>Cancel</BLButton> },
+            { cols: 2, element: <BLButton>Save</BLButton> },
+            { cols: 1, element: <BLButton level="outline">1</BLButton> },
+            { cols: 3, element: <BLButton level="subtle">3</BLButton> },
+          ]}
+        />
+      ),
+    },
+  ],
   'icon-button': [
     {
       id: 'variants.tsx',
@@ -95,12 +111,10 @@ export const demos: Record<string, Demo[]> = {
           trigger={<BLButton level="outline">Discard changes</BLButton>}
           title="Discard unsaved changes?"
           description="Your edits to this draft will be lost. This can't be undone."
-          actions={
-            <>
-              <BLButton level="outline" autoFocus>Keep editing</BLButton>
-              <BLButton>Discard</BLButton>
-            </>
-          }
+          actions={[
+            { cols: 2, element: <BLButton level="outline" autoFocus>Keep editing</BLButton> },
+            { cols: 2, element: <BLButton>Discard</BLButton> },
+          ]}
         />
       ),
     },

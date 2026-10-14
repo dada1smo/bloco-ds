@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
 const surfaceStyles =
-  'm-auto rounded-none border border-primary/20 bg-background p-6 font-sans text-body text-foreground shadow-lg';
+  'm-auto rounded-none bg-background p-6 font-sans text-body text-foreground shadow-lg';
 const backdropStyles = 'backdrop:bg-primary-950/40 backdrop:backdrop-blur-sm';
 const motionStyles = [
   'opacity-0 translate-y-2 open:translate-y-0 open:opacity-100',
@@ -30,4 +30,5 @@ export const modalTitleStyles = cva('m-0 text-subtitle font-bold');
 
 export const modalBodyStyles = cva('m-0 mt-1.5 text-primary/70');
 
-export const modalFooterStyles = cva('mt-4 flex flex-wrap justify-end gap-2');
+// reserva espaço para o ButtonGroup absoluto no rodapé do dialog
+export const modalFormWithFooterStyles = cva('pb-10');
