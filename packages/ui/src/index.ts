@@ -16,3 +16,4 @@ export {
   type BLDropdownProps,
   type BLDropdownItem,
 } from './dropdown';
+export { BLModal, type BLModalProps } from './modal';

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { BLAccordion, BLButton, BLDropdown, BLTypography, type BLDropdownItem } from '@bloco/ui';
+import { BLAccordion, BLButton, BLDropdown, BLModal, BLTypography, type BLDropdownItem } from '@bloco/ui';
 
 const levels = ['solid', 'outline', 'subtle'] as const;
 const colors = ['primary', 'accent'] as const;
@@ -69,6 +69,24 @@ export const demos: Record<string, Demo[]> = {
     {
       id: 'hover.tsx',
       render: () => <BLDropdown trigger={<BLButton level="outline">Options</BLButton>} openOn="hover" groups={dropdownGroups} />,
+    },
+  ],
+  modal: [
+    {
+      id: 'default.tsx',
+      render: () => (
+        <BLModal
+          trigger={<BLButton level="outline">Discard changes</BLButton>}
+          title="Discard unsaved changes?"
+          description="Your edits to this draft will be lost. This can't be undone."
+          actions={
+            <>
+              <BLButton level="outline" autoFocus>Keep editing</BLButton>
+              <BLButton>Discard</BLButton>
+            </>
+          }
+        />
+      ),
     },
   ],
   typography: [
