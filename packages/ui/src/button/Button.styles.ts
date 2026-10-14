@@ -25,12 +25,19 @@ export const buttonStyles = cva(
       },
       color: { primary: '', accent: '' },
       size: {
-        sm: 'h-8 px-3 text-caption',
-        md: 'h-10 px-4 text-body',
-        lg: 'h-12 px-6 text-interactive',
+        sm: 'h-8 text-caption',
+        md: 'h-10 text-body',
+        lg: 'h-12 text-interactive',
       },
+      square: { true: '', false: '' },
     },
     compoundVariants: [
+      { square: false, size: 'sm', class: 'px-3' },
+      { square: false, size: 'md', class: 'px-4' },
+      { square: false, size: 'lg', class: 'px-6' },
+      { square: true, size: 'sm', class: 'w-8 [&>svg]:size-4' },
+      { square: true, size: 'md', class: 'w-10 [&>svg]:size-5' },
+      { square: true, size: 'lg', class: 'w-12 [&>svg]:size-6' },
       {
         level: 'solid',
         color: 'primary',
@@ -64,7 +71,7 @@ export const buttonStyles = cva(
           'bg-accent/15 border-accent/15 text-accent-text hover:bg-accent/25',
       },
     ],
-    defaultVariants: { level: 'solid', color: 'primary', size: 'md' },
+    defaultVariants: { level: 'solid', color: 'primary', size: 'md', square: false },
   },
 );
 

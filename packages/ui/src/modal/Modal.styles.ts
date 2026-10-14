@@ -1,7 +1,7 @@
-import { cva } from 'class-variance-authority';
+import { cva, type VariantProps } from 'class-variance-authority';
 
 const surfaceStyles =
-  'm-auto w-[min(26rem,100%-2rem)] rounded-none border border-primary/20 bg-background p-6 font-sans text-body text-foreground shadow-lg';
+  'm-auto rounded-none border border-primary/20 bg-background p-6 font-sans text-body text-foreground shadow-lg';
 const backdropStyles = 'backdrop:bg-primary-950/40 backdrop:backdrop-blur-sm';
 const motionStyles = [
   'opacity-0 translate-y-2 open:translate-y-0 open:opacity-100',
@@ -13,16 +13,21 @@ const motionStyles = [
   'motion-safe:backdrop:[transition-behavior:allow-discrete]',
 ];
 
-export const modalStyles = cva([surfaceStyles, backdropStyles, motionStyles]);
+export const modalStyles = cva([surfaceStyles, backdropStyles, motionStyles], {
+  variants: {
+    size: {
+      sm: 'w-[min(20rem,100%-2rem)]',
+      md: 'w-[min(26rem,100%-2rem)]',
+      lg: 'w-[min(34rem,100%-2rem)]',
+    },
+  },
+  defaultVariants: { size: 'md' },
+});
 
-export const modalCloseStyles = cva([
-  'absolute top-3 right-3 grid size-8 cursor-pointer place-items-center rounded-none',
-  'hover:bg-primary/10',
-  'focus-visible:outline-2 focus-visible:outline-primary',
-]);
+export type ModalStyleProps = VariantProps<typeof modalStyles>;
 
 export const modalTitleStyles = cva('m-0 text-subtitle font-bold');
 
 export const modalBodyStyles = cva('m-0 mt-1.5 text-primary/70');
 
-export const modalFooterStyles = cva('mt-6 flex flex-wrap justify-end gap-2');
+export const modalFooterStyles = cva('mt-4 flex flex-wrap justify-end gap-2');

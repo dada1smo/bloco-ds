@@ -1,5 +1,6 @@
+import { PlusIcon } from '@phosphor-icons/react';
 import type { ReactNode } from 'react';
-import { BLAccordion, BLButton, BLDropdown, BLModal, BLTypography, type BLDropdownItem } from '@bloco/ui';
+import { BLAccordion, BLButton, BLDropdown, BLIconButton, BLModal, BLTypography, type BLDropdownItem } from '@bloco/ui';
 
 const levels = ['solid', 'outline', 'subtle'] as const;
 const colors = ['primary', 'accent'] as const;
@@ -57,6 +58,21 @@ export const demos: Record<string, Demo[]> = {
           ))}
         </div>
       ),
+    },
+  ],
+  'icon-button': [
+    {
+      id: 'variants.tsx',
+      render: () =>
+        sizes.map((size) => (
+          <div key={size} className="flex items-center gap-2">
+            {levels.map((level) => (
+              <BLIconButton key={level} size={size} level={level} aria-label={`${size} ${level}`}>
+                <PlusIcon />
+              </BLIconButton>
+            ))}
+          </div>
+        )),
     },
   ],
   dropdown: [

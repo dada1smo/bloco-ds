@@ -17,3 +17,4 @@ export {
   type BLDropdownItem,
 } from './dropdown';
 export { BLModal, type BLModalProps } from './modal';
+export { BLIconButton, type BLIconButtonProps } from './icon-button';

@@ -10,12 +10,13 @@ import {
 } from 'react';
 import { XIcon } from '@phosphor-icons/react';
 import { Button, type ButtonProps } from '../button/Button';
+import { IconButton } from '../icon-button/IconButton';
 import {
   modalBodyStyles,
-  modalCloseStyles,
   modalFooterStyles,
   modalStyles,
   modalTitleStyles,
+  type ModalStyleProps,
 } from './Modal.styles';
 
 export type ModalProps = Omit<
@@ -28,7 +29,7 @@ export type ModalProps = Omit<
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   actions?: ReactNode;
-};
+} & ModalStyleProps;
 
 export function Modal({
   trigger,
@@ -38,6 +39,7 @@ export function Modal({
   open,
   onOpenChange,
   onClose,
+  size,
   className,
   ...props
 }: ModalProps) {
@@ -78,19 +80,22 @@ export function Modal({
         }}
         aria-labelledby={`${id}-title`}
         aria-describedby={`${id}-body`}
-        className={modalStyles({ className })}
+        className={modalStyles({ size, className })}
       >
         <form method="dialog">
-          <button
-            type="submit"
-            aria-label="Close"
-            className={modalCloseStyles()}
-          >
-            <XIcon aria-hidden />
-          </button>
-          <h3 id={`${id}-title`} className={modalTitleStyles()}>
-            {title}
-          </h3>
+          <div className="flex items-center justify-between">
+            <h3 id={`${id}-title`} className={modalTitleStyles()}>
+              {title}
+            </h3>
+            <IconButton
+              type="submit"
+              level="subtle"
+              size="sm"
+              aria-label="Close"
+            >
+              <XIcon aria-hidden />
+            </IconButton>
+          </div>
           <p id={`${id}-body`} className={modalBodyStyles()}>
             {description}
           </p>
