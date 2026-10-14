@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { BLFileTree, BLThemeSwitch, type BLFileTreeItem } from '@bloco/ui';
 import { demos } from './demos';
 
-// Id do arquivo selecionado: "pasta/arquivo".
+const base = '/components';
+
 const items: BLFileTreeItem[] = [
   {
     type: 'folder',
@@ -22,9 +23,8 @@ const items: BLFileTreeItem[] = [
 ];
 
 export function App() {
-  const [selected, setSelected] = useState('button/levels.tsx');
-  const [folder, file] = selected.split('/');
-  const demo = demos[folder].find((d) => d.id === file);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   return (
     <main className="min-h-screen bg-background p-6 font-sans text-foreground">
@@ -36,10 +36,20 @@ export function App() {
         <BLFileTree
           className="w-56 shrink-0"
           items={items}
-          selectedId={selected}
-          onSelect={setSelected}
+          selectedId={decodeURIComponent(pathname).slice(base.length + 1)}
+          onSelect={(id) => navigate(`${base}/${id}`)}
         />
-        <section className="flex flex-col gap-3">{demo?.render()}</section>
+        <section className="flex flex-col gap-3">
+          <Routes>
+            <Route path="/" element={<Navigate to={`${base}/button/levels.tsx`} replace />} />
+            {Object.entries(demos).flatMap(([folder, files]) =>
+              files.map(({ id, render }) => (
+                <Route key={`${folder}/${id}`} path={`${base}/${folder}/${id}`} element={render()} />
+              )),
+            )}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </section>
       </div>
     </main>
   );
