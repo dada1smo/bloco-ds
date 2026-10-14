@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>bloco-ds</title>
+    <script>
+      // aplica o tema salvo antes do primeiro paint (evita flash)
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') document.documentElement.classList.add(t);
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

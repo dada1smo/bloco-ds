@@ -1,5 +1,5 @@
-import type { ButtonHTMLAttributes } from "react";
-import { buttonStyles, type ButtonStyleProps } from "./Button.styles";
+import type { ButtonHTMLAttributes } from 'react';
+import { buttonStyles, type ButtonStyleProps } from './Button.styles';
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & ButtonStyleProps;
 

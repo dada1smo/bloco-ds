@@ -21,7 +21,7 @@ export const buttonStyles = cva(
       level: {
         solid: '',
         outline: 'bg-transparent',
-        subtle: 'border-transparent',
+        subtle: '',
       },
       color: { primary: '', accent: '' },
       size: {
@@ -34,13 +34,12 @@ export const buttonStyles = cva(
       {
         level: 'solid',
         color: 'primary',
-        class:
-          'border-transparent bg-primary text-on-primary hover:bg-primary/90',
+        class: 'border-primary bg-primary text-on-primary hover:bg-primary/90',
       },
       {
         level: 'solid',
         color: 'accent',
-        class: 'border-transparent bg-accent text-on-accent hover:bg-accent/90',
+        class: 'border-accent bg-accent text-on-accent hover:bg-accent/90',
       },
       {
         level: 'outline',
@@ -55,12 +54,14 @@ export const buttonStyles = cva(
       {
         level: 'subtle',
         color: 'primary',
-        class: 'bg-primary/10 text-primary hover:bg-primary/20',
+        class:
+          'bg-primary/10 border-primary/10 text-primary hover:bg-primary/20',
       },
       {
         level: 'subtle',
         color: 'accent',
-        class: 'bg-accent/15 text-accent-text hover:bg-accent/25',
+        class:
+          'bg-accent/15 border-accent/15 text-accent-text hover:bg-accent/25',
       },
     ],
     defaultVariants: { level: 'solid', color: 'primary', size: 'md' },
