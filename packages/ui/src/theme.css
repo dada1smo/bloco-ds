@@ -1,3 +1,7 @@
+@import "@fontsource-variable/archivo";
+@import "@fontsource/space-mono/400.css";
+@import "@fontsource/space-mono/700.css";
+
 /* Paleta: slate = primary, amber = accent (cores padrão do Tailwind). */
 @theme inline {
   --color-primary-50: var(--color-slate-50);
@@ -32,6 +36,10 @@
   --color-accent-text: var(--accent-text);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  /* font-sans é o padrão do ds (o preflight aplica no html) */
+  --font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
 }
 
 /* Segue o sistema; `.light` / `.dark` no <html> forçam um modo. */
