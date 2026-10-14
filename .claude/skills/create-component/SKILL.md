@@ -34,6 +34,10 @@ Local: `packages/ui/src/{component-name}/`
 1. Se o nome ou os variants não vierem no pedido, pergunte (nome, elemento HTML base, variants e valores).
 2. Leia `packages/ui/src/theme.css` e use apenas tokens existentes (`primary`, `accent`, `on-primary`, `accent-text`, ...). Não invente cores.
 3. Confirme que não existe já um componente equivalente em `packages/ui/src`.
+4. **Primitivos primeiro:** sempre tente compor com o que já existe, nesta ordem:
+   1. Componentes e primitivos criados dentro do bloco-ds (`packages/ui/src` e demais pacotes em `packages/*`; ex.: `Button`, importado do arquivo interno `../button/Button`).
+   2. Libs já instaladas em `packages/ui/package.json`.
+   3. Só então escreva do zero. Não adicione dependência nova sem pedir.
 
 ## `{ComponentName}.styles.ts`
 
@@ -58,9 +62,19 @@ export function X({ variantA, variantB, className, ...props }: XProps) {
 ```
 
 - Sem classes Tailwind inline no TSX — tudo vem de `.styles.ts`.
-- `className` é repassado ao `cva` (último, para o consumidor sobrescrever).
+- **Sempre** aceitar `className` e passá-lo ao `cva` (último, para o consumidor sobrescrever). Nunca descartar nem concatenar à mão.
+- Se o componente tiver mais de um elemento, `className` vai no elemento raiz.
 - Props: atributos nativos do elemento + `StyleProps`. Sem lógica extra que não foi pedida.
 - Acessibilidade: foco visível (`focus-visible:`), `disabled:` quando aplicável, `aria-*` em componentes interativos sem texto.
+
+## CSS extra (só se necessário)
+
+Tailwind via cva é o padrão. Se algo não for expressável em classes (keyframes, seletores complexos, pseudo-elementos), crie `{ComponentName}.module.css` na pasta do componente:
+
+- A classe usa o prefixo `bl:` + nome do componente em kebab: `bl:button`, `bl:theme-switch`.
+- Em CSS o `:` precisa de escape: `.bl\:button { ... }`; no TS, referencie por string literal ou `styles['bl:button']`.
+- A referência fica em `.styles.ts` (junto às strings de classe), nunca inline no TSX.
+- Use os tokens de `theme.css` (`var(--...)`), sem valores soltos.
 
 ## `index.tsx`
 
