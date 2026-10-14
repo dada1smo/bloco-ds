@@ -11,7 +11,7 @@ function getInitialTheme(): Theme {
   return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
-export function ThemeSwitch({ onClick, ...props }: ButtonProps) {
+export function ThemeSwitch({ onClick, ...props }: Extract<ButtonProps, { as?: 'button' }>) {
   const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
   useEffect(() => {

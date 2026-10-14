@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { BLAccordion, BLButton, BLDropdown, BLTypography } from '@bloco/ui';
+import { BLAccordion, BLButton, BLDropdown, BLTypography, type BLDropdownItem } from '@bloco/ui';
 
 const levels = ['solid', 'outline', 'subtle'] as const;
 const colors = ['primary', 'accent'] as const;
@@ -12,13 +12,13 @@ const accordionItems = [
   { title: 'Build', content: 'pnpm build type-checks and writes a static site to dist.' },
 ];
 
-const dropdownGroups = [
+const dropdownGroups: BLDropdownItem[][] = [
   [
-    { label: 'Rename', href: '#' },
-    { label: 'Duplicate', href: '#' },
-    { label: 'Archive', href: '#' },
+    { label: 'Rename', as: 'a', href: '#' },
+    { label: 'Duplicate', as: 'a', href: '#' },
+    { label: 'Archive', as: 'a', href: '#' },
   ],
-  [{ label: 'Delete', href: '#' }],
+  [{ label: 'Delete', as: 'a', href: '#' }],
 ];
 
 export type Demo = { id: string; render: () => ReactNode };
@@ -63,15 +63,12 @@ export const demos: Record<string, Demo[]> = {
     {
       id: 'click.tsx',
       render: () => (
-        <BLDropdown
-          label="Share"
-          groups={dropdownGroups}
-        />
+        <BLDropdown trigger={<BLButton level="outline">Share</BLButton>} groups={dropdownGroups} />
       ),
     },
     {
       id: 'hover.tsx',
-      render: () => <BLDropdown label="Options" openOn="hover" groups={dropdownGroups} />,
+      render: () => <BLDropdown trigger={<BLButton level="outline">Options</BLButton>} openOn="hover" groups={dropdownGroups} />,
     },
   ],
   typography: [
