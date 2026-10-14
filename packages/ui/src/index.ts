@@ -6,3 +6,13 @@ export {
   type BLFileTreeProps,
   type BLFileTreeItem,
 } from './file-tree';
+export {
+  BLAccordion,
+  type BLAccordionProps,
+  type BLAccordionItem,
+} from './accordion';
+export {
+  BLDropdown,
+  type BLDropdownProps,
+  type BLDropdownItem,
+} from './dropdown';

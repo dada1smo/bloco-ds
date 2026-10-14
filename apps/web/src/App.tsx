@@ -29,7 +29,7 @@ export function App() {
   return (
     <main className="min-h-screen bg-background p-6 font-sans text-foreground">
       <header className="mb-4 flex items-center justify-between">
-        <h1 className="text-2xl font-bold">bloco-ds</h1>
+        <h1 className="text-title font-bold">bloco-ds</h1>
         <BLThemeSwitch />
       </header>
       <div className="flex gap-8">

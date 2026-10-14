@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 const rowStyles =
   'flex min-h-[26px] items-center gap-1.5 rounded-md px-1 hover:bg-primary/10';
 
-export const fileTreeStyles = cva('max-w-88 font-mono text-[13px]');
+export const fileTreeStyles = cva('max-w-88 font-mono text-caption');
 
 // shortcut: ::details-content animation needs browser support, falls back to instant toggle
 export const fileTreeFolderStyles = cva([

@@ -1,15 +1,37 @@
 import type { ReactNode } from 'react';
-import { BLButton, BLTypography } from '@bloco/ui';
+import { BLAccordion, BLButton, BLDropdown, BLTypography } from '@bloco/ui';
 
 const levels = ['solid', 'outline', 'subtle'] as const;
 const colors = ['primary', 'accent'] as const;
 const sizes = ['sm', 'md', 'lg'] as const;
 const typographySizes = ['headline', 'title', 'subtitle', 'body', 'caption'] as const;
 
+const accordionItems = [
+  { title: 'Install', content: 'Clone the repository and run pnpm install.', open: true },
+  { title: 'Run locally', content: 'Start the dev server with pnpm dev.' },
+  { title: 'Build', content: 'pnpm build type-checks and writes a static site to dist.' },
+];
+
+const dropdownGroups = [
+  [
+    { label: 'Rename', href: '#' },
+    { label: 'Duplicate', href: '#' },
+    { label: 'Archive', href: '#' },
+  ],
+  [{ label: 'Delete', href: '#' }],
+];
+
 export type Demo = { id: string; render: () => ReactNode };
 
 // Pasta -> arquivos: cada arquivo é uma demo exibida no painel.
 export const demos: Record<string, Demo[]> = {
+  accordion: [
+    { id: 'default.tsx', render: () => <BLAccordion className="w-96" items={accordionItems} /> },
+    {
+      id: 'exclusive.tsx',
+      render: () => <BLAccordion className="w-96" name="demo" items={accordionItems} />,
+    },
+  ],
   button: [
     {
       id: 'levels.tsx',
@@ -35,6 +57,21 @@ export const demos: Record<string, Demo[]> = {
           ))}
         </div>
       ),
+    },
+  ],
+  dropdown: [
+    {
+      id: 'click.tsx',
+      render: () => (
+        <BLDropdown
+          label="Share"
+          groups={dropdownGroups}
+        />
+      ),
+    },
+    {
+      id: 'hover.tsx',
+      render: () => <BLDropdown label="Options" openOn="hover" groups={dropdownGroups} />,
     },
   ],
   typography: [

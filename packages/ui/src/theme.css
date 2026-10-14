@@ -40,6 +40,20 @@
   /* font-sans é o padrão do ds (o preflight aplica no html) */
   --font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Space Mono", ui-monospace, monospace;
+
+  /* tipografia semântica: gera text-caption, text-body, ... (tamanho + line-height) */
+  --text-caption: var(--text-base);
+  --text-caption--line-height: var(--text-base--line-height);
+  --text-body: var(--text-lg);
+  --text-body--line-height: var(--text-lg--line-height);
+  --text-interactive: var(--text-xl);
+  --text-interactive--line-height: var(--text-xl--line-height);
+  --text-subtitle: var(--text-2xl);
+  --text-subtitle--line-height: var(--text-2xl--line-height);
+  --text-title: var(--text-4xl);
+  --text-title--line-height: var(--text-4xl--line-height);
+  --text-headline: var(--text-8xl);
+  --text-headline--line-height: var(--text-8xl--line-height);
 }
 
 /* Segue o sistema; `.light` / `.dark` no <html> forçam um modo. */

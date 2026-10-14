@@ -25,9 +25,9 @@ export const buttonStyles = cva(
       },
       color: { primary: '', accent: '' },
       size: {
-        sm: 'h-8 px-3 text-sm',
-        md: 'h-10 px-4 text-base',
-        lg: 'h-12 px-6 text-lg',
+        sm: 'h-8 px-3 text-caption',
+        md: 'h-10 px-4 text-body',
+        lg: 'h-12 px-6 text-interactive',
       },
     },
     compoundVariants: [

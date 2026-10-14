@@ -1,5 +1,6 @@
 import type { HTMLAttributes } from 'react';
 import {
+  defaultWeights,
   typographyStyles,
   type TypographyStyleProps,
 } from './Typography.styles';
@@ -26,12 +27,18 @@ export type TypographyProps = HTMLAttributes<HTMLElement> &
 
 export function Typography({
   as: Component = 'p',
-  size,
+  size = 'body',
+  weight,
   font,
   className,
   ...props
 }: TypographyProps) {
   return (
-    <Component {...props} className={typographyStyles({ size, font, className })} />
+    <Component {...props} className={typographyStyles({
+        size,
+        weight: weight ?? defaultWeights[size ?? 'body'],
+        font,
+        className,
+      })} />
   );
 }

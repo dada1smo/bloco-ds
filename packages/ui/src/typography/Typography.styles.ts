@@ -3,11 +3,18 @@ import { cva, type VariantProps } from 'class-variance-authority';
 export const typographyStyles = cva('text-foreground', {
   variants: {
     size: {
-      headline: 'text-4xl font-bold leading-tight',
-      title: 'text-2xl font-semibold leading-snug',
-      subtitle: 'text-lg font-medium leading-snug',
-      body: 'text-base font-normal leading-normal',
-      caption: 'text-sm font-normal leading-normal',
+      headline: 'text-headline leading-tight',
+      title: 'text-title leading-snug',
+      subtitle: 'text-subtitle leading-snug',
+      body: 'text-body leading-normal',
+      interactive: 'text-interactive leading-normal',
+      caption: 'text-caption leading-normal',
+    },
+    weight: {
+      normal: 'font-normal',
+      medium: 'font-medium',
+      semibold: 'font-semibold',
+      bold: 'font-bold',
     },
     font: {
       sans: 'font-sans',
@@ -16,5 +23,15 @@ export const typographyStyles = cva('text-foreground', {
   },
   defaultVariants: { size: 'body', font: 'sans' },
 });
+
+// peso padrão de cada size; a prop `weight` sobrescreve
+export const defaultWeights = {
+  headline: 'bold',
+  title: 'semibold',
+  subtitle: 'medium',
+  body: 'normal',
+  interactive: 'medium',
+  caption: 'normal',
+} as const;
 
 export type TypographyStyleProps = VariantProps<typeof typographyStyles>;
