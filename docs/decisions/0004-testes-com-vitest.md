@@ -1,6 +1,6 @@
 # 0004. Testar componentes com Vitest, só comportamento
 
-- Status: Proposta
+- Status: Aceita
 - Data: 2026-11-08
 
 ## Contexto

@@ -3,7 +3,9 @@
   "private": true,
   "scripts": {
     "dev": "pnpm --filter @bloco/web dev",
-    "build": "pnpm --filter @bloco/web build"
+    "build": "pnpm --filter @bloco/web build",
+    "test": "pnpm --filter @bloco/ui test",
+    "test:coverage": "pnpm --filter @bloco/ui test:coverage"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",

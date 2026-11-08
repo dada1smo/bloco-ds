@@ -41,34 +41,34 @@ export const buttonStyles = cva(
       {
         level: 'solid',
         color: 'primary',
-        class: 'border-primary bg-primary text-on-primary data-hovered:bg-primary/90',
+        class: 'border-primary bg-primary text-on-primary data-hovered:bg-primary-hover data-hovered:border-primary-hover',
       },
       {
         level: 'solid',
         color: 'accent',
-        class: 'border-accent bg-accent text-on-accent data-hovered:bg-accent/90',
+        class: 'border-accent bg-accent text-on-accent data-hovered:bg-accent-hover data-hovered:border-accent-hover',
       },
       {
         level: 'outline',
         color: 'primary',
-        class: 'border-primary text-primary data-hovered:bg-primary/10',
+        class: 'border-primary text-primary data-hovered:bg-surface-hover',
       },
       {
         level: 'outline',
         color: 'accent',
-        class: 'border-accent text-accent-text data-hovered:bg-accent/10',
+        class: 'border-accent text-accent-text data-hovered:bg-accent-soft',
       },
       {
         level: 'subtle',
         color: 'primary',
         class:
-          'bg-primary/10 border-primary/10 text-primary data-hovered:bg-primary/20',
+          'bg-surface-hover border-surface-hover text-primary data-hovered:bg-surface-selected data-hovered:border-surface-selected',
       },
       {
         level: 'subtle',
         color: 'accent',
         class:
-          'bg-accent/15 border-accent/15 text-accent-text data-hovered:bg-accent/25',
+          'bg-accent-soft border-accent-soft text-accent-text data-hovered:bg-accent-soft-hover data-hovered:border-accent-soft-hover',
       },
     ],
     defaultVariants: { level: 'solid', color: 'primary', size: 'md', square: false },

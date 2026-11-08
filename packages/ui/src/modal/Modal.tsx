@@ -1,4 +1,4 @@
-import type { ReactElement, ReactNode } from 'react';
+import { useId, type ReactElement, type ReactNode } from 'react';
 import { XIcon } from '@phosphor-icons/react';
 import {
   Dialog,
@@ -42,10 +42,12 @@ export function Modal({
   isDismissable = true,
   ...props
 }: ModalProps) {
+  // RAC's Dialog doesn't link `slot="description"`, so wire aria-describedby by hand.
+  const descriptionId = useId();
   const modal = (
     <ModalOverlay {...props} isDismissable={isDismissable} className={modalOverlayStyles()}>
       <RACModal className={modalStyles({ size, className })}>
-        <Dialog className={modalDialogStyles({ withFooter: !!actions?.length })}>
+        <Dialog aria-describedby={descriptionId} className={modalDialogStyles({ withFooter: !!actions?.length })}>
           <div className={modalHeaderStyles()}>
             <Heading slot="title" className={modalTitleStyles()}>
               {title}
@@ -54,7 +56,7 @@ export function Modal({
               <XIcon aria-hidden />
             </IconButton>
           </div>
-          <Text elementType="p" slot="description" className={modalBodyStyles()}>
+          <Text elementType="p" id={descriptionId} className={modalBodyStyles()}>
             {description}
           </Text>
           {actions?.length ? <ButtonGroup position="bottom" items={actions} /> : null}

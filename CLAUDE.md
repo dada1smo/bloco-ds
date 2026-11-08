@@ -4,11 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
-pnpm workspace (`packages/*`, `apps/*`). No test runner or linter is configured.
+pnpm workspace (`packages/*`, `apps/*`). No linter is configured.
 
 - `pnpm dev` — Vite dev server for the demo app (`@bloco/web`)
 - `pnpm build` — `tsc && vite build` for the demo app
-- `pnpm --filter ./packages/ui exec tsc --noEmit` — typecheck the UI package
+- `pnpm --filter ./packages/ui exec tsc --noEmit` — typecheck the UI package (includes tests)
+- `pnpm test` / `pnpm test:coverage` — Vitest (jsdom) in `packages/ui`; coverage fails below 80%
 
 ## Architecture
 
@@ -23,6 +24,7 @@ pnpm workspace (`packages/*`, `apps/*`). No test runner or linter is configured.
 - The `BL` prefix appears **only** in the folder's `index.tsx` re-export and in `packages/ui/src/index.ts` (e.g. `Button as BLButton`). Internally everything uses the plain name.
 - Components always accept `className` and pass it last into the cva call so consumers can override.
 - Compose from existing DS components first (e.g. `Button`), then unstyled `react-aria-components` for anything interactive (ADR 0003, [docs/architecture/components.md](docs/architecture/components.md)), before writing from scratch. RAC components style state via `data-hovered:`/`data-pressed:`/`data-selected:`/`data-disabled:`, focus via `data-focus-visible:` + `focus-ring` token, and merge `className` with `composeRenderProps`. Don't add dependencies without asking.
+- Tests (ADR 0004, [docs/decisions/0004-testes-com-vitest.md](docs/decisions/0004-testes-com-vitest.md)): every component has `X.test.tsx` next to `X.tsx`, behavior only — `getByRole` + `userEvent`; callbacks, state, `disabled`, ARIA, focus, `className` passthrough. Never assert DS classes, `toHaveStyle` or snapshots. New components ship with their test.
 - Extra CSS (keyframes, complex selectors) goes in `X.module.css` with a `bl:<name>` class, referenced from `.styles.ts`.
 
-Use the `/create-component` skill ([.claude/skills/create-component/SKILL.md](.claude/skills/create-component/SKILL.md)) when adding a component; it holds the full checklist. After adding one, export it from `packages/ui/src/index.ts`, add a demo, and typecheck.
+Use the `/create-component` skill ([.claude/skills/create-component/SKILL.md](.claude/skills/create-component/SKILL.md)) when adding a component; it holds the full checklist. After adding one, export it from `packages/ui/src/index.ts`, add a demo, write its test, typecheck and run `pnpm test:coverage`.

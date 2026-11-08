@@ -2,10 +2,18 @@
 @theme inline {
   /* Ação principal: fundo de botão sólido, foco. */
   --color-primary: var(--primary);
+  /* Fundo de `primary` em hover. */
+  --color-primary-hover: var(--primary-hover);
   /* Texto e ícone sobre `primary`. */
   --color-on-primary: var(--on-primary);
   /* Ação de destaque: fundo de botão accent. */
   --color-accent: var(--accent);
+  /* Fundo de `accent` em hover. */
+  --color-accent-hover: var(--accent-hover);
+  /* Fundo suave em cor de destaque (botão accent subtle, hover do outline accent). */
+  --color-accent-soft: var(--accent-soft);
+  /* `accent-soft` em hover. */
+  --color-accent-soft-hover: var(--accent-soft-hover);
   /* Texto e ícone sobre `accent`. */
   --color-on-accent: var(--on-accent);
   /* Texto em cor de destaque sobre `background` (contraste garantido). */
@@ -32,8 +40,12 @@
 :root {
   color-scheme: light dark;
   --primary: light-dark(var(--color-slate-900), var(--color-slate-100));
+  --primary-hover: light-dark(var(--color-slate-700), var(--color-slate-300));
   --on-primary: light-dark(var(--color-slate-50), var(--color-slate-900));
   --accent: light-dark(var(--color-amber-500), var(--color-amber-400));
+  --accent-hover: light-dark(var(--color-amber-600), var(--color-amber-300));
+  --accent-soft: light-dark(var(--color-amber-100), var(--color-amber-950));
+  --accent-soft-hover: light-dark(var(--color-amber-200), var(--color-amber-900));
   --on-accent: var(--color-amber-950);
   --accent-text: light-dark(var(--color-amber-700), var(--color-amber-400));
   --background: light-dark(var(--color-white), var(--color-slate-950));

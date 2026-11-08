@@ -11,4 +11,4 @@ Monorepo pnpm (`packages/*`, `apps/*`).
 
 Entradas públicas do pacote: `@bloco/ui` (componentes `BL*`) e `@bloco/ui/theme.css` (tokens).
 
-Não há testes nem lint configurados. A verificação hoje é `tsc` (ver comandos no CLAUDE.md).
+Não há lint. A verificação é `tsc` mais os testes de comportamento com Vitest em `packages/ui`, com cobertura mínima de 80% (`pnpm test:coverage`, [ADR 0004](../decisions/0004-testes-com-vitest.md); ver [componentes](components.md#testes)).

@@ -23,8 +23,12 @@ Cada token tem, no seu partial, um comentário de uma linha dizendo quando usar.
 | Token | Uso |
 |---|---|
 | `primary` | ação principal: fundo de botão sólido, foco |
+| `primary-hover` | fundo de `primary` em hover |
 | `on-primary` | texto e ícone sobre `primary` |
 | `accent` | ação de destaque: fundo de botão accent |
+| `accent-hover` | fundo de `accent` em hover |
+| `accent-soft` | fundo suave de destaque (subtle accent, hover do outline accent) |
+| `accent-soft-hover` | `accent-soft` em hover |
 | `on-accent` | texto e ícone sobre `accent` |
 | `accent-text` | texto em cor de destaque sobre `background` |
 | `background` | fundo da página e das superfícies |
@@ -42,7 +46,7 @@ Cada token tem, no seu partial, um comentário de uma linha dizendo quando usar.
 | `text-title` | título de página ou modal |
 | `text-headline` | destaque de tela inteira |
 
-Previstos pelo ADR, criados quando o primeiro componente precisar: `primary-hover`, `accent-hover`, `border-strong`, `control-sm/md/lg`, `radius-control`, `radius-surface`.
+Previstos pelo ADR, criados quando o primeiro componente precisar: `border-strong`, `control-sm/md/lg`, `radius-control`, `radius-surface`.
 
 ## Regras para componentes
 

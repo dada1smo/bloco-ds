@@ -26,7 +26,8 @@ Local: `packages/ui/src/{component-name}/`
 {component-name}/
 ├── index.tsx              # único lugar com o prefixo BL
 ├── {ComponentName}.tsx
-└── {ComponentName}.styles.ts   # opcional se o componente não tiver estilo próprio
+├── {ComponentName}.styles.ts   # opcional se o componente não tiver estilo próprio
+└── {ComponentName}.test.tsx    # obrigatório (ADR 0004)
 ```
 
 ## Antes de começar
@@ -98,4 +99,6 @@ export { BLX, type BLXProps } from './{component-name}';
 
 ## Verificação
 
-Rode `pnpm --filter ./packages/ui exec tsc --noEmit` (ou o typecheck do workspace) e corrija erros. Se o app web (`apps/web`) tiver uma página de demonstração, adicione uma instância do novo componente.
+Escreva `{ComponentName}.test.tsx` testando só comportamento (ver [ADR 0004](../../../docs/decisions/0004-testes-com-vitest.md)): `getByRole` + `userEvent`, callbacks, estado, `disabled`, ARIA, foco e repasse de `className`; nunca classes do DS, `toHaveStyle` ou snapshot.
+
+Rode `pnpm --filter ./packages/ui exec tsc --noEmit` e `pnpm test:coverage` (mínimo 80%) e corrija erros. Se o app web (`apps/web`) tiver uma página de demonstração, adicione uma instância do novo componente.

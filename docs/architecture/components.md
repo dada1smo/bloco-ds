@@ -6,8 +6,13 @@ Local: `packages/ui/src/<kebab-name>/`
 button/
 ├── index.tsx          # único lugar com o prefixo BL
 ├── Button.tsx
-└── Button.styles.ts
+├── Button.styles.ts
+└── Button.test.tsx
 ```
+
+## Testes
+
+`X.test.tsx` ao lado de `X.tsx`, com Vitest + Testing Library ([ADR 0004](../decisions/0004-testes-com-vitest.md)). Testa só comportamento: callbacks de clique/teclado, estado, `disabled`, atributos ARIA, foco e o repasse de `className`. Busca por `getByRole`, interage com `userEvent`. Proibido assert de aparência (classes do DS, `toHaveStyle`, snapshot). `pnpm test:coverage` falha abaixo de 80%. Componente novo entra com o seu teste.
 
 ## Estilos
 

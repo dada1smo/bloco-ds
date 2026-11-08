@@ -29,16 +29,19 @@ export type AccordionProps = Omit<DisclosureGroupProps, 'children' | 'className'
   className?: string;
 };
 
-/** RAC `DisclosureGroup`. Exclusive by default; `allowsMultipleExpanded` lets several stay open. */
+/**
+ * RAC `DisclosureGroup`. Exclusive by default; `allowsMultipleExpanded` lets several stay open.
+ * Item keys are the index as a string (`'0'`, `'1'`…): RAC drops a numeric `0` id.
+ */
 export function Accordion({ items, className, defaultExpandedKeys, ...props }: AccordionProps) {
   return (
     <DisclosureGroup
       {...props}
-      defaultExpandedKeys={defaultExpandedKeys ?? items.flatMap(({ open }, i) => (open ? [i] : []))}
+      defaultExpandedKeys={defaultExpandedKeys ?? items.flatMap(({ open }, i) => (open ? [String(i)] : []))}
       className={accordionStyles({ className })}
     >
       {items.map(({ title, content }, i) => (
-        <Disclosure key={i} id={i} className={accordionItemStyles()}>
+        <Disclosure key={i} id={String(i)} className={accordionItemStyles()}>
           <Heading className={accordionHeadingStyles()}>
             <Button slot="trigger" className={accordionTriggerStyles()}>
               {title}
