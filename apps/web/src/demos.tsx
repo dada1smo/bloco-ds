@@ -7,6 +7,7 @@ import {
 import type { ReactNode } from 'react';
 import {
   BLAccordion,
+  BLBadge,
   BLButton,
   BLButtonGroup,
   BLCluster,
@@ -34,6 +35,7 @@ const tabsItems = [
   { title: 'Settings', content: 'Name, visibility and members.' },
 ];
 const kinds = ['info', 'success', 'warning', 'error'] as const;
+const badgeStatuses = ['neutral', ...kinds] as const;
 const typeSet = [
   'heading-07',
   'heading-06',
@@ -691,6 +693,24 @@ export const demos: Record<string, Demo[]> = {
           defaultSelectedKey="1"
           items={tabsItems}
         />
+      ),
+    },
+  ],
+  badge: [
+    {
+      id: 'default.tsx',
+      render: () => <BLBadge>Draft</BLBadge>,
+    },
+    {
+      id: 'statuses.tsx',
+      render: () => (
+        <BLCluster gap="3">
+          {badgeStatuses.map((status) => (
+            <BLBadge key={status} status={status}>
+              {status}
+            </BLBadge>
+          ))}
+        </BLCluster>
       ),
     },
   ],
