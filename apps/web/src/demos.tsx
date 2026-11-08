@@ -10,6 +10,7 @@ import {
   BLBadge,
   BLButton,
   BLButtonGroup,
+  BLCheckbox,
   BLCluster,
   BLDropdown,
   BLGrid,
@@ -535,6 +536,36 @@ export const demos: Record<string, Demo[]> = {
             helperText="Locked"
           />
         </BLCluster>
+      ),
+    },
+  ],
+  checkbox: [
+    {
+      id: 'default.tsx',
+      render: () => <BLCheckbox label="Accept terms and conditions" name="terms" />,
+    },
+    {
+      id: 'states.tsx',
+      render: () => (
+        <BLCluster gap="6" className="items-start">
+          <BLCheckbox label="Helper" helperText="Weekly email" />
+          <BLCheckbox label="Required" isRequired />
+          <BLCheckbox label="Indeterminate" isIndeterminate />
+          <BLCheckbox label="Error" isInvalid errorMessage="You must accept" />
+          <BLCheckbox label="Success" defaultSelected successMessage="Looks good" />
+          <BLCheckbox label="Disabled" isDisabled helperText="Locked" />
+          <BLCheckbox label="Disabled checked" isDisabled defaultSelected />
+        </BLCluster>
+      ),
+    },
+    {
+      id: 'composition.tsx',
+      render: () => (
+        <BLStack gap="3">
+          <BLCheckbox label="Email me product updates" defaultSelected />
+          <BLCheckbox label="Email me billing alerts" />
+          <BLCheckbox label="Send a weekly summary" />
+        </BLStack>
       ),
     },
   ],
