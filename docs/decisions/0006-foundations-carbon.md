@@ -1,6 +1,6 @@
 # 0006. Definir as foundations pelo modelo do Carbon sobre as primitivas do Tailwind
 
-- Status: Aceita
+- Status: Aceita (valores de tipografia e sizing substituídos pelo [0007](0007-densidade-aberta.md))
 - Data: 2026-11-08
 
 ## Contexto

@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
-const displayStyles = 'inline-flex items-center justify-center gap-2';
+const displayStyles = 'inline-flex items-center justify-center gap-3';
 const typographyStyles = 'font-sans text-body-compact-01 whitespace-nowrap';
 const shapeStyles = 'border';
 const interactionStyles =
@@ -32,12 +32,12 @@ export const buttonStyles = cva(
       square: { true: '', false: '' },
     },
     compoundVariants: [
-      { square: false, size: 'sm', class: 'px-3' },
-      { square: false, size: 'md', class: 'px-4' },
-      { square: false, size: 'lg', class: 'px-6' },
-      { square: true, size: 'sm', class: 'w-control-sm [&>svg]:size-4' },
-      { square: true, size: 'md', class: 'w-control-md [&>svg]:size-5' },
-      { square: true, size: 'lg', class: 'w-control-lg [&>svg]:size-6' },
+      { square: false, size: 'sm', class: 'px-4' },
+      { square: false, size: 'md', class: 'px-6' },
+      { square: false, size: 'lg', class: 'px-8' },
+      { square: true, size: 'sm', class: 'w-control-sm [&>svg]:size-5' },
+      { square: true, size: 'md', class: 'w-control-md [&>svg]:size-6' },
+      { square: true, size: 'lg', class: 'w-control-lg [&>svg]:size-8' },
       {
         level: 'solid',
         color: 'primary',

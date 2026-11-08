@@ -27,19 +27,19 @@ export function App() {
   const navigate = useNavigate();
 
   return (
-    <main className="min-h-screen bg-background p-6 font-sans text-primary">
-      <header className="mb-4 flex items-center justify-between">
+    <main className="min-h-screen bg-background p-8 font-sans text-primary">
+      <header className="mb-6 flex items-center justify-between">
         <h1 className="text-heading-04">bloco-ds</h1>
         <BLThemeSwitch />
       </header>
-      <div className="flex gap-8">
+      <div className="flex gap-10">
         <BLFileTree
-          className="w-56 shrink-0"
+          className="w-72 shrink-0"
           items={items}
           selectedId={decodeURIComponent(pathname).slice(base.length + 1)}
           onSelect={(id) => navigate(`${base}/${id}`)}
         />
-        <section className="flex flex-col gap-3">
+        <section className="flex flex-col gap-4">
           <Routes>
             <Route path="/" element={<Navigate to={`${base}/button/levels.tsx`} replace />} />
             {Object.entries(demos).flatMap(([folder, files]) =>

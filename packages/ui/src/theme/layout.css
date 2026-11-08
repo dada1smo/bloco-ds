@@ -1,6 +1,6 @@
 /*
  * Breakpoints do grid 2x do Carbon (ADR 0006), substituindo os padrões do Tailwind.
- * Grid: 4 colunas abaixo de md, 8 em md, 16 a partir de lg; gutter gap-8 (32px), margem px-4 (16px).
+ * Grid: 4 colunas abaixo de md, 8 em md, 16 a partir de lg; gutter gap-8 (32px), margem px-6 (24px).
  */
 @theme {
   /* 320px: menor viewport suportado. */

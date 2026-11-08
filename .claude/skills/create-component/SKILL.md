@@ -35,6 +35,7 @@ Local: `packages/ui/src/{component-name}/`
 1. Se o nome ou os variants não vierem no pedido, pergunte (nome, elemento HTML base, variants e valores).
 2. Leia `docs/architecture/theming.md` e os partials em `packages/ui/src/theme/` e use **apenas tokens semânticos** com nomes do Carbon (ADR 0006): `bg-background`, `bg-layer-01` (+`-hover`/`-selected`, no nível em que o componente está), `bg-field-01`, `bg-interactive` + `text-on-color`, `bg-accent` + `text-on-accent`, `text-primary`/`text-secondary`/`text-helper`, `text-icon-secondary`, `border-subtle`/`border-strong`, `outline-focus`, `support-*`.
    - Texto pelo type set: `text-body-01`, `text-body-compact-01` (controles), `text-label-01`, `text-heading-0N`. O token traz o peso; não use `font-medium`/`font-bold` nem `leading-*`.
+   - Densidade aberta (ADR 0007, corpo 20px): escolha padding/gap pelo papel na tabela **Densidade** de `docs/architecture/theming.md` (controle md = `px-6`, ícone ↔ texto = `gap-3`, ícone `size-5`).
    - Espaçamento só nos passos `0.5 1 2 3 4 6 8 10 12 16 20 24 40`; altura e largura de controle por `h-control-xs..xl`; sem `rounded-*` (exceto `rounded-full`); sombra só `shadow-floating` (menu/popover).
    - Proibido em `.styles.ts`: primitivas de cor (`slate-*`, `red-*`…), hex, rgb, `[#…]` e opacidade em cor (`/10`, `/70`). `src/theme/tokens.test.ts` falha se aparecerem.
    - Faltou um token? Crie-o no partial da categoria, com comentário de uma linha dizendo quando usar, a partir das primitivas do Tailwind.

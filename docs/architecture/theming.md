@@ -1,6 +1,6 @@
 # Foundations
 
-Decisões: [ADR 0005](../decisions/0005-tres-camadas-de-tokens.md) (camadas) e [ADR 0006](../decisions/0006-foundations-carbon.md) (modelo Carbon). O [ADR 0002](../decisions/0002-tokens-semanticos-sobre-tailwind.md) é o histórico.
+Decisões: [ADR 0005](../decisions/0005-tres-camadas-de-tokens.md) (camadas), [ADR 0006](../decisions/0006-foundations-carbon.md) (modelo Carbon) e [ADR 0007](../decisions/0007-densidade-aberta.md) (densidade aberta, corpo de 20px). O [ADR 0002](../decisions/0002-tokens-semanticos-sobre-tailwind.md) é o histórico.
 
 Fonte única: `packages/ui/src/theme.css` (export `@bloco/ui/theme.css`). Ele só importa as fontes e os partials de `packages/ui/src/theme/`:
 
@@ -84,20 +84,22 @@ Mínimos: 4.5:1 para texto, 3:1 para texto grande, borda de controle e ícone.
 
 ## Tipografia
 
-Type set produtivo do Carbon. O token já traz tamanho, line-height, tracking e peso: `text-body-01` sozinho basta, sem `font-*` nem `leading-*`.
+Type set do Carbon em densidade aberta (ADR 0007): o corpo padrão tem 20px. O token já traz tamanho, line-height, tracking e peso: `text-body-01` sozinho basta, sem `font-*` nem `leading-*`.
 
 | Token | px / line-height | Peso | Uso |
 |---|---|---|---|
-| `code-01` / `code-02` | 12/16 · 14/20 | 400 | código (com `font-mono`) |
-| `label-01` / `label-02` | 12/16 · 14/18 | 400 | rótulo de campo, tag, metadado |
-| `helper-text-01` | 12/16 | 400 | ajuda e erro abaixo de campo |
-| `body-compact-01` / `-02` | 14/18 · 16/22 | 400 | texto de uma linha em controle (botão, menu, campo) |
-| `body-01` / `body-02` | 14/20 · 16/24 | 400 | texto corrido |
-| `heading-compact-01` / `-02` | 14/18 · 16/22 | 600 | título de uma linha em componente denso |
-| `heading-01` / `heading-02` | 14/20 · 16/24 | 600 | título de grupo e de seção em componente |
-| `heading-03` | 20/28 | 400 | título de modal e de seção de página |
-| `heading-04` / `heading-05` | 28/36 · 32/40 | 400 | título de página |
-| `heading-06` / `heading-07` | 42/50 · 54/64 | 300 | display, hero |
+| `code-01` / `code-02` | 14/20 · 16/24 | 400 | código (com `font-mono`) |
+| `label-01` / `label-02` | 16/20 · 18/24 | 400 | rótulo de campo, tag, metadado |
+| `helper-text-01` | 16/20 | 400 | ajuda e erro abaixo de campo |
+| `body-compact-01` / `-02` | 20/24 · 24/28 | 400 | texto de uma linha em controle (botão, menu, campo) |
+| `body-01` / `body-02` | 20/28 · 24/32 | 400 | texto corrido (`body-01` é o padrão) |
+| `heading-compact-01` / `-02` | 20/24 · 24/28 | 600 | título de uma linha em componente |
+| `heading-01` / `heading-02` | 20/28 · 24/32 | 600 | título de grupo e de seção em componente |
+| `heading-03` | 28/36 | 400 | título de modal e de seção de página |
+| `heading-04` / `heading-05` | 32/40 · 40/48 | 400 | título de página |
+| `heading-06` / `heading-07` | 56/64 · 72/80 | 300 | display, hero |
+
+Todo line-height cai no grid de 4px. O menor texto do sistema é 14px (`code-01`).
 
 Pesos do sistema: 300, 400 e 600. `font-medium` e `font-bold` não são usados. O nível do heading HTML (`h1`…`h6`) é escolhido pela estrutura da página, não pelo tamanho. Fontes: `font-sans` = Archivo Variable, `font-mono` = Space Mono.
 
@@ -110,17 +112,35 @@ A escala do Carbon é um subconjunto da escala numérica do Tailwind (`--spacing
 | px | 2 | 4 | 8 | 12 | 16 | 24 | 32 | 40 | 48 | 64 | 80 | 96 | 160 |
 | Tailwind | `0.5` | `1` | `2` | `3` | `4` | `6` | `8` | `10` | `12` | `16` | `20` | `24` | `40` |
 
+### Densidade
+
+Densidade aberta (ADR 0007). Cada espaço tem um papel; escolha o passo pelo papel, não a olho:
+
+| Papel | Passo | px |
+|---|---|---|
+| Entre linhas de texto empilhadas (título e descrição de uma opção) | `gap-1` | 4 |
+| Rótulo ↔ campo | `gap-2` | 8 |
+| Ícone ↔ texto, itens em linha | `gap-3` | 12 |
+| Padding horizontal de controle `sm` / `md` / `lg` | `px-4` / `px-6` / `px-8` | 16 / 24 / 32 |
+| Padding vertical de item de lista com mais de uma linha | `py-3` / `py-4` | 12 / 16 |
+| Padding de conteúdo em painel (accordion) | `px-6 pb-6` | 24 |
+| Padding de container (modal, card) | `p-8` | 32 |
+| Entre blocos de conteúdo | `gap-6` | 24 |
+| Entre seções e colunas de página | `gap-10` | 40 |
+
+Ao portar um valor da densidade antiga (ADR 0006), use o passo seguinte da escala: `0.5→1`, `1→2`, `2→3`, `3→4`, `4→6`, `6→8`, `8→10`, `10→12`.
+
 ## Sizing
 
 | Token | px | Uso |
 |---|---|---|
-| `control-xs` | 24 | linha de árvore |
-| `control-sm` | 32 | botão pequeno |
-| `control-md` | 40 | botão, campo, item de menu (padrão) |
-| `control-lg` | 48 | botão grande, cabeçalho de accordion |
-| `control-xl` | 64 | controle de destaque |
+| `control-xs` | 32 | linha de árvore |
+| `control-sm` | 40 | botão pequeno |
+| `control-md` | 48 | botão, campo, item de menu (padrão) |
+| `control-lg` | 56 | botão grande, cabeçalho de accordion |
+| `control-xl` | 72 | controle de destaque |
 
-Altura e largura de controle sempre por token (`h-control-md`, `w-control-sm`, `min-h-control-md`). Ícones: `size-4` (16px) em controles `sm`/`md`, `size-5` (20px) e `size-6` (24px) nos maiores.
+Altura e largura de controle sempre por token (`h-control-md`, `w-control-sm`, `min-h-control-md`). Ícones: `size-5` (20px, igual ao corpo) em controles `sm`/`md`, `size-6` (24px) e `size-8` (32px) em botão quadrado `md`/`lg`; `size-4` (16px) ao lado de `code-02`.
 
 ## Forma e elevação
 
@@ -140,7 +160,7 @@ Breakpoints do grid 2x do Carbon, que substituem os do Tailwind:
 | `xl` | 1312px (82rem) | 16 |
 | `2xl` | 1584px (99rem) | 16 (largura máxima) |
 
-Gutter `gap-8` (32px), margem `px-4` (16px).
+Gutter `gap-8` (32px), margem `px-6` (24px).
 
 ## Regras para componentes
 

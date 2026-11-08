@@ -14,4 +14,5 @@ Status: `Proposta` → `Aceita` → (`Substituída por NNNN` | `Rejeitada`). Um 
 | [0003](0003-react-aria-components-como-base.md) | Usar react-aria-components como base dos componentes | Aceita |
 | [0004](0004-testes-com-vitest.md) | Testar componentes com Vitest, só comportamento | Aceita |
 | [0005](0005-tres-camadas-de-tokens.md) | Organizar os tokens em três camadas: primitiva, semântica e componente | Aceita (`palette.css` removido pelo 0006) |
-| [0006](0006-foundations-carbon.md) | Definir as foundations pelo modelo do Carbon sobre as primitivas do Tailwind | Aceita |
+| [0006](0006-foundations-carbon.md) | Definir as foundations pelo modelo do Carbon sobre as primitivas do Tailwind | Aceita (tipografia e sizing substituídos pelo 0007) |
+| [0007](0007-densidade-aberta.md) | Usar densidade aberta, com corpo de 20px | Aceita |
