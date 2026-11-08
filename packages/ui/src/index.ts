@@ -37,3 +37,4 @@ export { BLFieldHelperText, type BLFieldHelperTextProps } from './field-helper-t
 export { BLFieldFeedback, type BLFieldFeedbackProps } from './field-feedback';
 export { BLInput, type BLInputProps } from './input';
 export { BLToast, blToastQueue, type BLToastProps, type BLToastData } from './toast';
+export { BLTabs, type BLTabsProps, type BLTabsItem } from './tabs';
