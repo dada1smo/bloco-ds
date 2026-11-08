@@ -1,6 +1,6 @@
-import { PlusIcon } from '@phosphor-icons/react';
+import { FileDashedIcon, GlobeIcon, PlusIcon, UsersIcon } from '@phosphor-icons/react';
 import type { ReactNode } from 'react';
-import { BLAccordion, BLButton, BLButtonGroup, BLDropdown, BLIconButton, BLModal, BLTypography, type BLDropdownItem } from '@bloco/ui';
+import { BLAccordion, BLButton, BLButtonGroup, BLDropdown, BLIconButton, BLModal, BLSelect, BLTypography, type BLDropdownItem } from '@bloco/ui';
 
 const levels = ['solid', 'outline', 'subtle'] as const;
 const colors = ['primary', 'accent'] as const;
@@ -101,6 +101,23 @@ export const demos: Record<string, Demo[]> = {
     {
       id: 'hover.tsx',
       render: () => <BLDropdown trigger={<BLButton level="outline">Options</BLButton>} openOn="hover" groups={dropdownGroups} />,
+    },
+  ],
+  select: [
+    {
+      id: 'default.tsx',
+      render: () => (
+        <BLSelect
+          label="Status"
+          name="status"
+          defaultValue="review"
+          options={[
+            { value: 'draft', label: 'Draft', description: 'Only visible to you', icon: <FileDashedIcon /> },
+            { value: 'review', label: 'In review', description: 'Shared with your team', icon: <UsersIcon /> },
+            { value: 'published', label: 'Published', description: 'Live on the site', icon: <GlobeIcon /> },
+          ]}
+        />
+      ),
     },
   ],
   modal: [

@@ -23,3 +23,8 @@ export {
   type BLButtonGroupProps,
   type BLButtonGroupItem,
 } from './button-group';
+export {
+  BLSelect,
+  type BLSelectProps,
+  type BLSelectOption,
+} from './select';
