@@ -40,3 +40,9 @@ export { BLToast, blToastQueue, type BLToastProps, type BLToastData } from './to
 export { BLTabs, type BLTabsProps, type BLTabsItem } from './tabs';
 export { BLBadge, type BLBadgeProps } from './badge';
 export { BLTooltip, type BLTooltipProps } from './tooltip';
+export {
+  BLTable,
+  type BLTableProps,
+  type BLTableColumn,
+  type BLTableRow,
+} from './table';
