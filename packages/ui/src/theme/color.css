@@ -14,6 +14,8 @@
   --color-background: var(--background);
   /* Texto principal. */
   --color-foreground: var(--foreground);
+  /* Contorno de foco visível em controles. */
+  --color-focus-ring: var(--focus-ring);
 }
 
 /* Segue o sistema; `.light` / `.dark` no <html> forçam um modo. */
@@ -26,6 +28,7 @@
   --accent-text: light-dark(var(--color-amber-700), var(--color-amber-400));
   --background: light-dark(var(--color-white), var(--color-slate-950));
   --foreground: light-dark(var(--color-slate-900), var(--color-slate-50));
+  --focus-ring: var(--primary);
 }
 .light {
   color-scheme: light;

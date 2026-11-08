@@ -1,6 +1,6 @@
 # 0003. Usar react-aria-components como base dos componentes
 
-- Status: Proposta
+- Status: Aceita
 - Data: 2026-11-08
 
 ## Contexto

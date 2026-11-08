@@ -28,7 +28,7 @@ export type DropdownItem = ItemOf<PrimitiveButtonProps>;
 
 export type DropdownProps = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
   /** A single `BLButton`; any other element throws. Dropdown wires the popover props. */
-  trigger: ReactElement<Extract<ButtonProps, { as?: 'button' }>>;
+  trigger: ReactElement<Extract<ButtonProps, { as?: 'button' }> & { children?: ReactNode }>;
   /** Groups of items, separated by a divider. */
   groups: DropdownItem[][];
   /** Hover needs `interestfor`; browsers without it fall back to click. */
@@ -50,12 +50,16 @@ export function Dropdown({ trigger, groups, openOn = 'click', className, ...prop
       {cloneElement(
         trigger,
         {
-          type: 'button',
-          className: dropdownTriggerStyles({ openOn, className: triggerClassName }),
+          className: dropdownTriggerStyles({ openOn, className: triggerClassName as string }),
           style: { ...style, anchorName: anchor } as CSSProperties,
-          popoverTarget: id,
-          popoverTargetAction: hover ? 'show' : undefined,
-          ...(hover && { interestfor: id }),
+          // shortcut: RAC Button drops popover/interest attrs, so set them on the DOM node; goes away when Dropdown moves to RAC Menu.
+          ref: (el: HTMLButtonElement | null) => {
+            el?.setAttribute('popovertarget', id);
+            if (hover) {
+              el?.setAttribute('popovertargetaction', 'show');
+              el?.setAttribute('interestfor', id);
+            }
+          },
         } as object,
         children,
         <CaretDownIcon className={dropdownIconStyles()} aria-hidden />,

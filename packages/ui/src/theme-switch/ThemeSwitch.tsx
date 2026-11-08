@@ -11,7 +11,7 @@ function getInitialTheme(): Theme {
   return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
-export function ThemeSwitch({ onClick, ...props }: Extract<ButtonProps, { as?: 'button' }>) {
+export function ThemeSwitch({ onPress, ...props }: Extract<ButtonProps, { as?: 'button' }>) {
   const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
   useEffect(() => {
@@ -27,8 +27,8 @@ export function ThemeSwitch({ onClick, ...props }: Extract<ButtonProps, { as?: '
       level="outline"
       aria-label={`Mudar para tema ${next === 'dark' ? 'escuro' : 'claro'}`}
       {...props}
-      onClick={(e) => {
-        onClick?.(e);
+      onPress={(e) => {
+        onPress?.(e);
         setTheme(next);
       }}
     >

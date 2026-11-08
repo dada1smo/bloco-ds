@@ -15,11 +15,13 @@ button/
 
 ## Props e `className`
 
-Props = atributos nativos do elemento base + `StyleProps`. `className` é sempre aceito e passado por último ao cva, para o consumidor sobrescrever.
+Props = props do componente RAC base (ou atributos nativos do elemento, se não houver RAC) + `StyleProps`. `className` é sempre aceito e passado por último ao cva, para o consumidor sobrescrever.
 
 ## Composição
 
-Prefira o que já existe: `PrimitiveButton` (sem estilo; renderiza `<button>` ou `<a>` conforme `as`) e `Button` são a base de vários componentes (ex.: `ThemeSwitch` reutiliza `Button`). Só depois libs já instaladas; só então código novo.
+Decisão: [ADR 0003](../decisions/0003-react-aria-components-como-base.md). Prefira, nesta ordem: componentes do DS (ex.: `ThemeSwitch` reutiliza `Button`); componentes do `react-aria-components` (RAC) sem estilo, para tudo que é interativo (`Button`, `Link`, `Menu`, `Dialog`, `Select`, `Disclosure`, `Tree`…); outras libs já instaladas; só então código novo. `PrimitiveButton` está sendo substituído pelo `Button`/`Link` do RAC.
+
+Em componentes RAC: estado pelos data-attributes (`data-hovered:`, `data-pressed:`, `data-selected:`, `data-disabled:`, `data-open:`), foco com `data-focus-visible:` + token `focus-ring` (não `focus-visible:`), e `className` combinado via `composeRenderProps`. A API segue o RAC (`onPress`, `isDisabled`).
 
 ## Exports
 

@@ -1,14 +1,7 @@
-import { buttonStyles, type ButtonStyleProps } from '../button/Button.styles';
-import { PrimitiveButton, type PrimitiveButtonProps } from '../primitive-button';
+import { Button, type ButtonProps } from '../button/Button';
 
-export type IconButtonProps = PrimitiveButtonProps &
-  Omit<ButtonStyleProps, 'square'> & { 'aria-label': string };
+export type IconButtonProps = ButtonProps & { 'aria-label': string };
 
-export function IconButton({ level, color, size, className, ...props }: IconButtonProps) {
-  return (
-    <PrimitiveButton
-      {...props}
-      className={buttonStyles({ level, color, size, square: true, className })}
-    />
-  );
+export function IconButton(props: IconButtonProps) {
+  return <Button {...props} square />;
 }

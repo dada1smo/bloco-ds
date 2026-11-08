@@ -38,9 +38,10 @@ Local: `packages/ui/src/{component-name}/`
    - Altura de controle e raio usam tokens; gap e padding podem usar a escala do Tailwind.
 3. Confirme que não existe já um componente equivalente em `packages/ui/src`.
 4. **Primitivos primeiro:** sempre tente compor com o que já existe, nesta ordem:
-   1. Componentes e primitivos criados dentro do bloco-ds (`packages/ui/src` e demais pacotes em `packages/*`; ex.: `Button`, importado do arquivo interno `../button/Button`).
-   2. Libs já instaladas em `packages/ui/package.json`.
-   3. Só então escreva do zero. Não adicione dependência nova sem pedir.
+   1. Componentes criados dentro do bloco-ds (`packages/ui/src` e demais pacotes em `packages/*`; ex.: `Button`, importado do arquivo interno `../button/Button`).
+   2. Componentes do `react-aria-components` (RAC), sem estilo, para qualquer coisa interativa (ADR 0003): `Button`, `Link`, `Menu`, `Dialog`/`Modal`, `Select`/`ListBox`, `Disclosure`, `Tree`…
+   3. Outras libs já instaladas em `packages/ui/package.json`.
+   4. Só então escreva do zero. Não adicione dependência nova sem pedir.
 
 ## `{ComponentName}.styles.ts`
 
@@ -67,8 +68,10 @@ export function X({ variantA, variantB, className, ...props }: XProps) {
 - Sem classes Tailwind inline no TSX — tudo vem de `.styles.ts`.
 - **Sempre** aceitar `className` e passá-lo ao `cva` (último, para o consumidor sobrescrever). Nunca descartar nem concatenar à mão.
 - Se o componente tiver mais de um elemento, `className` vai no elemento raiz.
-- Props: atributos nativos do elemento + `StyleProps`. Sem lógica extra que não foi pedida.
-- Acessibilidade: foco visível (`focus-visible:`), `disabled:` quando aplicável, `aria-*` em componentes interativos sem texto.
+- Props: props do componente RAC base (ou atributos nativos do elemento, se não houver RAC) + `StyleProps`. Sem lógica extra que não foi pedida.
+- Em componentes RAC, `className` pode ser função: combine com `composeRenderProps(className, (className) => xStyles({ ..., className }))`.
+- Estados pelos data-attributes do RAC: `data-hovered:`, `data-pressed:`, `data-selected:`, `data-disabled:`, `data-open:`. Foco: `outline-none data-focus-visible:outline-2 data-focus-visible:outline-focus-ring` (nunca `focus-visible:` em componente RAC).
+- Acessibilidade: o RAC cuida de teclado, foco e ARIA; adicione `aria-label` em componentes interativos sem texto.
 
 ## CSS extra (só se necessário)
 

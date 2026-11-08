@@ -64,12 +64,18 @@ export function Modal({
   return (
     <>
       {trigger &&
-        cloneElement(trigger, {
-          type: 'button',
-          ...(open === undefined
-            ? { commandFor: id, command: 'show-modal' }
-            : { onClick: () => onOpenChange?.(true) }),
-        } as object)}
+        cloneElement(
+          trigger,
+          (open === undefined
+            ? {
+                // shortcut: RAC Button drops command attrs, so set them on the DOM node; goes away when Modal moves to RAC Dialog.
+                ref: (el: HTMLButtonElement | null) => {
+                  el?.setAttribute('commandfor', id);
+                  el?.setAttribute('command', 'show-modal');
+                },
+              }
+            : { onPress: () => onOpenChange?.(true) }) as object,
+        )}
       <dialog
         closedby="any"
         {...props}
