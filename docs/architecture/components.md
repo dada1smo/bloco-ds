@@ -34,6 +34,6 @@ Em componentes RAC: estado pelos data-attributes (`data-hovered:`, `data-pressed
 
 ## CSS extra
 
-Só quando classes não bastam (keyframes, seletores complexos): `X.module.css` com classe `bl:<nome>`, referenciada a partir do `.styles.ts`.
+Só quando classes não bastam (keyframes, seletores complexos): `X.module.css` com classe `bl:<nome>`, referenciada a partir do `.styles.ts`. Tokens de componente (`--bl-<comp>-*`, opcionais) também vivem aí ([ADR 0005](../decisions/0005-tres-camadas-de-tokens.md)).
 
 Checklist completo de criação: skill `/create-component` (`.claude/skills/create-component/SKILL.md`).

@@ -1,4 +1,4 @@
-/* Camada de marca: slate = primary, amber = accent (cores padrão do Tailwind). Só a camada semântica lê daqui. */
+/* Escolha de marca (camada semântica, ADR 0005): slate = primary, amber = accent. Componentes não usam estas escalas (`primary-500` é proibido). */
 @theme inline {
   --color-primary-50: var(--color-slate-50);
   --color-primary-100: var(--color-slate-100);

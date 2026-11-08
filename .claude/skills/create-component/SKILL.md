@@ -33,7 +33,7 @@ Local: `packages/ui/src/{component-name}/`
 ## Antes de começar
 
 1. Se o nome ou os variants não vierem no pedido, pergunte (nome, elemento HTML base, variants e valores).
-2. Leia os partials em `packages/ui/src/theme/` e use **apenas tokens semânticos** (`primary`, `on-primary`, `accent-text`, `foreground`, `text-body`, ...) — regras em `docs/architecture/theming.md` (ADR 0002):
+2. Leia os partials em `packages/ui/src/theme/` e use **apenas tokens semânticos** (`primary`, `on-primary`, `accent-text`, `foreground`, `text-body`, ...) — regras em `docs/architecture/theming.md` (ADR 0002 e 0005):
    - Proibido em `.styles.ts`: `slate-*`, `amber-*`, `primary-500`, hex, rgb, `[#…]` e opacidade em cor semântica (`/10`, `/70`).
    - Faltou um token? Crie-o no partial da categoria, com comentário de uma linha dizendo quando usar, a partir da paleta do Tailwind.
    - Altura de controle e raio usam tokens; gap e padding podem usar a escala do Tailwind.
@@ -82,6 +82,7 @@ Tailwind via cva é o padrão. Se algo não for expressável em classes (keyfram
 - Em CSS o `:` precisa de escape: `.bl\:button { ... }`; no TS, referencie por string literal ou `styles['bl:button']`.
 - A referência fica em `.styles.ts` (junto às strings de classe), nunca inline no TSX.
 - Use os tokens de `theme.css` (`var(--...)`), sem valores soltos.
+- Token de componente (opcional, ADR 0005): só se o valor serve a um único componente e não cabe numa utility (animação, comportamento específico). Declare no seletor `bl:<nome>` como `--bl-<comp>-<prop>[-<estado>]`, com comentário de uma linha, valendo `var()` de token semântico (ou primitiva do Tailwind se não for cor) e use só neste arquivo. Se outro componente precisar, promova a token semântico.
 
 ## `index.tsx`
 

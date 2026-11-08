@@ -1,12 +1,12 @@
 # Tema
 
-Decisão: [ADR 0002](../decisions/0002-tokens-semanticos-sobre-tailwind.md).
+Decisões: [ADR 0002](../decisions/0002-tokens-semanticos-sobre-tailwind.md) (tokens semânticos) e [ADR 0005](../decisions/0005-tres-camadas-de-tokens.md) (camadas).
 
 Fonte única: `packages/ui/src/theme.css` (export `@bloco/ui/theme.css`). Ele só importa as fontes e os partials de `packages/ui/src/theme/`:
 
 | Partial | Conteúdo |
 |---|---|
-| `palette.css` | camada de marca: `primary-50..950` → slate, `accent-50..950` → amber |
+| `palette.css` | escolha de marca (camada semântica): `primary-50..950` → slate, `accent-50..950` → amber |
 | `color.css` | tokens semânticos de cor (`@theme inline` + valores `light-dark()` em `:root`), `.light` e `.dark` |
 | `typography.css` | `font-sans`, `font-mono` e `text-caption … headline` |
 
@@ -14,7 +14,13 @@ Categoria nova (ex.: `sizing.css` para `spacing-control-*` e `radius-*`) = parti
 
 ## Camadas
 
-Primitiva (paleta do Tailwind) → marca (`primary-*`, `accent-*`) → semântica (intenção). Componentes leem **só a semântica**.
+| Camada | O que é | Onde | Quem lê |
+|---|---|---|---|
+| Primitiva | paleta e escalas padrão do Tailwind (`slate-900`, `text-lg`) | Tailwind | só a semântica |
+| Semântica | intenção (`primary`, `foreground-muted`, `text-body`), inclusive a escolha de marca | `packages/ui/src/theme/` | componentes |
+| Componente (opcional) | valor de um único componente (`--bl-modal-enter-duration`) | `X.module.css` | só aquele componente |
+
+Componentes leem **só a semântica** (e os próprios tokens de componente, se houver). Token de componente só existe quando o valor não serve a outro componente e não cabe numa utility (animação, comportamento específico). Ele fica no seletor `bl:<nome>`, vale um `var()` de token semântico (ou primitiva do Tailwind se não for cor) e é promovido a semântico quando um segundo componente precisar. Detalhes no [ADR 0005](../decisions/0005-tres-camadas-de-tokens.md).
 
 ## Tokens semânticos
 

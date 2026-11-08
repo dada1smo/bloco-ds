@@ -1,6 +1,6 @@
 # 0002. Usar tokens semânticos sobre a paleta do Tailwind
 
-- Status: Aceita
+- Status: Aceita (camadas revisadas pelo [0005](0005-tres-camadas-de-tokens.md))
 - Data: 2026-11-08
 
 ## Contexto
