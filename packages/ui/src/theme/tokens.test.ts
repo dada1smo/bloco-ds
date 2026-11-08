@@ -18,6 +18,7 @@ const forbidden: [string, RegExp][] = [
   ['raio (cantos são retos)', /\brounded(?!-(?:full|none)\b)/],
   ['sombra fora de shadow-floating', /\bshadow(?!-floating\b)/],
   ['peso fora do type set', /\bfont-(?:thin|extralight|medium|bold|extrabold|black)\b/],
+  ['breakpoint arbitrário (use sm..2xl)', /\b(?:min|max)-\[/],
 ];
 
 // Escala de espaçamento do Carbon em passos do Tailwind (spacing-01..13).
@@ -43,6 +44,8 @@ describe('foundations', () => {
 
   it('flags violations', () => {
     expect(violations("'bg-slate-900 rounded-md shadow-lg font-bold gap-2.5 text-primary/70'")).toHaveLength(6);
+    // Concatenado para o Tailwind não gerar a media query ao escanear este arquivo.
+    expect(violations("'min-" + "[873px]:flex'")).toEqual(['breakpoint arbitrário (use sm..2xl)']);
     expect(violations("'bg-layer-01 rounded-full shadow-floating gap-2 -outline-offset-2 w-1/2'")).toEqual([]);
   });
 });

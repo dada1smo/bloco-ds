@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { BLFileTree, BLThemeSwitch, type BLFileTreeItem } from '@bloco/ui';
+import { BLFileTree, BLSidebar, BLStack, BLThemeSwitch, type BLFileTreeItem } from '@bloco/ui';
 import { demos } from './demos';
 
 const base = '/components';
@@ -32,14 +32,16 @@ export function App() {
         <h1 className="text-heading-04">bloco-ds</h1>
         <BLThemeSwitch />
       </header>
-      <div className="flex gap-10">
-        <BLFileTree
-          className="w-72 shrink-0"
-          items={items}
-          selectedId={decodeURIComponent(pathname).slice(base.length + 1)}
-          onSelect={(id) => navigate(`${base}/${id}`)}
-        />
-        <section className="flex flex-col gap-4">
+      <BLSidebar
+        side={
+          <BLFileTree
+            items={items}
+            selectedId={decodeURIComponent(pathname).slice(base.length + 1)}
+            onSelect={(id) => navigate(`${base}/${id}`)}
+          />
+        }
+      >
+        <BLStack gap="4">
           <Routes>
             <Route path="/" element={<Navigate to={`${base}/button/levels.tsx`} replace />} />
             {Object.entries(demos).flatMap(([folder, files]) =>
@@ -49,8 +51,8 @@ export function App() {
             )}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-        </section>
-      </div>
+        </BLStack>
+      </BLSidebar>
     </main>
   );
 }

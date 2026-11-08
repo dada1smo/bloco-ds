@@ -1,6 +1,6 @@
 # Foundations
 
-Decisões: [ADR 0005](../decisions/0005-tres-camadas-de-tokens.md) (camadas), [ADR 0006](../decisions/0006-foundations-carbon.md) (modelo Carbon) e [ADR 0007](../decisions/0007-densidade-aberta.md) (densidade aberta, corpo de 20px). O [ADR 0002](../decisions/0002-tokens-semanticos-sobre-tailwind.md) é o histórico.
+Decisões: [ADR 0005](../decisions/0005-tres-camadas-de-tokens.md) (camadas), [ADR 0006](../decisions/0006-foundations-carbon.md) (modelo Carbon) e [ADR 0007](../decisions/0007-densidade-aberta.md) (densidade aberta, corpo de 20px) e [ADR 0008](../decisions/0008-grid-e-layout.md) (grid e primitivas de layout). O [ADR 0002](../decisions/0002-tokens-semanticos-sobre-tailwind.md) é o histórico.
 
 Fonte única: `packages/ui/src/theme.css` (export `@bloco/ui/theme.css`). Ele só importa as fontes e os partials de `packages/ui/src/theme/`:
 
@@ -9,7 +9,7 @@ Fonte única: `packages/ui/src/theme.css` (export `@bloco/ui/theme.css`). Ele s�
 | `color.css` | cor e tema: `background`, `layer-*`, `field-*`, bordas, texto, ícone, `interactive`, `accent`, `support-*`, foco; `.light` e `.dark` |
 | `typography.css` | `font-sans`, `font-mono` e o type set (`text-body-01`, `text-heading-03`…) |
 | `spacing.css` | alturas de controle (`control-xs..xl`) e `shadow-floating` |
-| `layout.css` | breakpoints do grid 2x |
+| `layout.css` | breakpoints do grid 2x e larguras de container (`reading`, `page`, `sidebar`) |
 
 Categoria nova = partial novo + uma linha de `@import` no `theme.css`. Cada token leva, no partial, um comentário de uma linha dizendo quando usar.
 
@@ -126,7 +126,8 @@ Densidade aberta (ADR 0007). Cada espaço tem um papel; escolha o passo pelo pap
 | Padding de conteúdo em painel (accordion) | `px-6 pb-6` | 24 |
 | Padding de container (modal, card) | `p-8` | 32 |
 | Entre blocos de conteúdo | `gap-6` | 24 |
-| Entre seções e colunas de página | `gap-10` | 40 |
+| Entre seções de página | `gap-10` | 40 |
+| Entre colunas de página | gutter do grid ([Layout](#layout)) | 16–40 |
 
 Ao portar um valor da densidade antiga (ADR 0006), use o passo seguinte da escala: `0.5→1`, `1→2`, `2→3`, `3→4`, `4→6`, `6→8`, `8→10`, `10→12`.
 
@@ -150,17 +151,46 @@ Altura e largura de controle sempre por token (`h-control-md`, `w-control-sm`, `
 
 ## Layout
 
-Breakpoints do grid 2x do Carbon, que substituem os do Tailwind:
+Grid 2x do Carbon com gutter e margem responsivos (ADR 0008). Mobile-first: o estilo base é o do celular e cada breakpoint só acrescenta.
 
-| Breakpoint | Largura | Colunas |
+| Breakpoint | Largura mínima | Colunas | Gutter | Margem |
+|---|---|---|---|---|
+| base | 0 | 4 | `gap-4` (16) | `px-4` (16) |
+| `md` | 672px (42rem) | 8 | `gap-6` (24) | `px-6` (24) |
+| `lg` | 1056px (66rem) | 16 | `gap-8` (32) | `px-8` (32) |
+| `xl` | 1312px (82rem) | 16 | `gap-8` (32) | `px-8` (32) |
+| `2xl` | 1584px (99rem) | 16 | `gap-10` (40) | `px-10` (40) |
+
+`sm` (320px) é o menor viewport suportado. A largura máxima da página é 1584px, centrada.
+
+### Containers
+
+A largura vem do tipo de conteúdo, não da página.
+
+| Utility | Largura | Uso |
 |---|---|---|
-| `sm` | 320px (20rem) | 4 |
-| `md` | 672px (42rem) | 8 |
-| `lg` | 1056px (66rem) | 16 |
-| `xl` | 1312px (82rem) | 16 |
-| `2xl` | 1584px (99rem) | 16 (largura máxima) |
+| `max-w-prose` | 65ch | texto longo, documentação (do Tailwind) |
+| `max-w-reading` | 768px | formulário, configurações, coluna única |
+| `max-w-page` | 1584px | página; o `BLGrid` já aplica |
+| `w-sidebar` | 288px | trilho lateral; o `BLSidebar` já aplica |
 
-Gutter `gap-8` (32px), margem `px-6` (24px).
+### Primitivas
+
+O pai é dono do layout: o espaço entre irmãos é o `gap` do pai, e componente não define a própria margem externa.
+
+| Componente | O que faz | Use para |
+|---|---|---|
+| `BLGrid` | 4/8/16 colunas com gutter, margem e `max-w-page` | estrutura de página; filhos com `col-span-*` (`col-span-4 lg:col-span-8`) |
+| `BLStack` | coluna com `gap` (padrão `6`) | campos de formulário, blocos de conteúdo, listas de cards |
+| `BLCluster` | linha que quebra, com `gap` (padrão `3`) | tags, toolbars, grupos de botões |
+| `BLSidebar` | trilho `w-sidebar` + conteúdo; empilha abaixo de `md` | navegação ao lado do conteúdo |
+
+`gap` de `BLStack` e `BLCluster` aceita `1 2 3 4 6 8 10 12`; escolha pelo papel na tabela [Densidade](#densidade).
+
+### Regras
+
+- Breakpoint só pelos nomes (`md:`, `lg:`); `min-[…]`/`max-[…]` são proibidos em `*.styles.ts`.
+- Uma tela, um layout: celular e desktop usam os mesmos componentes; muda só o layout em volta.
 
 ## Regras para componentes
 
@@ -177,4 +207,4 @@ As regras 1 e 2 são verificadas por `packages/ui/src/theme/tokens.test.ts`, que
 
 ## Catálogo
 
-O app web mostra as foundations em `foundations/color.tsx` e `foundations/spacing.tsx`, e o type set em `typography/variants.tsx`.
+O app web mostra as foundations em `foundations/color.tsx`, `foundations/spacing.tsx` e `foundations/layout.tsx`, o type set em `typography/variants.tsx` e as primitivas em `grid/`, `stack/`, `cluster/` e `sidebar/`.

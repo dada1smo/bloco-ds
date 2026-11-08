@@ -1,6 +1,9 @@
 import { FileDashedIcon, GlobeIcon, PlusIcon, UsersIcon } from '@phosphor-icons/react';
 import type { ReactNode } from 'react';
-import { BLAccordion, BLButton, BLButtonGroup, BLDropdown, BLIconButton, BLModal, BLSelect, BLTypography, type BLDropdownItem } from '@bloco/ui';
+import {
+  BLAccordion, BLButton, BLButtonGroup, BLCluster, BLDropdown, BLGrid, BLIconButton, BLModal, BLSelect, BLSidebar, BLStack,
+  BLTypography, type BLDropdownItem,
+} from '@bloco/ui';
 
 const levels = ['solid', 'outline', 'subtle'] as const;
 const colors = ['primary', 'accent'] as const;
@@ -32,6 +35,22 @@ const spacingScale = [
 const controlSizes = [
   ['xs', 'h-control-xs'], ['sm', 'h-control-sm'], ['md', 'h-control-md'], ['lg', 'h-control-lg'], ['xl', 'h-control-xl'],
 ];
+
+const containers = [['prose', 'max-w-prose'], ['reading', 'max-w-reading'], ['page', 'max-w-page']];
+// Linhas de composição do grid de 16 colunas (lg+); abaixo de lg cada célula ocupa a linha toda.
+const gridRows = [
+  ['lg:col-span-8', 'lg:col-span-8'],
+  ['lg:col-span-4', 'lg:col-span-4', 'lg:col-span-4', 'lg:col-span-4'],
+  ['lg:col-span-12', 'lg:col-span-4'],
+];
+
+function Cell({ className = '', children }: { className?: string; children: ReactNode }) {
+  return (
+    <div className={`flex h-control-lg items-center justify-center bg-layer-01 ${className}`}>
+      <BLTypography variant="code-01" font="mono">{children}</BLTypography>
+    </div>
+  );
+}
 
 const accordionItems = [
   { title: 'Install', content: 'Clone the repository and run pnpm install.', open: true },
@@ -103,6 +122,83 @@ export const demos: Record<string, Demo[]> = {
             ))}
           </div>
         </>
+      ),
+    },
+    {
+      id: 'layout.tsx',
+      render: () => (
+        <>
+          <BLTypography variant="heading-02">container</BLTypography>
+          {containers.map(([name, cls]) => (
+            <div key={name} className={`h-control-sm bg-layer-01 px-4 ${cls}`}>
+              <BLTypography variant="code-01" font="mono">{cls}</BLTypography>
+            </div>
+          ))}
+        </>
+      ),
+    },
+  ],
+  grid: [
+    {
+      id: 'columns.tsx',
+      render: () => (
+        <BLGrid className="bg-layer-02">
+          {Array.from({ length: 16 }, (_, i) => (
+            <Cell key={i}>{i + 1}</Cell>
+          ))}
+          {gridRows.flat().map((cls, i) => (
+            <Cell key={i} className={`col-span-full ${cls}`}>{cls}</Cell>
+          ))}
+        </BLGrid>
+      ),
+    },
+    {
+      id: 'responsive.tsx',
+      render: () => (
+        <BLGrid className="bg-layer-02">
+          {Array.from({ length: 4 }, (_, i) => (
+            <Cell key={i} className="col-span-4 h-control-xl">card {i + 1}</Cell>
+          ))}
+        </BLGrid>
+      ),
+    },
+  ],
+  stack: [
+    {
+      id: 'default.tsx',
+      render: () => (
+        <BLCluster gap="10" className="items-start">
+          {(['1', '2', '3', '6', '10'] as const).map((gap) => (
+            <BLStack key={gap} gap={gap} className="w-40">
+              <BLTypography variant="code-01" font="mono">gap-{gap}</BLTypography>
+              <Cell>a</Cell>
+              <Cell>b</Cell>
+              <Cell>c</Cell>
+            </BLStack>
+          ))}
+        </BLCluster>
+      ),
+    },
+  ],
+  cluster: [
+    {
+      id: 'default.tsx',
+      render: () => (
+        <BLCluster className="max-w-reading">
+          {['Rename', 'Duplicate', 'Archive', 'Move', 'Share', 'Export', 'Delete'].map((label) => (
+            <BLButton key={label} level="outline">{label}</BLButton>
+          ))}
+        </BLCluster>
+      ),
+    },
+  ],
+  sidebar: [
+    {
+      id: 'default.tsx',
+      render: () => (
+        <BLSidebar side={<Cell className="h-control-xl">side · w-sidebar</Cell>}>
+          <Cell className="h-control-xl">content · flex-1</Cell>
+        </BLSidebar>
       ),
     },
   ],

@@ -1,6 +1,7 @@
 /*
- * Breakpoints do grid 2x do Carbon (ADR 0006), substituindo os padrões do Tailwind.
- * Grid: 4 colunas abaixo de md, 8 em md, 16 a partir de lg; gutter gap-8 (32px), margem px-6 (24px).
+ * Layout (ADR 0006 + 0008): breakpoints do grid 2x do Carbon, substituindo os padrões do Tailwind, e larguras de container.
+ * Grid (BLGrid), mobile-first:   base 4 col · gap-4 px-4 (16)   md 8 col · gap-6 px-6 (24)
+ *                                lg/xl 16 col · gap-8 px-8 (32)   2xl 16 col · gap-10 px-10 (40)
  */
 @theme {
   /* 320px: menor viewport suportado. */
@@ -13,4 +14,14 @@
   --breakpoint-xl: 82rem;
   /* 1584px: largura máxima do conteúdo. */
   --breakpoint-2xl: 99rem;
+}
+
+/* Largura é do tipo de conteúdo, não da página. Texto longo usa o max-w-prose (65ch) do Tailwind. */
+@theme inline {
+  /* 768px: formulário, configurações, conteúdo de uma coluna. */
+  --container-reading: var(--container-3xl);
+  /* 1584px: largura máxima de página; usada pelo BLGrid. */
+  --container-page: calc(var(--spacing) * 396);
+  /* 288px: trilho lateral (navegação) do BLSidebar. */
+  --container-sidebar: var(--container-2xs);
 }
