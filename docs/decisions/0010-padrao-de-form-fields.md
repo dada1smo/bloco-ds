@@ -17,7 +17,7 @@ Todo form field é um campo do `react-aria-components` (`Select`, `TextField`, `
 
 Estrutura fixa: rótulo, controle, depois ajuda **ou** feedback (o feedback ocupa o lugar da ajuda; erro vence sucesso; campo desabilitado não mostra feedback). API comum: `label`, `helperText`, `errorMessage`, `successMessage`, `isInvalid`, `isRequired`, `isDisabled`; sem `label`, exige `aria-label`. Os auxiliares são exportados para composições próprias, mas só funcionam dentro de um campo RAC.
 
-Placeholder usa `text-placeholder` e nunca substitui o rótulo. Desabilitado usa os tokens `text-disabled`, `border-disabled` e `text-icon-disabled`, nunca `opacity-*`; vale também para opções de lista. Detalhes visuais em [theming.md](../architecture/theming.md#estados-de-campo-placeholder-e-disabled).
+Obrigatório é marcado por um asterisco no rótulo. Placeholder usa `text-placeholder` e nunca substitui o rótulo. Desabilitado usa os tokens `text-disabled`, `border-disabled` e `text-icon-disabled`, nunca `opacity-*`; vale também para opções de lista. Detalhes visuais em [theming.md](../architecture/theming.md#estados-de-campo-placeholder-e-disabled).
 
 ## Alternativas consideradas
 
@@ -29,5 +29,5 @@ Placeholder usa `text-placeholder` e nunca substitui o rótulo. Desabilitado usa
 
 - Campo novo ganha rótulo, ajuda e validação consistentes e acessíveis de graça.
 - O `Select` migra: perde `selectLabelStyles`, ganha as props de ajuda e feedback e opções com `isDisabled`.
-- `Dropdown` passa a usar tokens de desabilitado; `Button` ainda usa `opacity-50` e fica como pendência.
-- Indicador de obrigatório e "(opcional)" ficam para outra decisão.
+- `Dropdown` e `Button` passam a usar tokens de desabilitado (novo `bg-disabled`); `tokens.test.ts` barra `data-disabled:opacity-*`.
+- Campo obrigatório mostra asterisco no `FieldLabel` (`isRequired`); não há marcador de "opcional".

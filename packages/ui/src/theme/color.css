@@ -63,6 +63,9 @@
   /* `accent-subtle` em hover. */
   --background-color-accent-subtle-hover: light-dark(var(--color-amber-200), var(--color-amber-900));
 
+  /* Fundo de botão desabilitado preenchido (solid, subtle). Texto `text-disabled`. */
+  --background-color-disabled: light-dark(var(--color-slate-200), var(--color-slate-800));
+
   /* Véu atrás de modais. */
   --background-color-overlay: color-mix(in oklab, var(--color-slate-950) 40%, transparent);
 

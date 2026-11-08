@@ -21,6 +21,7 @@ Rótulo visível de um campo de formulário. Faz parte do padrão de form fields
 | Prop | Significado |
 |---|---|
 | `children` | Texto do rótulo. |
+| `isRequired` | Mostra o asterisco. É só o sinal visual: quem torna o campo obrigatório é o `isRequired` do campo, e os campos do DS já repassam. |
 
 Demais props: as do RAC `Label`; `className` vai para o elemento.
 

@@ -58,9 +58,9 @@ export function Select({
 }: SelectProps) {
   return (
     <RACSelect {...props} className={selectFieldStyles({ className })}>
-      {({ isInvalid, isDisabled }) => (
+      {({ isInvalid, isDisabled, isRequired }) => (
         <>
-          {label && <FieldLabel>{label}</FieldLabel>}
+          {label && <FieldLabel isRequired={isRequired}>{label}</FieldLabel>}
           <Button className={selectStyles()}>
             <SelectValue<SelectOption> className={selectValueStyles()}>
               {({ selectedItem, defaultChildren }) =>

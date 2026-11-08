@@ -4,7 +4,7 @@ const displayStyles = 'inline-flex items-center justify-center gap-3';
 const typographyStyles = 'font-sans text-body-compact-01 whitespace-nowrap';
 const shapeStyles = 'border';
 const interactionStyles =
-  'cursor-pointer transition-colors data-disabled:cursor-not-allowed data-disabled:opacity-50';
+  'cursor-pointer transition-colors data-disabled:cursor-not-allowed';
 const focusStyles =
   'outline-none data-focus-visible:outline-2 data-focus-visible:outline-offset-2 data-focus-visible:outline-focus';
 
@@ -41,32 +41,32 @@ export const buttonStyles = cva(
       {
         level: 'solid',
         color: 'primary',
-        class: 'bg-interactive text-on-color data-hovered:bg-interactive-hover data-pressed:bg-interactive-active',
+        class: 'bg-interactive text-on-color data-hovered:bg-interactive-hover data-pressed:bg-interactive-active data-disabled:bg-disabled data-disabled:text-disabled',
       },
       {
         level: 'solid',
         color: 'accent',
-        class: 'bg-accent text-on-accent data-hovered:bg-accent-hover',
+        class: 'bg-accent text-on-accent data-hovered:bg-accent-hover data-disabled:bg-disabled data-disabled:text-disabled',
       },
       {
         level: 'outline',
         color: 'primary',
-        class: 'border-interactive text-primary data-hovered:bg-background-hover',
+        class: 'border-interactive text-primary data-hovered:bg-background-hover data-disabled:border-disabled data-disabled:text-disabled',
       },
       {
         level: 'outline',
         color: 'accent',
-        class: 'border-accent text-accent data-hovered:bg-accent-subtle',
+        class: 'border-accent text-accent data-hovered:bg-accent-subtle data-disabled:border-disabled data-disabled:text-disabled',
       },
       {
         level: 'subtle',
         color: 'primary',
-        class: 'bg-layer-01 text-primary data-hovered:bg-layer-hover-01',
+        class: 'bg-layer-01 text-primary data-hovered:bg-layer-hover-01 data-disabled:bg-disabled data-disabled:text-disabled',
       },
       {
         level: 'subtle',
         color: 'accent',
-        class: 'bg-accent-subtle text-accent data-hovered:bg-accent-subtle-hover',
+        class: 'bg-accent-subtle text-accent data-hovered:bg-accent-subtle-hover data-disabled:bg-disabled data-disabled:text-disabled',
       },
     ],
     defaultVariants: { level: 'solid', color: 'primary', size: 'md', square: false },

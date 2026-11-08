@@ -89,12 +89,12 @@ Valem para todo form field e para as opções de listas (ADR 0010). Sempre por t
 | Papel | Visual | Semântica |
 |---|---|---|
 | Placeholder | `text-placeholder` | Dica de formato ou exemplo; não substitui o rótulo; some com valor. |
+| Botão desabilitado | Preenchido (solid, subtle): `bg-disabled` + `text-disabled`; outline: `border-disabled` + `text-disabled` | `isDisabled` do RAC. |
 | Campo desabilitado | `text-disabled`, `border-disabled`, `text-icon-disabled`, `cursor-not-allowed`, sem hover; fundo `field-01` mantido | `isDisabled` do RAC (não focável); sem erro nem sucesso. |
 | `FieldLabel` / `FieldHelperText` | `text-disabled` via `group-data-disabled:` | Seguem o campo, sem prop própria. |
 | Opção desabilitada | `text-disabled`, `text-icon-disabled`, `cursor-not-allowed`, sem fundo de foco | `isDisabled` na opção ou `disabledKeys`; pulada no teclado. Se o motivo importa, ponha na `description`. |
+| Obrigatório | Asterisco `*` após o rótulo (`FieldLabel isRequired`) | `isRequired` do campo dá o `aria-required`; o asterisco é `aria-hidden`. |
 | Inválido | `border-support-error`; mensagem em `FieldFeedback` (ícone + `text-error`) | `isInvalid`; mensagem vira descrição acessível. |
-
-Pendência: `Button` ainda usa `opacity-50` ao desabilitar e deve migrar para estes tokens.
 
 ## Tipografia
 

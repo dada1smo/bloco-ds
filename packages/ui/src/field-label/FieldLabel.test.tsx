@@ -14,4 +14,15 @@ describe('FieldLabel', () => {
     expect(screen.getByRole('textbox', { name: 'Email' })).toBeInTheDocument();
     expect(screen.getByText('Email')).toHaveClass('consumer');
   });
+
+  it('marks required fields visually without changing the accessible name', () => {
+    render(
+      <TextField isRequired>
+        <FieldLabel isRequired>Email</FieldLabel>
+        <Input />
+      </TextField>,
+    );
+    expect(screen.getByRole('textbox', { name: 'Email' })).toBeRequired();
+    expect(screen.getByText('*')).toBeInTheDocument();
+  });
 });

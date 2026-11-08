@@ -15,6 +15,7 @@ const forbidden: [string, RegExp][] = [
   ['branco/preto direto', /\b(?:bg|text|border|outline|ring|fill|stroke)-(?:white|black)\b/],
   ['cor hex', /#[0-9a-f]{3,8}\b/i],
   ['opacidade em cor', /\b(?:bg|text|border|outline|ring|fill|stroke|divide)-[a-z][a-z0-9-]*\/\d+/],
+  ['opacity para desabilitar (use text-disabled/bg-disabled/border-disabled)', /\bdata-disabled:opacity-/],
   ['raio (cantos são retos)', /\brounded(?!-(?:full|none)\b)/],
   ['sombra fora de shadow-floating', /\bshadow(?!-floating\b)/],
   ['peso fora do type set', /\bfont-(?:thin|extralight|medium|bold|extrabold|black)\b/],
