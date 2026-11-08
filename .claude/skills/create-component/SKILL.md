@@ -113,6 +113,8 @@ export { BLX, type BLXProps } from './{component-name}';
 
 Escreva `{ComponentName}.test.tsx` testando só comportamento (ver [ADR 0004](../../../docs/decisions/0004-testes-com-vitest.md)): `getByRole` + `userEvent`, callbacks, estado, `disabled`, ARIA, foco e repasse de `className`; nunca classes do DS, `toHaveStyle` ou snapshot.
 
+Crie as demos no catálogo (`apps/web/src/demos.tsx`) seguindo a skill `create-component-demo` ([SKILL.md](../create-component-demo/SKILL.md)): conjunto padrão de demos, compostas com os componentes de layout do DS.
+
 Escreva `{ComponentName}.context.md` seguindo a skill `create-component-context` ([SKILL.md](../create-component-context/SKILL.md), [ADR 0009](../../../docs/decisions/0009-documento-de-contexto-por-componente.md)), depois que a API e o teste estiverem prontos.
 
-Rode `pnpm --filter ./packages/ui exec tsc --noEmit` e `pnpm test:coverage` (mínimo 80%) e corrija erros. Se o app web (`apps/web`) tiver uma página de demonstração, adicione uma instância do novo componente.
+Rode `pnpm --filter ./packages/ui exec tsc --noEmit` e `pnpm test:coverage` (mínimo 80%) e corrija erros.

@@ -35,3 +35,4 @@ export { BLSidebar, type BLSidebarProps } from './sidebar';
 export { BLFieldLabel, type BLFieldLabelProps } from './field-label';
 export { BLFieldHelperText, type BLFieldHelperTextProps } from './field-helper-text';
 export { BLFieldFeedback, type BLFieldFeedbackProps } from './field-feedback';
+export { BLInput, type BLInputProps } from './input';

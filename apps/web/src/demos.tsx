@@ -1,7 +1,7 @@
 import { FileDashedIcon, GlobeIcon, PlusIcon, UsersIcon } from '@phosphor-icons/react';
 import type { ReactNode } from 'react';
 import {
-  BLAccordion, BLButton, BLButtonGroup, BLCluster, BLDropdown, BLGrid, BLIconButton, BLModal, BLSelect, BLSidebar, BLStack,
+  BLAccordion, BLButton, BLButtonGroup, BLCluster, BLDropdown, BLGrid, BLIconButton, BLInput, BLModal, BLSelect, BLSidebar, BLStack,
   BLTypography, type BLDropdownItem,
 } from '@bloco/ui';
 
@@ -272,6 +272,24 @@ export const demos: Record<string, Demo[]> = {
       id: 'default.tsx',
       render: () => (
         <BLDropdown trigger={<BLButton level="outline">Share</BLButton>} groups={dropdownGroups} />
+      ),
+    },
+  ],
+  input: [
+    {
+      id: 'default.tsx',
+      render: () => <BLInput label="Email" name="email" type="email" placeholder="you@example.com" />,
+    },
+    {
+      id: 'states.tsx',
+      render: () => (
+        <BLCluster gap="6" className="items-start">
+          <BLInput label="Helper" helperText="Your full name" />
+          <BLInput label="Required" isRequired />
+          <BLInput label="Error" isInvalid defaultValue="x" errorMessage="Invalid value" />
+          <BLInput label="Success" defaultValue="Jane" successMessage="Looks good" />
+          <BLInput label="Disabled" isDisabled placeholder="Not available" helperText="Locked" />
+        </BLCluster>
       ),
     },
   ],
