@@ -82,6 +82,20 @@ Mínimos: 4.5:1 para texto, 3:1 para texto grande, borda de controle e ícone.
 
 `support-warning` só serve de preenchimento com tinta escura por cima, como o amarelo do Carbon. Nunca use como texto nem como ícone solto. `text-disabled` é isento.
 
+## Estados de campo: placeholder e disabled
+
+Valem para todo form field e para as opções de listas (ADR 0010). Sempre por token, nunca por `opacity-*`.
+
+| Papel | Visual | Semântica |
+|---|---|---|
+| Placeholder | `text-placeholder` | Dica de formato ou exemplo; não substitui o rótulo; some com valor. |
+| Campo desabilitado | `text-disabled`, `border-disabled`, `text-icon-disabled`, `cursor-not-allowed`, sem hover; fundo `field-01` mantido | `isDisabled` do RAC (não focável); sem erro nem sucesso. |
+| `FieldLabel` / `FieldHelperText` | `text-disabled` via `group-data-disabled:` | Seguem o campo, sem prop própria. |
+| Opção desabilitada | `text-disabled`, `text-icon-disabled`, `cursor-not-allowed`, sem fundo de foco | `isDisabled` na opção ou `disabledKeys`; pulada no teclado. Se o motivo importa, ponha na `description`. |
+| Inválido | `border-support-error`; mensagem em `FieldFeedback` (ícone + `text-error`) | `isInvalid`; mensagem vira descrição acessível. |
+
+Pendência: `Button` ainda usa `opacity-50` ao desabilitar e deve migrar para estes tokens.
+
 ## Tipografia
 
 Type set do Carbon em densidade aberta (ADR 0007): o corpo padrão tem 20px. O token já traz tamanho, line-height, tracking e peso: `text-body-01` sozinho basta, sem `font-*` nem `leading-*`.

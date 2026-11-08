@@ -23,16 +23,21 @@ Campo de formulário para escolher **um** valor de uma lista fechada. O botão f
 | Prop | Valores (default) | Significado |
 |---|---|---|
 | `label` | string | Rótulo visível do campo. |
-| `options` | `{ value, label, description?, icon? }[]` | Opções. `value` é o identificador devolvido nos callbacks; `description` aparece só na lista, não no botão fechado. |
+| `helperText` | string | Ajuda abaixo do campo. |
+| `errorMessage` | string | Mensagem de erro; substitui a ajuda enquanto o campo está inválido. |
+| `successMessage` | string | Confirmação; substitui a ajuda enquanto o campo é válido. Erro vence sucesso. |
+| `isInvalid` | boolean | Marca o campo como inválido (borda e `errorMessage`). |
+| `options` | `{ value, label, description?, icon?, isDisabled? }[]` | Opções. `value` é o identificador devolvido nos callbacks; `description` aparece só na lista, não no botão fechado; `isDisabled` bloqueia a opção. |
 | `selectedKey` / `defaultSelectedKey` | `value` de uma opção | Seleção controlada ou inicial. |
 | `onSelectionChange` | `(value) => void` | Recebe o `value` da opção escolhida. |
 | `placeholder` | string | Texto enquanto nada foi escolhido. |
-| `isDisabled` | boolean | Campo bloqueado. |
+| `isDisabled` | boolean | Campo bloqueado; não mostra erro nem sucesso. |
 
 Demais props: as do RAC `Select`; `className` vai para o container do campo.
 
 ## Composição
 
+- Rótulo, ajuda e feedback vêm de `BLFieldLabel`, `BLFieldHelperText` e `BLFieldFeedback` (ADR 0010).
 - Em formulário, empilhe campos com `BLStack` e passe o espaço pelo `gap` do pai.
 
 ## Exemplo

@@ -48,4 +48,38 @@ describe('Select', () => {
     await userEvent.click(button);
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
   });
+
+  it('shows helper text, and replaces it with the error while invalid', () => {
+    const { rerender } = render(
+      <Select label="Size" options={options} helperText="Pick one" errorMessage="Required" />,
+    );
+    const button = screen.getByRole('button', { name: /Size/ });
+    expect(button).toHaveAccessibleDescription('Pick one');
+    rerender(<Select label="Size" options={options} helperText="Pick one" errorMessage="Required" isInvalid />);
+    expect(button).toHaveAccessibleDescription('Required');
+    expect(screen.queryByText('Pick one')).not.toBeInTheDocument();
+  });
+
+  it('shows success instead of the helper text, but no feedback when disabled', () => {
+    const { rerender } = render(
+      <Select label="Size" options={options} helperText="Pick one" successMessage="Saved" />,
+    );
+    expect(screen.getByRole('button', { name: /Size/ })).toHaveAccessibleDescription('Saved');
+    rerender(<Select label="Size" options={options} helperText="Pick one" successMessage="Saved" isDisabled />);
+    expect(screen.queryByText('Saved')).not.toBeInTheDocument();
+  });
+
+  it('does not select a disabled option', async () => {
+    const onSelectionChange = vi.fn();
+    render(
+      <Select
+        label="Size"
+        options={[...options, { value: 'xl', label: 'Extra large', isDisabled: true }]}
+        onSelectionChange={onSelectionChange}
+      />,
+    );
+    await userEvent.click(screen.getByRole('button', { name: /Size/ }));
+    await userEvent.click(screen.getByRole('option', { name: 'Extra large' }));
+    expect(onSelectionChange).not.toHaveBeenCalled();
+  });
 });

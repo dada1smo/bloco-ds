@@ -14,8 +14,8 @@ export const dropdownMenuStyles = cva('outline-none');
 export const dropdownSectionStyles = cva('[&+&]:border-t [&+&]:border-subtle');
 
 export const dropdownItemStyles = cva([
-  'flex min-h-control-md w-full cursor-pointer items-center gap-3 px-6 text-left outline-none',
-  'data-focused:bg-layer-hover-01 data-disabled:cursor-not-allowed data-disabled:opacity-50',
+  'group flex min-h-control-md w-full cursor-pointer items-center gap-3 px-6 text-left outline-none',
+  'data-focused:bg-layer-hover-01 data-disabled:cursor-not-allowed data-disabled:text-disabled',
 ]);
 
-export const dropdownIconStyles = cva('size-5 flex-none text-icon-secondary');
+export const dropdownIconStyles = cva('size-5 flex-none text-icon-secondary group-data-disabled:text-icon-disabled');

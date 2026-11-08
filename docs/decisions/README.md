@@ -18,3 +18,4 @@ Status: `Proposta` → `Aceita` → (`Substituída por NNNN` | `Rejeitada`). Um 
 | [0007](0007-densidade-aberta.md) | Usar densidade aberta, com corpo de 20px | Aceita |
 | [0008](0008-grid-e-layout.md) | Usar grid 4/8/16 com gutter responsivo e quatro primitivas de layout | Aceita |
 | [0009](0009-documento-de-contexto-por-componente.md) | Manter um documento de contexto por componente | Aceita |
+| [0010](0010-padrao-de-form-fields.md) | Padronizar form fields com FieldLabel, FieldHelperText e FieldFeedback | Aceita |
