@@ -27,7 +27,8 @@ Local: `packages/ui/src/{component-name}/`
 ├── index.tsx              # único lugar com o prefixo BL
 ├── {ComponentName}.tsx
 ├── {ComponentName}.styles.ts   # opcional se o componente não tiver estilo próprio
-└── {ComponentName}.test.tsx    # obrigatório (ADR 0004)
+├── {ComponentName}.test.tsx    # obrigatório (ADR 0004)
+└── {ComponentName}.context.md  # obrigatório (ADR 0009)
 ```
 
 ## Antes de começar
@@ -103,5 +104,7 @@ export { BLX, type BLXProps } from './{component-name}';
 ## Verificação
 
 Escreva `{ComponentName}.test.tsx` testando só comportamento (ver [ADR 0004](../../../docs/decisions/0004-testes-com-vitest.md)): `getByRole` + `userEvent`, callbacks, estado, `disabled`, ARIA, foco e repasse de `className`; nunca classes do DS, `toHaveStyle` ou snapshot.
+
+Escreva `{ComponentName}.context.md` seguindo a skill `create-component-context` ([SKILL.md](../create-component-context/SKILL.md), [ADR 0009](../../../docs/decisions/0009-documento-de-contexto-por-componente.md)), depois que a API e o teste estiverem prontos.
 
 Rode `pnpm --filter ./packages/ui exec tsc --noEmit` e `pnpm test:coverage` (mínimo 80%) e corrija erros. Se o app web (`apps/web`) tiver uma página de demonstração, adicione uma instância do novo componente.

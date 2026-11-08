@@ -17,3 +17,4 @@ Status: `Proposta` → `Aceita` → (`Substituída por NNNN` | `Rejeitada`). Um 
 | [0006](0006-foundations-carbon.md) | Definir as foundations pelo modelo do Carbon sobre as primitivas do Tailwind | Aceita (tipografia e sizing substituídos pelo 0007) |
 | [0007](0007-densidade-aberta.md) | Usar densidade aberta, com corpo de 20px | Aceita |
 | [0008](0008-grid-e-layout.md) | Usar grid 4/8/16 com gutter responsivo e quatro primitivas de layout | Aceita |
+| [0009](0009-documento-de-contexto-por-componente.md) | Manter um documento de contexto por componente | Aceita |

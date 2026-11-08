@@ -7,12 +7,17 @@ button/
 ├── index.tsx          # único lugar com o prefixo BL
 ├── Button.tsx
 ├── Button.styles.ts
-└── Button.test.tsx
+├── Button.test.tsx
+└── Button.context.md  # quando e por que usar (ADR 0009)
 ```
 
 ## Testes
 
 `X.test.tsx` ao lado de `X.tsx`, com Vitest + Testing Library ([ADR 0004](../decisions/0004-testes-com-vitest.md)). Testa só comportamento: callbacks de clique/teclado, estado, `disabled`, atributos ARIA, foco e o repasse de `className`. Busca por `getByRole`, interage com `userEvent`. Proibido assert de aparência (classes do DS, `toHaveStyle`, snapshot). `pnpm test:coverage` falha abaixo de 80%. Componente novo entra com o seu teste.
+
+## Contexto
+
+`X.context.md` ao lado de `X.tsx` ([ADR 0009](../decisions/0009-documento-de-contexto-por-componente.md)): propósito, quando usar e quando não usar, semântica e acessibilidade, significado funcional das props, composição e decisões. Público principal é a IA que vai escolher o componente, mas o texto serve a pessoas também. Não repete aparência. Gerado e atualizado pela skill `/create-component-context` (`.claude/skills/create-component-context/SKILL.md`).
 
 ## Estilos
 
