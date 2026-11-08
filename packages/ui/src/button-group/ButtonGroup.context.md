@@ -6,6 +6,7 @@ Distribui botões numa grade de 4 colunas, cada um ocupando de 1 a 4 colunas e p
 
 - Ações de um painel ou diálogo que devem ocupar toda a largura, em proporções definidas (2 + 2, 1 + 3).
 - Rodapé de container, com `position="bottom"`.
+- Ações de um `BLForm` (padrão do DS): reset/secundária à esquerda, submit à direita. Em form de tela inteira, o grupo ocupa só uma fração das colunas finais do `BLGrid` (alinhado à direita), não a largura toda.
 
 ## Quando não usar
 
@@ -28,6 +29,7 @@ Demais props: as de `<div>` (exceto `children`); `className` é repassado por ú
 
 ## Composição
 
+- No `BLForm`, é o contêiner padrão das ações (`type="submit"`/`"reset"`), como último filho do form.
 - O `BLModal` recebe `actions` no mesmo formato de `items` e renderiza um `BLButtonGroup` com `position="bottom"`.
 - Com `position="bottom"`, o container precisa reservar espaço para o grupo e ser posicionado.
 

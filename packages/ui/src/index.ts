@@ -47,3 +47,4 @@ export {
   type BLTableRow,
 } from './table';
 export { BLCheckbox, type BLCheckboxProps } from './checkbox';
+export { BLForm, type BLFormProps } from './form';
