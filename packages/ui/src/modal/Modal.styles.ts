@@ -8,7 +8,7 @@ export const modalOverlayStyles = cva([
 
 export const modalStyles = cva(
   [
-    'relative bg-background p-6 font-sans text-body text-foreground shadow-lg outline-none',
+    'relative bg-layer-01 p-6 font-sans text-body-01 text-primary outline-none',
     'motion-safe:transition-[opacity,translate] motion-safe:duration-150',
     'data-entering:translate-y-2 data-entering:opacity-0 data-exiting:translate-y-2 data-exiting:opacity-0',
   ],
@@ -34,6 +34,6 @@ export const modalDialogStyles = cva('outline-none', {
 
 export const modalHeaderStyles = cva('mb-4 flex items-center justify-between');
 
-export const modalTitleStyles = cva('m-0 text-subtitle font-bold');
+export const modalTitleStyles = cva('m-0 text-heading-03');
 
-export const modalBodyStyles = cva('m-0 mt-1.5 text-foreground-muted');
+export const modalBodyStyles = cva('m-0 mt-2 text-secondary');

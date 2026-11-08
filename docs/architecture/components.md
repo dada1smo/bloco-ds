@@ -26,7 +26,7 @@ Props = props do componente RAC base (ou atributos nativos do elemento, se não 
 
 Decisão: [ADR 0003](../decisions/0003-react-aria-components-como-base.md). Prefira, nesta ordem: componentes do DS (ex.: `ThemeSwitch` reutiliza `Button`); componentes do `react-aria-components` (RAC) sem estilo, para tudo que é interativo (`Button`, `Link`, `Menu`, `Dialog`, `Select`, `Disclosure`, `Tree`…); outras libs já instaladas; só então código novo.
 
-Em componentes RAC: estado pelos data-attributes (`data-hovered:`, `data-pressed:`, `data-selected:`, `data-disabled:`, `data-open:`), foco com `data-focus-visible:` + token `focus-ring` (não `focus-visible:`), e `className` combinado via `composeRenderProps`. A API segue o RAC (`onPress`, `isDisabled`).
+Em componentes RAC: estado pelos data-attributes (`data-hovered:`, `data-pressed:`, `data-selected:`, `data-disabled:`, `data-open:`), foco com `data-focus-visible:` + `outline-focus` (não `focus-visible:`), e `className` combinado via `composeRenderProps`. A API segue o RAC (`onPress`, `isDisabled`).
 
 ## Exports
 

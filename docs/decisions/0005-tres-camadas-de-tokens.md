@@ -1,6 +1,6 @@
 # 0005. Organizar os tokens em três camadas: primitiva, semântica e componente
 
-- Status: Aceita
+- Status: Aceita (`palette.css` removido pelo [0006](0006-foundations-carbon.md))
 - Data: 2026-11-08
 
 ## Contexto

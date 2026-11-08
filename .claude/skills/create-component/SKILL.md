@@ -33,10 +33,11 @@ Local: `packages/ui/src/{component-name}/`
 ## Antes de começar
 
 1. Se o nome ou os variants não vierem no pedido, pergunte (nome, elemento HTML base, variants e valores).
-2. Leia os partials em `packages/ui/src/theme/` e use **apenas tokens semânticos** (`primary`, `on-primary`, `accent-text`, `foreground`, `text-body`, ...) — regras em `docs/architecture/theming.md` (ADR 0002 e 0005):
-   - Proibido em `.styles.ts`: `slate-*`, `amber-*`, `primary-500`, hex, rgb, `[#…]` e opacidade em cor semântica (`/10`, `/70`).
-   - Faltou um token? Crie-o no partial da categoria, com comentário de uma linha dizendo quando usar, a partir da paleta do Tailwind.
-   - Altura de controle e raio usam tokens; gap e padding podem usar a escala do Tailwind.
+2. Leia `docs/architecture/theming.md` e os partials em `packages/ui/src/theme/` e use **apenas tokens semânticos** com nomes do Carbon (ADR 0006): `bg-background`, `bg-layer-01` (+`-hover`/`-selected`, no nível em que o componente está), `bg-field-01`, `bg-interactive` + `text-on-color`, `bg-accent` + `text-on-accent`, `text-primary`/`text-secondary`/`text-helper`, `text-icon-secondary`, `border-subtle`/`border-strong`, `outline-focus`, `support-*`.
+   - Texto pelo type set: `text-body-01`, `text-body-compact-01` (controles), `text-label-01`, `text-heading-0N`. O token traz o peso; não use `font-medium`/`font-bold` nem `leading-*`.
+   - Espaçamento só nos passos `0.5 1 2 3 4 6 8 10 12 16 20 24 40`; altura e largura de controle por `h-control-xs..xl`; sem `rounded-*` (exceto `rounded-full`); sombra só `shadow-floating` (menu/popover).
+   - Proibido em `.styles.ts`: primitivas de cor (`slate-*`, `red-*`…), hex, rgb, `[#…]` e opacidade em cor (`/10`, `/70`). `src/theme/tokens.test.ts` falha se aparecerem.
+   - Faltou um token? Crie-o no partial da categoria, com comentário de uma linha dizendo quando usar, a partir das primitivas do Tailwind.
 3. Confirme que não existe já um componente equivalente em `packages/ui/src`.
 4. **Primitivos primeiro:** sempre tente compor com o que já existe, nesta ordem:
    1. Componentes criados dentro do bloco-ds (`packages/ui/src` e demais pacotes em `packages/*`; ex.: `Button`, importado do arquivo interno `../button/Button`).
@@ -71,7 +72,7 @@ export function X({ variantA, variantB, className, ...props }: XProps) {
 - Se o componente tiver mais de um elemento, `className` vai no elemento raiz.
 - Props: props do componente RAC base (ou atributos nativos do elemento, se não houver RAC) + `StyleProps`. Sem lógica extra que não foi pedida.
 - Em componentes RAC, `className` pode ser função: combine com `composeRenderProps(className, (className) => xStyles({ ..., className }))`.
-- Estados pelos data-attributes do RAC: `data-hovered:`, `data-pressed:`, `data-selected:`, `data-disabled:`, `data-open:`. Foco: `outline-none data-focus-visible:outline-2 data-focus-visible:outline-focus-ring` (nunca `focus-visible:` em componente RAC).
+- Estados pelos data-attributes do RAC: `data-hovered:`, `data-pressed:`, `data-selected:`, `data-disabled:`, `data-open:`. Foco: `outline-none data-focus-visible:outline-2 data-focus-visible:outline-focus` (nunca `focus-visible:` em componente RAC).
 - Acessibilidade: o RAC cuida de teclado, foco e ARIA; adicione `aria-label` em componentes interativos sem texto.
 
 ## CSS extra (só se necessário)

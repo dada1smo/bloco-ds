@@ -27,9 +27,9 @@ export function App() {
   const navigate = useNavigate();
 
   return (
-    <main className="min-h-screen bg-background p-6 font-sans text-foreground">
+    <main className="min-h-screen bg-background p-6 font-sans text-primary">
       <header className="mb-4 flex items-center justify-between">
-        <h1 className="text-title font-bold">bloco-ds</h1>
+        <h1 className="text-heading-04">bloco-ds</h1>
         <BLThemeSwitch />
       </header>
       <div className="flex gap-8">

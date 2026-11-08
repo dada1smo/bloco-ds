@@ -5,19 +5,17 @@ const motionStyles =
   'motion-safe:transition-[opacity,translate] motion-safe:duration-150 data-entering:-translate-y-1 data-entering:opacity-0 data-exiting:-translate-y-1 data-exiting:opacity-0';
 
 export const dropdownPopoverStyles = cva([
-  'min-w-52 border border-border bg-background p-1.5 font-sans text-body text-foreground shadow-lg outline-none',
+  'min-w-52 bg-layer-01 font-sans text-body-compact-01 text-primary shadow-floating outline-none',
   motionStyles,
 ]);
 
 export const dropdownMenuStyles = cva('outline-none');
 
-export const dropdownSectionStyles = cva(
-  '[&+&]:mt-1.5 [&+&]:border-t [&+&]:border-border [&+&]:pt-1.5',
-);
+export const dropdownSectionStyles = cva('[&+&]:border-t [&+&]:border-subtle');
 
 export const dropdownItemStyles = cva([
-  'flex min-h-9 w-full cursor-pointer items-center gap-2.5 px-2.5 text-left outline-none',
-  'data-focused:bg-surface-hover data-disabled:cursor-not-allowed data-disabled:opacity-50',
+  'flex min-h-control-md w-full cursor-pointer items-center gap-2 px-4 text-left outline-none',
+  'data-focused:bg-layer-hover-01 data-disabled:cursor-not-allowed data-disabled:opacity-50',
 ]);
 
-export const dropdownIconStyles = cva('size-4 flex-none text-foreground-muted');
+export const dropdownIconStyles = cva('size-4 flex-none text-icon-secondary');

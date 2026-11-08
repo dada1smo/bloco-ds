@@ -1,8 +1,9 @@
-/* Ponto de entrada dos tokens (ADR 0002). Cada categoria vive num partial em ./theme/. */
+/* Ponto de entrada das foundations (ADR 0006). Cada categoria vive num partial em ./theme/. */
 @import "@fontsource-variable/archivo";
 @import "@fontsource/space-mono/400.css";
 @import "@fontsource/space-mono/700.css";
 
-@import "./theme/palette.css";
 @import "./theme/color.css";
 @import "./theme/typography.css";
+@import "./theme/spacing.css";
+@import "./theme/layout.css";

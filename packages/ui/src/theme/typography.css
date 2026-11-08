@@ -1,25 +1,90 @@
+/*
+ * Type set produtivo do Carbon (ADR 0006). Cada token carrega tamanho, line-height, tracking e peso:
+ * `text-body-01` basta, sem `font-*`. Valores a partir das primitivas do Tailwind (--text-*, --spacing = 4px).
+ */
 @theme inline {
   /* font-sans é o padrão do ds (o preflight aplica no html) */
   --font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Space Mono", ui-monospace, monospace;
 
-  /* Tipografia semântica: gera text-caption, text-body, ... (tamanho + line-height). */
-  /* Legenda, metadado. */
-  --text-caption: var(--text-base);
-  --text-caption--line-height: var(--text-base--line-height);
-  /* Texto corrido. */
-  --text-body: var(--text-lg);
-  --text-body--line-height: var(--text-lg--line-height);
-  /* Rótulo de controle (botão, item de menu). */
-  --text-interactive: var(--text-xl);
-  --text-interactive--line-height: var(--text-xl--line-height);
-  /* Subtítulo de seção. */
-  --text-subtitle: var(--text-2xl);
-  --text-subtitle--line-height: var(--text-2xl--line-height);
-  /* Título de página ou modal. */
-  --text-title: var(--text-4xl);
-  --text-title--line-height: var(--text-4xl--line-height);
-  /* Destaque de tela inteira. */
-  --text-headline: var(--text-8xl);
-  --text-headline--line-height: var(--text-8xl--line-height);
+  /* Código inline e trechos curtos (12/16). Usar com font-mono. */
+  --text-code-01: var(--text-xs);
+  --text-code-01--line-height: calc(var(--spacing) * 4);
+  --text-code-01--font-weight: var(--font-weight-normal);
+  /* Bloco de código, árvore de arquivos (14/20). Usar com font-mono. */
+  --text-code-02: var(--text-sm);
+  --text-code-02--line-height: calc(var(--spacing) * 5);
+  --text-code-02--font-weight: var(--font-weight-normal);
+
+  /* Rótulo de campo, tag, metadado (12/16). */
+  --text-label-01: var(--text-xs);
+  --text-label-01--line-height: calc(var(--spacing) * 4);
+  --text-label-01--letter-spacing: var(--tracking-wide);
+  --text-label-01--font-weight: var(--font-weight-normal);
+  /* Rótulo maior, em layouts menos densos (14/18). */
+  --text-label-02: var(--text-sm);
+  --text-label-02--line-height: calc(var(--spacing) * 4.5);
+  --text-label-02--font-weight: var(--font-weight-normal);
+
+  /* Texto de ajuda e erro abaixo de campo (12/16). */
+  --text-helper-text-01: var(--text-xs);
+  --text-helper-text-01--line-height: calc(var(--spacing) * 4);
+  --text-helper-text-01--letter-spacing: var(--tracking-wide);
+  --text-helper-text-01--font-weight: var(--font-weight-normal);
+
+  /* Texto de uma linha em controle: botão, item de menu, campo (14/18). */
+  --text-body-compact-01: var(--text-sm);
+  --text-body-compact-01--line-height: calc(var(--spacing) * 4.5);
+  --text-body-compact-01--font-weight: var(--font-weight-normal);
+  /* Versão maior de `body-compact-01` (16/22). */
+  --text-body-compact-02: var(--text-base);
+  --text-body-compact-02--line-height: calc(var(--spacing) * 5.5);
+  --text-body-compact-02--font-weight: var(--font-weight-normal);
+
+  /* Texto corrido padrão (14/20). */
+  --text-body-01: var(--text-sm);
+  --text-body-01--line-height: calc(var(--spacing) * 5);
+  --text-body-01--font-weight: var(--font-weight-normal);
+  /* Texto corrido longo, leitura (16/24). */
+  --text-body-02: var(--text-base);
+  --text-body-02--line-height: calc(var(--spacing) * 6);
+  --text-body-02--font-weight: var(--font-weight-normal);
+
+  /* Título de uma linha em componente denso: cabeçalho de tabela, título de tile (14/18). */
+  --text-heading-compact-01: var(--text-sm);
+  --text-heading-compact-01--line-height: calc(var(--spacing) * 4.5);
+  --text-heading-compact-01--font-weight: var(--font-weight-semibold);
+  /* Versão maior de `heading-compact-01` (16/22). */
+  --text-heading-compact-02: var(--text-base);
+  --text-heading-compact-02--line-height: calc(var(--spacing) * 5.5);
+  --text-heading-compact-02--font-weight: var(--font-weight-semibold);
+
+  /* Título de grupo pequeno (14/20). */
+  --text-heading-01: var(--text-sm);
+  --text-heading-01--line-height: calc(var(--spacing) * 5);
+  --text-heading-01--font-weight: var(--font-weight-semibold);
+  /* Título de seção em componente (16/24). */
+  --text-heading-02: var(--text-base);
+  --text-heading-02--line-height: calc(var(--spacing) * 6);
+  --text-heading-02--font-weight: var(--font-weight-semibold);
+  /* Título de modal e de seção de página (20/28). */
+  --text-heading-03: var(--text-xl);
+  --text-heading-03--line-height: calc(var(--spacing) * 7);
+  --text-heading-03--font-weight: var(--font-weight-normal);
+  /* Título de página (28/36). */
+  --text-heading-04: calc(var(--spacing) * 7);
+  --text-heading-04--line-height: calc(var(--spacing) * 9);
+  --text-heading-04--font-weight: var(--font-weight-normal);
+  /* Título de página com destaque (32/40). */
+  --text-heading-05: calc(var(--spacing) * 8);
+  --text-heading-05--line-height: calc(var(--spacing) * 10);
+  --text-heading-05--font-weight: var(--font-weight-normal);
+  /* Display: abertura de página (42/50). */
+  --text-heading-06: calc(var(--spacing) * 10.5);
+  --text-heading-06--line-height: calc(var(--spacing) * 12.5);
+  --text-heading-06--font-weight: var(--font-weight-light);
+  /* Display máximo: hero (54/64). */
+  --text-heading-07: calc(var(--spacing) * 13.5);
+  --text-heading-07--line-height: calc(var(--spacing) * 16);
+  --text-heading-07--font-weight: var(--font-weight-light);
 }

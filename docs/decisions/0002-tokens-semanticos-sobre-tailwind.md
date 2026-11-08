@@ -1,6 +1,6 @@
 # 0002. Usar tokens semânticos sobre a paleta do Tailwind
 
-- Status: Aceita (camadas revisadas pelo [0005](0005-tres-camadas-de-tokens.md))
+- Status: Aceita (camadas revisadas pelo [0005](0005-tres-camadas-de-tokens.md); nomes e `palette.css` substituídos pelo [0006](0006-foundations-carbon.md))
 - Data: 2026-11-08
 
 ## Contexto

@@ -20,6 +20,6 @@ export const buttonGroupItemStyles = {
   4: 'col-span-4',
 } as const;
 
-export const cellStyles = '[&>*]:w-full [&>*]:rounded-none';
+export const cellStyles = '[&>*]:w-full';
 
 export type ButtonGroupStyleProps = VariantProps<typeof buttonGroupStyles>;

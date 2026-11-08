@@ -1,0 +1,19 @@
+/*
+ * Sizing e elevação (ADR 0006). Espaçamento (p/m/gap) usa a escala numérica do Tailwind restrita aos passos
+ * do Carbon (0.5 1 2 3 4 6 8 10 12 16 20 24 40); não há token para isso. Raio: nenhum (cantos retos).
+ */
+@theme inline {
+  /* Altura de controle extra pequeno, linha de árvore (24px). */
+  --spacing-control-xs: calc(var(--spacing) * 6);
+  /* Altura de controle pequeno (32px). */
+  --spacing-control-sm: calc(var(--spacing) * 8);
+  /* Altura de controle padrão: botão, campo, item de menu (40px). */
+  --spacing-control-md: calc(var(--spacing) * 10);
+  /* Altura de controle grande, cabeçalho de accordion (48px). */
+  --spacing-control-lg: calc(var(--spacing) * 12);
+  /* Altura de controle extra grande (64px). */
+  --spacing-control-xl: calc(var(--spacing) * 16);
+
+  /* Única sombra do sistema: só em elementos que flutuam sobre o conteúdo (menu, popover, tooltip). */
+  --shadow-floating: var(--shadow-md);
+}

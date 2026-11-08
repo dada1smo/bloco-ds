@@ -1,0 +1,16 @@
+/*
+ * Breakpoints do grid 2x do Carbon (ADR 0006), substituindo os padrões do Tailwind.
+ * Grid: 4 colunas abaixo de md, 8 em md, 16 a partir de lg; gutter gap-8 (32px), margem px-4 (16px).
+ */
+@theme {
+  /* 320px: menor viewport suportado. */
+  --breakpoint-sm: 20rem;
+  /* 672px: tablet, grid de 8 colunas. */
+  --breakpoint-md: 42rem;
+  /* 1056px: desktop, grid de 16 colunas. */
+  --breakpoint-lg: 66rem;
+  /* 1312px: desktop largo. */
+  --breakpoint-xl: 82rem;
+  /* 1584px: largura máxima do conteúdo. */
+  --breakpoint-2xl: 99rem;
+}

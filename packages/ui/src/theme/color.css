@@ -1,61 +1,147 @@
-/* Tokens semânticos de cor. Componentes usam só estes. */
+/*
+ * Tokens semânticos de cor (ADR 0006): vocabulário do Carbon sobre a paleta do Tailwind.
+ * Light ≈ Carbon White, dark ≈ Carbon G100. A escolha de marca está aqui: neutro/primário = slate, accent = amber.
+ * Cada namespace prende o token ao seu papel: --background-color-* só gera bg-*, --text-color-* só text-*,
+ * --border-color-* só border-*, --outline-color-* só outline-*. --color-* (status) serve a qualquer propriedade.
+ */
 @theme inline {
-  /* Ação principal: fundo de botão sólido, foco. */
-  --color-primary: var(--primary);
-  /* Fundo de `primary` em hover. */
-  --color-primary-hover: var(--primary-hover);
-  /* Texto e ícone sobre `primary`. */
-  --color-on-primary: var(--on-primary);
-  /* Ação de destaque: fundo de botão accent. */
-  --color-accent: var(--accent);
-  /* Fundo de `accent` em hover. */
-  --color-accent-hover: var(--accent-hover);
-  /* Fundo suave em cor de destaque (botão accent subtle, hover do outline accent). */
-  --color-accent-soft: var(--accent-soft);
-  /* `accent-soft` em hover. */
-  --color-accent-soft-hover: var(--accent-soft-hover);
-  /* Texto e ícone sobre `accent`. */
-  --color-on-accent: var(--on-accent);
-  /* Texto em cor de destaque sobre `background` (contraste garantido). */
-  --color-accent-text: var(--accent-text);
-  /* Fundo da página e das superfícies. */
-  --color-background: var(--background);
-  /* Texto principal. */
-  --color-foreground: var(--foreground);
-  /* Contorno de foco visível em controles. */
-  --color-focus-ring: var(--focus-ring);
-  /* Texto secundário: descrição, ícone de apoio. */
-  --color-foreground-muted: var(--foreground-muted);
-  /* Borda de superfície e divisor. */
-  --color-border: var(--border);
-  /* Fundo de item/linha em hover ou foco dentro de uma superfície. */
-  --color-surface-hover: var(--surface-hover);
-  /* Fundo do item selecionado (ex.: arquivo ativo na árvore). */
-  --color-surface-selected: var(--surface-selected);
+  /* ── Fundo da página ── */
+  /* Fundo da página. */
+  --background-color-background: light-dark(var(--color-white), var(--color-slate-950));
+  /* Item direto sobre `background` em hover. */
+  --background-color-background-hover: light-dark(var(--color-slate-100), var(--color-slate-900));
+  /* Item direto sobre `background` selecionado. */
+  --background-color-background-selected: light-dark(var(--color-slate-200), var(--color-slate-800));
+  /* Fundo de alto contraste (tooltip, toast); texto `text-inverse` por cima. */
+  --background-color-background-inverse: light-dark(var(--color-slate-800), var(--color-slate-100));
+
+  /* ── Camadas: profundidade por fundo, não por sombra. 01 sobre background, 02 sobre 01, 03 sobre 02. ── */
+  /* Superfície sobre `background`: card, menu, modal, botão subtle. */
+  --background-color-layer-01: light-dark(var(--color-slate-100), var(--color-slate-900));
+  /* Item sobre `layer-01` em hover. */
+  --background-color-layer-hover-01: light-dark(var(--color-slate-200), var(--color-slate-800));
+  /* Item sobre `layer-01` selecionado. */
+  --background-color-layer-selected-01: light-dark(var(--color-slate-300), var(--color-slate-700));
+  /* Superfície sobre `layer-01`. */
+  --background-color-layer-02: light-dark(var(--color-white), var(--color-slate-800));
+  /* Item sobre `layer-02` em hover. */
+  --background-color-layer-hover-02: light-dark(var(--color-slate-100), var(--color-slate-700));
+  /* Item sobre `layer-02` selecionado. */
+  --background-color-layer-selected-02: light-dark(var(--color-slate-200), var(--color-slate-600));
+  /* Superfície sobre `layer-02`. */
+  --background-color-layer-03: light-dark(var(--color-slate-100), var(--color-slate-700));
+  /* Item sobre `layer-03` em hover. */
+  --background-color-layer-hover-03: light-dark(var(--color-slate-200), var(--color-slate-600));
+  /* Item sobre `layer-03` selecionado. */
+  --background-color-layer-selected-03: light-dark(var(--color-slate-300), var(--color-slate-500));
+
+  /* ── Campos de formulário (input, select): mesmo nível da camada onde estão. ── */
+  /* Campo sobre `background`. */
+  --background-color-field-01: light-dark(var(--color-slate-100), var(--color-slate-900));
+  /* `field-01` em hover. */
+  --background-color-field-hover-01: light-dark(var(--color-slate-200), var(--color-slate-800));
+  /* Campo sobre `layer-01`. */
+  --background-color-field-02: light-dark(var(--color-white), var(--color-slate-800));
+  /* `field-02` em hover. */
+  --background-color-field-hover-02: light-dark(var(--color-slate-100), var(--color-slate-700));
+
+  /* ── Ação principal (slate) ── */
+  /* Fundo de ação principal: botão sólido primário. Texto `text-on-color`. */
+  --background-color-interactive: light-dark(var(--color-slate-900), var(--color-slate-100));
+  /* `interactive` em hover. */
+  --background-color-interactive-hover: light-dark(var(--color-slate-700), var(--color-slate-300));
+  /* `interactive` pressionado. */
+  --background-color-interactive-active: light-dark(var(--color-slate-600), var(--color-slate-400));
+
+  /* ── Ação de destaque (amber) ── */
+  /* Fundo de ação de destaque: botão sólido accent. Texto `text-on-accent`. */
+  --background-color-accent: light-dark(var(--color-amber-500), var(--color-amber-400));
+  /* `accent` em hover. */
+  --background-color-accent-hover: light-dark(var(--color-amber-600), var(--color-amber-300));
+  /* Fundo suave de destaque: botão accent subtle, hover do outline accent. Texto `text-accent`. */
+  --background-color-accent-subtle: light-dark(var(--color-amber-100), var(--color-amber-950));
+  /* `accent-subtle` em hover. */
+  --background-color-accent-subtle-hover: light-dark(var(--color-amber-200), var(--color-amber-900));
+
   /* Véu atrás de modais. */
-  --color-overlay: var(--overlay);
+  --background-color-overlay: color-mix(in oklab, var(--color-slate-950) 40%, transparent);
+
+  /* ── Bordas ── */
+  /* Divisor e contorno de superfície. */
+  --border-color-subtle: light-dark(var(--color-slate-200), var(--color-slate-800));
+  /* Contorno de controle (campo, checkbox): precisa de 3:1 contra o fundo. */
+  --border-color-strong: light-dark(var(--color-slate-500), var(--color-slate-400));
+  /* Contorno de ação principal: botão outline primário, campo ativo. */
+  --border-color-interactive: light-dark(var(--color-slate-900), var(--color-slate-100));
+  /* Contorno de ação de destaque: botão outline accent. */
+  --border-color-accent: light-dark(var(--color-amber-500), var(--color-amber-400));
+  /* Contorno de controle desabilitado. */
+  --border-color-disabled: light-dark(var(--color-slate-300), var(--color-slate-700));
+
+  /* ── Texto ── */
+  /* Texto principal. */
+  --text-color-primary: light-dark(var(--color-slate-900), var(--color-slate-50));
+  /* Texto secundário: descrição, rótulo, conteúdo de apoio. */
+  --text-color-secondary: light-dark(var(--color-slate-600), var(--color-slate-400));
+  /* Placeholder de campo; mesmo passo do secundário para manter 4.5:1 sobre `field-*`. */
+  --text-color-placeholder: light-dark(var(--color-slate-600), var(--color-slate-400));
+  /* Texto de ajuda abaixo de campo. */
+  --text-color-helper: light-dark(var(--color-slate-600), var(--color-slate-400));
+  /* Texto desabilitado (isento de contraste mínimo). */
+  --text-color-disabled: light-dark(var(--color-slate-400), var(--color-slate-600));
+  /* Texto sobre `interactive` e sobre fundos `support-*`. */
+  --text-color-on-color: light-dark(var(--color-slate-50), var(--color-slate-900));
+  /* Texto sobre `background-inverse`. */
+  --text-color-inverse: light-dark(var(--color-slate-50), var(--color-slate-900));
+  /* Mensagem de erro de campo. */
+  --text-color-error: light-dark(var(--color-red-600), var(--color-red-400));
+  /* Texto em cor de destaque sobre `background`, `layer-*` e `accent-subtle`. */
+  --text-color-accent: light-dark(var(--color-amber-700), var(--color-amber-400));
+  /* Texto e ícone sobre `accent`. */
+  --text-color-on-accent: var(--color-amber-950);
+  /* Link. */
+  --text-color-link-primary: light-dark(var(--color-blue-700), var(--color-blue-400));
+  /* Link em hover. */
+  --text-color-link-primary-hover: light-dark(var(--color-blue-800), var(--color-blue-300));
+
+  /* ── Ícone (usa `text-*` porque os ícones herdam currentColor) ── */
+  /* Ícone principal, com o mesmo peso do texto principal. */
+  --text-color-icon-primary: light-dark(var(--color-slate-900), var(--color-slate-50));
+  /* Ícone de apoio: chevron, caret, ícone decorativo. */
+  --text-color-icon-secondary: light-dark(var(--color-slate-600), var(--color-slate-400));
+  /* Ícone desabilitado. */
+  --text-color-icon-disabled: light-dark(var(--color-slate-400), var(--color-slate-600));
+  /* Ícone sobre `interactive`. */
+  --text-color-icon-on-color: light-dark(var(--color-slate-50), var(--color-slate-900));
+
+  /* ── Foco ── */
+  /* Contorno de foco visível em qualquer controle. */
+  --outline-color-focus: light-dark(var(--color-slate-900), var(--color-white));
+  /* Contorno interno que separa o foco de um fundo `interactive`. */
+  --outline-color-focus-inset: light-dark(var(--color-white), var(--color-slate-950));
+
+  /* ── Status: ícone, borda de destaque e fundo sólido (texto `text-on-color` por cima). ── */
+  /* Erro. */
+  --color-support-error: light-dark(var(--color-red-600), var(--color-red-400));
+  /* Sucesso. */
+  --color-support-success: light-dark(var(--color-green-600), var(--color-green-400));
+  /* Aviso. Só como preenchimento com tinta escura por cima: tem 2.1:1 sobre fundo claro, nunca use como texto ou ícone solto. */
+  --color-support-warning: light-dark(var(--color-amber-500), var(--color-amber-400));
+  /* Informação. */
+  --color-support-info: light-dark(var(--color-blue-600), var(--color-blue-400));
+  /* Fundo suave de notificação de erro; texto `text-primary`. */
+  --color-support-error-subtle: light-dark(var(--color-red-100), var(--color-red-950));
+  /* Fundo suave de notificação de sucesso. */
+  --color-support-success-subtle: light-dark(var(--color-green-100), var(--color-green-950));
+  /* Fundo suave de notificação de aviso. */
+  --color-support-warning-subtle: light-dark(var(--color-amber-100), var(--color-amber-950));
+  /* Fundo suave de notificação informativa. */
+  --color-support-info-subtle: light-dark(var(--color-blue-100), var(--color-blue-950));
 }
 
 /* Segue o sistema; `.light` / `.dark` no <html> forçam um modo. */
 :root {
   color-scheme: light dark;
-  --primary: light-dark(var(--color-slate-900), var(--color-slate-100));
-  --primary-hover: light-dark(var(--color-slate-700), var(--color-slate-300));
-  --on-primary: light-dark(var(--color-slate-50), var(--color-slate-900));
-  --accent: light-dark(var(--color-amber-500), var(--color-amber-400));
-  --accent-hover: light-dark(var(--color-amber-600), var(--color-amber-300));
-  --accent-soft: light-dark(var(--color-amber-100), var(--color-amber-950));
-  --accent-soft-hover: light-dark(var(--color-amber-200), var(--color-amber-900));
-  --on-accent: var(--color-amber-950);
-  --accent-text: light-dark(var(--color-amber-700), var(--color-amber-400));
-  --background: light-dark(var(--color-white), var(--color-slate-950));
-  --foreground: light-dark(var(--color-slate-900), var(--color-slate-50));
-  --focus-ring: var(--primary);
-  --foreground-muted: light-dark(var(--color-slate-600), var(--color-slate-400));
-  --border: light-dark(var(--color-slate-200), var(--color-slate-800));
-  --surface-hover: light-dark(var(--color-slate-100), var(--color-slate-900));
-  --surface-selected: light-dark(var(--color-slate-200), var(--color-slate-800));
-  --overlay: color-mix(in oklab, var(--color-slate-950) 40%, transparent);
 }
 .light {
   color-scheme: light;
