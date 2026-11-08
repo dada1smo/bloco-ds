@@ -1,34 +1,39 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
-const surfaceStyles =
-  'm-auto rounded-none bg-background p-6 font-sans text-body text-foreground shadow-lg';
-const backdropStyles = 'backdrop:bg-primary-950/40 backdrop:backdrop-blur-sm';
-const motionStyles = [
-  'opacity-0 translate-y-2 open:translate-y-0 open:opacity-100',
-  'starting:open:translate-y-2 starting:open:opacity-0',
-  'motion-safe:transition-[opacity,translate,display,overlay] motion-safe:duration-150',
-  'motion-safe:[transition-behavior:allow-discrete]',
-  'backdrop:opacity-0 open:backdrop:opacity-100 starting:open:backdrop:opacity-0',
-  'motion-safe:backdrop:transition-[opacity,display,overlay] motion-safe:backdrop:duration-150',
-  'motion-safe:backdrop:[transition-behavior:allow-discrete]',
-];
+// RAC keeps data-entering/data-exiting until the transition ends
+export const modalOverlayStyles = cva([
+  'fixed inset-0 z-50 flex items-center justify-center bg-overlay backdrop-blur-sm',
+  'motion-safe:transition-opacity motion-safe:duration-150 data-entering:opacity-0 data-exiting:opacity-0',
+]);
 
-export const modalStyles = cva([surfaceStyles, backdropStyles, motionStyles], {
-  variants: {
-    size: {
-      sm: 'w-[min(20rem,100%-2rem)]',
-      md: 'w-[min(26rem,100%-2rem)]',
-      lg: 'w-[min(34rem,100%-2rem)]',
+export const modalStyles = cva(
+  [
+    'relative bg-background p-6 font-sans text-body text-foreground shadow-lg outline-none',
+    'motion-safe:transition-[opacity,translate] motion-safe:duration-150',
+    'data-entering:translate-y-2 data-entering:opacity-0 data-exiting:translate-y-2 data-exiting:opacity-0',
+  ],
+  {
+    variants: {
+      size: {
+        sm: 'w-[min(20rem,100%-2rem)]',
+        md: 'w-[min(26rem,100%-2rem)]',
+        lg: 'w-[min(34rem,100%-2rem)]',
+      },
     },
+    defaultVariants: { size: 'md' },
   },
-  defaultVariants: { size: 'md' },
-});
+);
 
 export type ModalStyleProps = VariantProps<typeof modalStyles>;
 
+export const modalDialogStyles = cva('outline-none', {
+  // reserva espaço para o ButtonGroup absoluto no rodapé
+  variants: { withFooter: { true: 'pb-10', false: '' } },
+  defaultVariants: { withFooter: false },
+});
+
+export const modalHeaderStyles = cva('mb-4 flex items-center justify-between');
+
 export const modalTitleStyles = cva('m-0 text-subtitle font-bold');
 
-export const modalBodyStyles = cva('m-0 mt-1.5 text-primary/70');
-
-// reserva espaço para o ButtonGroup absoluto no rodapé do dialog
-export const modalFormWithFooterStyles = cva('pb-10');
+export const modalBodyStyles = cva('m-0 mt-1.5 text-foreground-muted');

@@ -1,89 +1,68 @@
-import {
-  cloneElement,
-  isValidElement,
-  useId,
-  type CSSProperties,
-  type HTMLAttributes,
-  type ReactElement,
-  type ReactNode,
-} from 'react';
+import { cloneElement, isValidElement, type ReactElement, type ReactNode } from 'react';
 import { CaretDownIcon } from '@phosphor-icons/react';
-import { Button, type ButtonProps } from '../button/Button';
-import { PrimitiveButton, type PrimitiveButtonProps } from '../primitive-button';
 import {
-  dropdownGroupStyles,
+  Menu,
+  MenuItem,
+  MenuSection,
+  MenuTrigger,
+  Popover,
+  type MenuItemProps,
+  type MenuTriggerProps,
+} from 'react-aria-components';
+import { Button, type ButtonProps } from '../button/Button';
+import {
   dropdownIconStyles,
   dropdownItemStyles,
   dropdownMenuStyles,
-  dropdownStyles,
-  dropdownTriggerStyles,
+  dropdownPopoverStyles,
+  dropdownSectionStyles,
 } from './Dropdown.styles';
 
-// Distributes over the `as` union so `href`/`type` stay tied to it.
-type ItemOf<P> = P extends unknown
-  ? { label: string; icon?: ReactNode } & Omit<P, 'children' | 'className'>
-  : never;
+export type DropdownItem = { label: string; icon?: ReactNode } & Omit<
+  MenuItemProps,
+  'children' | 'className' | 'id' | 'textValue'
+>;
 
-export type DropdownItem = ItemOf<PrimitiveButtonProps>;
-
-export type DropdownProps = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
-  /** A single `BLButton`; any other element throws. Dropdown wires the popover props. */
+export type DropdownProps = Omit<MenuTriggerProps, 'children' | 'trigger'> & {
+  /** A single `BLButton`; any other element throws. Dropdown appends the caret. */
   trigger: ReactElement<Extract<ButtonProps, { as?: 'button' }> & { children?: ReactNode }>;
   /** Groups of items, separated by a divider. */
   groups: DropdownItem[][];
-  /** Hover needs `interestfor`; browsers without it fall back to click. */
-  openOn?: 'click' | 'hover';
+  className?: string;
 };
 
-export function Dropdown({ trigger, groups, openOn = 'click', className, ...props }: DropdownProps) {
-  const id = useId();
-  const anchor = `--bl-dropdown-${id.replace(/\W/g, '')}`;
-  const hover = openOn === 'hover';
-
+/** RAC `MenuTrigger` + `Menu`. Items take `onAction` or `href`. */
+export function Dropdown({ trigger, groups, className, ...props }: DropdownProps) {
   if (!isValidElement(trigger) || trigger.type !== Button) {
     throw new Error('Dropdown: `trigger` must be a single <BLButton> element.');
   }
-  const { children, className: triggerClassName, style } = trigger.props;
+  const { children } = trigger.props;
 
   return (
-    <div {...props} className={dropdownStyles({ className })}>
+    <MenuTrigger {...props}>
       {cloneElement(
         trigger,
-        {
-          className: dropdownTriggerStyles({ openOn, className: triggerClassName as string }),
-          style: { ...style, anchorName: anchor } as CSSProperties,
-          // shortcut: RAC Button drops popover/interest attrs, so set them on the DOM node; goes away when Dropdown moves to RAC Menu.
-          ref: (el: HTMLButtonElement | null) => {
-            el?.setAttribute('popovertarget', id);
-            if (hover) {
-              el?.setAttribute('popovertargetaction', 'show');
-              el?.setAttribute('interestfor', id);
-            }
-          },
-        } as object,
+        {},
         children,
         <CaretDownIcon className={dropdownIconStyles()} aria-hidden />,
       )}
-      <nav
-        id={id}
-        popover="auto"
-        aria-label={typeof children === 'string' ? children : undefined}
-        className={dropdownMenuStyles()}
-        style={{ positionAnchor: anchor } as React.CSSProperties}
-      >
-        {groups.map((group, i) => (
-          <ul key={i} role="list" className={dropdownGroupStyles()}>
-            {group.map(({ label, icon, ...item }) => (
-              <li key={label}>
-                <PrimitiveButton {...item} className={dropdownItemStyles()}>
+      <Popover placement="bottom start" offset={6} className={dropdownPopoverStyles({ className })}>
+        <Menu
+          aria-label={typeof children === 'string' ? children : undefined}
+          className={dropdownMenuStyles()}
+        >
+          {groups.map((group, i) => (
+            <MenuSection key={i} className={dropdownSectionStyles()}>
+              {group.map(({ label, icon, ...item }) => (
+                <MenuItem key={label} id={label} textValue={label} {...item} className={dropdownItemStyles()}>
                   {icon}
                   {label}
-                </PrimitiveButton>
-              </li>
-            ))}
-          </ul>
-        ))}
-      </nav>
-    </div>
+                </MenuItem>
+              ))}
+            </MenuSection>
+          ))}
+        </Menu>
+      </Popover>
+    </MenuTrigger>
   );
 }

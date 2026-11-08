@@ -1,26 +1,30 @@
-import { useId, type ReactNode, type SelectHTMLAttributes } from 'react';
+import type { ReactNode } from 'react';
 import { CaretDownIcon, CheckIcon } from '@phosphor-icons/react';
 import {
-  selectButtonStyles,
+  Button,
+  Label,
+  ListBox,
+  ListBoxItem,
+  Popover,
+  Select as RACSelect,
+  SelectValue,
+  Text,
+  type SelectProps as RACSelectProps,
+} from 'react-aria-components';
+import {
   selectCaretStyles,
   selectCheckStyles,
-  selectedContentStyles,
   selectFieldStyles,
   selectLabelStyles,
+  selectListBoxStyles,
   selectOptionBodyStyles,
   selectOptionDescStyles,
   selectOptionIconStyles,
   selectOptionStyles,
+  selectPopoverStyles,
   selectStyles,
+  selectValueStyles,
 } from './Select.styles';
-
-declare module 'react' {
-  namespace JSX {
-    interface IntrinsicElements {
-      selectedcontent: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-    }
-  }
-}
 
 export type SelectOption = {
   value: string;
@@ -29,42 +33,58 @@ export type SelectOption = {
   icon?: ReactNode;
 };
 
-export type SelectProps = Omit<SelectHTMLAttributes<HTMLSelectElement>, 'children'> & {
+export type SelectProps = Omit<RACSelectProps<SelectOption>, 'children' | 'className'> & {
   label?: string;
   options: SelectOption[];
+  className?: string;
 };
 
-export function Select({ label, options, id, className, ...props }: SelectProps) {
-  const generatedId = useId();
-  const selectId = id ?? generatedId;
-
+/** RAC `Select` + `ListBox`. The closed button shows the icon and label, not the description. */
+export function Select({ label, options, className, ...props }: SelectProps) {
   return (
-    <div className={selectFieldStyles({ className })}>
-      {label && (
-        <label htmlFor={selectId} className={selectLabelStyles()}>
-          {label}
-        </label>
-      )}
-      <select {...props} id={selectId} className={selectStyles()}>
-        <button type="button" className={selectButtonStyles()}>
-          <selectedcontent className={selectedContentStyles()} />
-          <CaretDownIcon className={selectCaretStyles()} aria-hidden />
-        </button>
-        {options.map(({ value, label: optionLabel, description, icon }) => (
-          <option key={value} value={value} className={selectOptionStyles()}>
-            <CheckIcon className={selectCheckStyles()} weight="bold" aria-hidden />
-            {icon && (
-              <span className={selectOptionIconStyles()} aria-hidden>
-                {icon}
+    <RACSelect {...props} className={selectFieldStyles({ className })}>
+      {label && <Label className={selectLabelStyles()}>{label}</Label>}
+      <Button className={selectStyles()}>
+        <SelectValue<SelectOption> className={selectValueStyles()}>
+          {({ selectedItem, defaultChildren }) =>
+            selectedItem ? (
+              <>
+                {selectedItem.icon && (
+                  <span className={selectOptionIconStyles()} aria-hidden>
+                    {selectedItem.icon}
+                  </span>
+                )}
+                {selectedItem.label}
+              </>
+            ) : (
+              defaultChildren
+            )
+          }
+        </SelectValue>
+        <CaretDownIcon className={selectCaretStyles()} aria-hidden />
+      </Button>
+      <Popover offset={6} className={selectPopoverStyles()}>
+        <ListBox items={options} className={selectListBoxStyles()}>
+          {(option) => (
+            <ListBoxItem id={option.value} textValue={option.label} className={selectOptionStyles()}>
+              <CheckIcon className={selectCheckStyles()} weight="bold" aria-hidden />
+              {option.icon && (
+                <span className={selectOptionIconStyles()} aria-hidden>
+                  {option.icon}
+                </span>
+              )}
+              <span className={selectOptionBodyStyles()}>
+                <Text slot="label">{option.label}</Text>
+                {option.description && (
+                  <Text slot="description" className={selectOptionDescStyles()}>
+                    {option.description}
+                  </Text>
+                )}
               </span>
-            )}
-            <span className={selectOptionBodyStyles()}>
-              <span>{optionLabel}</span>
-              {description && <span className={selectOptionDescStyles()}>{description}</span>}
-            </span>
-          </option>
-        ))}
-      </select>
-    </div>
+            </ListBoxItem>
+          )}
+        </ListBox>
+      </Popover>
+    </RACSelect>
   );
 }

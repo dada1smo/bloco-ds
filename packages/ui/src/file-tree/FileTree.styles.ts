@@ -1,52 +1,35 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
-const rowStyles =
-  'flex min-h-[26px] items-center gap-1.5 rounded-md px-1 hover:bg-primary/10';
+export const fileTreeStyles = cva('max-w-88 font-mono text-caption outline-none');
 
-export const fileTreeStyles = cva('max-w-88 font-mono text-caption');
-
-// shortcut: ::details-content animation needs browser support, falls back to instant toggle
-export const fileTreeFolderStyles = cva([
-  '[interpolate-size:allow-keywords]',
-  'motion-safe:[&::details-content]:h-0 motion-safe:[&::details-content]:overflow-clip',
-  'motion-safe:[&::details-content]:opacity-0',
-  'motion-safe:[&::details-content]:transition-[height,opacity] motion-safe:[&::details-content]:duration-150',
-  'open:[&::details-content]:h-auto open:[&::details-content]:opacity-100',
-  'open:[&>summary>svg:first-child]:rotate-90',
-  'open:[&>summary>svg:nth-child(2)]:text-accent-text',
-]);
-
-export const fileTreeSummaryStyles = cva([
-  rowStyles,
-  'cursor-pointer list-none [&::-webkit-details-marker]:hidden',
-  'focus-visible:outline-2 focus-visible:outline-primary',
-]);
-
-export const fileTreeGroupStyles = cva(
-  'ms-2.5 border-s border-primary/20 ps-3',
+// --tree-item-level comes from RAC (1 = root); each level indents 1.25rem
+export const fileTreeItemStyles = cva(
+  [
+    'group flex min-h-[26px] items-center gap-1.5 rounded-md px-1 ps-[calc((var(--tree-item-level)-1)*1.25rem+0.25rem)]',
+    'cursor-default text-foreground-muted outline-none data-hovered:bg-surface-hover',
+    'data-has-child-items:cursor-pointer data-has-child-items:text-foreground',
+    'data-focus-visible:-outline-offset-2 data-focus-visible:outline-2 data-focus-visible:outline-focus-ring',
+  ],
+  {
+    variants: {
+      muted: { true: 'italic', false: '' },
+      interactive: { true: 'cursor-pointer', false: '' },
+      selected: { true: 'bg-surface-selected text-foreground data-hovered:bg-surface-selected', false: '' },
+    },
+    defaultVariants: { muted: false, interactive: false, selected: false },
+  },
 );
 
-export const fileTreeFileStyles = cva([rowStyles, 'text-primary/70'], {
-  variants: {
-    muted: { true: 'italic opacity-70', false: '' },
-    interactive: {
-      true: 'cursor-pointer focus-visible:outline-2 focus-visible:outline-primary',
-      false: '',
-    },
-    selected: { true: 'bg-primary/10 text-foreground', false: '' },
-  },
-  defaultVariants: { muted: false, interactive: false, selected: false },
-});
+export const fileTreeChevronButtonStyles = cva('flex flex-none cursor-pointer items-center outline-none');
 
-export const fileTreeIconStyles = cva('size-3.5 flex-none text-primary/70', {
+export const fileTreeIconStyles = cva('size-3.5 flex-none text-foreground-muted', {
   variants: {
     kind: {
-      chevron:
-        'size-3 motion-safe:transition-transform motion-safe:duration-150',
-      folder: '',
+      chevron: 'size-3 group-data-expanded:rotate-90 motion-safe:transition-transform motion-safe:duration-150',
+      folder: 'group-data-expanded:text-accent-text',
       file: '',
     },
   },
 });
 
-export type FileTreeFileStyleProps = VariantProps<typeof fileTreeFileStyles>;
+export type FileTreeItemStyleProps = VariantProps<typeof fileTreeItemStyles>;

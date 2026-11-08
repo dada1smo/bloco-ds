@@ -30,6 +30,11 @@ Cada token tem, no seu partial, um comentário de uma linha dizendo quando usar.
 | `background` | fundo da página e das superfícies |
 | `foreground` | texto principal |
 | `focus-ring` | contorno de foco visível em controles |
+| `foreground-muted` | texto secundário: descrição, ícone de apoio |
+| `border` | borda de superfície e divisor |
+| `surface-hover` | fundo de item/linha em hover ou foco |
+| `surface-selected` | fundo do item selecionado |
+| `overlay` | véu atrás de modais |
 | `text-caption` | legenda, metadado |
 | `text-body` | texto corrido |
 | `text-interactive` | rótulo de controle |
@@ -37,7 +42,7 @@ Cada token tem, no seu partial, um comentário de uma linha dizendo quando usar.
 | `text-title` | título de página ou modal |
 | `text-headline` | destaque de tela inteira |
 
-Previstos pelo ADR, criados quando o primeiro componente precisar: `primary-hover`, `accent-hover`, `surface-hover`, `surface-selected`, `foreground-muted`, `border`, `border-strong`, `control-sm/md/lg`, `radius-control`, `radius-surface`.
+Previstos pelo ADR, criados quando o primeiro componente precisar: `primary-hover`, `accent-hover`, `border-strong`, `control-sm/md/lg`, `radius-control`, `radius-surface`.
 
 ## Regras para componentes
 

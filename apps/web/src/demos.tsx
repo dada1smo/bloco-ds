@@ -15,11 +15,11 @@ const accordionItems = [
 
 const dropdownGroups: BLDropdownItem[][] = [
   [
-    { label: 'Rename', as: 'a', href: '#' },
-    { label: 'Duplicate', as: 'a', href: '#' },
-    { label: 'Archive', as: 'a', href: '#' },
+    { label: 'Rename', href: '#' },
+    { label: 'Duplicate', href: '#' },
+    { label: 'Archive', href: '#' },
   ],
-  [{ label: 'Delete', as: 'a', href: '#' }],
+  [{ label: 'Delete', href: '#' }],
 ];
 
 export type Demo = { id: string; render: () => ReactNode };
@@ -29,8 +29,8 @@ export const demos: Record<string, Demo[]> = {
   accordion: [
     { id: 'default.tsx', render: () => <BLAccordion className="w-96" items={accordionItems} /> },
     {
-      id: 'exclusive.tsx',
-      render: () => <BLAccordion className="w-96" name="demo" items={accordionItems} />,
+      id: 'multiple.tsx',
+      render: () => <BLAccordion className="w-96" allowsMultipleExpanded items={accordionItems} />,
     },
   ],
   button: [
@@ -93,14 +93,10 @@ export const demos: Record<string, Demo[]> = {
   ],
   dropdown: [
     {
-      id: 'click.tsx',
+      id: 'default.tsx',
       render: () => (
         <BLDropdown trigger={<BLButton level="outline">Share</BLButton>} groups={dropdownGroups} />
       ),
-    },
-    {
-      id: 'hover.tsx',
-      render: () => <BLDropdown trigger={<BLButton level="outline">Options</BLButton>} openOn="hover" groups={dropdownGroups} />,
     },
   ],
   select: [
@@ -110,7 +106,7 @@ export const demos: Record<string, Demo[]> = {
         <BLSelect
           label="Status"
           name="status"
-          defaultValue="review"
+          defaultSelectedKey="review"
           options={[
             { value: 'draft', label: 'Draft', description: 'Only visible to you', icon: <FileDashedIcon /> },
             { value: 'review', label: 'In review', description: 'Shared with your team', icon: <UsersIcon /> },
@@ -129,8 +125,8 @@ export const demos: Record<string, Demo[]> = {
           title="Discard unsaved changes?"
           description="Your edits to this draft will be lost. This can't be undone."
           actions={[
-            { cols: 2, element: <BLButton level="outline" autoFocus>Keep editing</BLButton> },
-            { cols: 2, element: <BLButton>Discard</BLButton> },
+            { cols: 2, element: <BLButton level="outline" slot="close" autoFocus>Keep editing</BLButton> },
+            { cols: 2, element: <BLButton slot="close">Discard</BLButton> },
           ]}
         />
       ),

@@ -16,6 +16,16 @@
   --color-foreground: var(--foreground);
   /* Contorno de foco visível em controles. */
   --color-focus-ring: var(--focus-ring);
+  /* Texto secundário: descrição, ícone de apoio. */
+  --color-foreground-muted: var(--foreground-muted);
+  /* Borda de superfície e divisor. */
+  --color-border: var(--border);
+  /* Fundo de item/linha em hover ou foco dentro de uma superfície. */
+  --color-surface-hover: var(--surface-hover);
+  /* Fundo do item selecionado (ex.: arquivo ativo na árvore). */
+  --color-surface-selected: var(--surface-selected);
+  /* Véu atrás de modais. */
+  --color-overlay: var(--overlay);
 }
 
 /* Segue o sistema; `.light` / `.dark` no <html> forçam um modo. */
@@ -29,6 +39,11 @@
   --background: light-dark(var(--color-white), var(--color-slate-950));
   --foreground: light-dark(var(--color-slate-900), var(--color-slate-50));
   --focus-ring: var(--primary);
+  --foreground-muted: light-dark(var(--color-slate-600), var(--color-slate-400));
+  --border: light-dark(var(--color-slate-200), var(--color-slate-800));
+  --surface-hover: light-dark(var(--color-slate-100), var(--color-slate-900));
+  --surface-selected: light-dark(var(--color-slate-200), var(--color-slate-800));
+  --overlay: color-mix(in oklab, var(--color-slate-950) 40%, transparent);
 }
 .light {
   color-scheme: light;

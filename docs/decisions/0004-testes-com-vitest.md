@@ -19,7 +19,7 @@ Vitest em `packages/ui`, reaproveitando o Vite que o projeto já usa, com ambien
 
 ### Local
 
-`X.test.tsx` dentro de `packages/ui/src/<kebab-name>/`, ao lado de `X.tsx`. Todo componente tem o seu, inclusive os sem estilo próprio (`PrimitiveButton`, `ThemeSwitch`).
+`X.test.tsx` dentro de `packages/ui/src/<kebab-name>/`, ao lado de `X.tsx`. Todo componente tem o seu, inclusive os sem estilo próprio (`ThemeSwitch`).
 
 ```
 button/

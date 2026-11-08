@@ -1,80 +1,104 @@
-import type { HTMLAttributes } from 'react';
 import { CaretRightIcon, FileIcon, FolderIcon } from '@phosphor-icons/react';
 import {
-  fileTreeFileStyles,
-  fileTreeFolderStyles,
-  fileTreeGroupStyles,
+  Button,
+  Tree,
+  TreeItem,
+  TreeItemContent,
+  type Key,
+  type TreeProps,
+} from 'react-aria-components';
+import {
+  fileTreeChevronButtonStyles,
   fileTreeIconStyles,
+  fileTreeItemStyles,
   fileTreeStyles,
-  fileTreeSummaryStyles,
 } from './FileTree.styles';
 
 export type FileTreeItem =
   | { type: 'folder'; label: string; open?: boolean; items: FileTreeItem[] }
   | { type: 'file'; id?: string; label: string; muted?: boolean };
 
-// Disclosure widget, not an ARIA tree: Tab/Enter/Space only, no arrow-key navigation.
-export type FileTreeProps = Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'onSelect'> & {
+export type FileTreeProps = Omit<
+  TreeProps<FileTreeItem>,
+  'children' | 'items' | 'className' | 'onSelect'
+> & {
   items: FileTreeItem[];
+  className?: string;
   /** Id of the selected file (files with `id`). */
   selectedId?: string;
-  /** Makes files with an `id` clickable/keyboard-activatable. */
+  /** Makes files with an `id` activatable (click, Enter). */
   onSelect?: (id: string) => void;
 };
 
+// Folder keys are their label path, so they never collide with file ids.
+const folderKey = (path: string) => `folder:${path}`;
+
+function openFolders(list: FileTreeItem[], parent = ''): Key[] {
+  return list.flatMap((item) => {
+    if (item.type !== 'folder') return [];
+    const path = `${parent}/${item.label}`;
+    return [...(item.open ? [folderKey(path)] : []), ...openFolders(item.items, path)];
+  });
+}
+
+/** RAC `Tree`: arrow keys move and expand/collapse; pressing a folder row toggles it. */
 export function FileTree({
   items,
   selectedId,
   onSelect,
   className,
+  defaultExpandedKeys,
+  'aria-label': ariaLabel = 'Files',
   ...props
 }: FileTreeProps) {
-  const render = (list: FileTreeItem[]) =>
+  const render = (list: FileTreeItem[], parent = '') =>
     list.map((item, i) => {
       if (item.type === 'folder') {
+        const path = `${parent}/${item.label}`;
         return (
-          <details key={i} open={item.open} className={fileTreeFolderStyles()}>
-            <summary className={fileTreeSummaryStyles()}>
-              <CaretRightIcon className={fileTreeIconStyles({ kind: 'chevron' })} aria-hidden />
+          <TreeItem
+            key={path}
+            id={folderKey(path)}
+            textValue={item.label}
+            className={fileTreeItemStyles()}
+          >
+            <TreeItemContent>
+              <Button slot="chevron" className={fileTreeChevronButtonStyles()}>
+                <CaretRightIcon className={fileTreeIconStyles({ kind: 'chevron' })} aria-hidden />
+              </Button>
               <FolderIcon weight="duotone" className={fileTreeIconStyles({ kind: 'folder' })} aria-hidden />
               {item.label}
-            </summary>
-            <div className={fileTreeGroupStyles()}>{render(item.items)}</div>
-          </details>
+            </TreeItemContent>
+            {render(item.items, path)}
+          </TreeItem>
         );
       }
       const { id, muted } = item;
       const interactive = !!onSelect && id !== undefined;
-      const selected = interactive && id === selectedId;
-      const select = () => interactive && onSelect(id);
       return (
-        <div
-          key={i}
-          className={fileTreeFileStyles({ muted, interactive, selected })}
-          {...(interactive && {
-            role: 'button',
-            tabIndex: 0,
-            'aria-current': selected,
-            onClick: select,
-            onKeyDown: (e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                select();
-              }
-            },
-          })}
+        <TreeItem
+          key={id ?? `${parent}/${i}`}
+          id={id ?? `${parent}/${i}`}
+          textValue={item.label}
+          onAction={interactive ? () => onSelect(id) : undefined}
+          className={fileTreeItemStyles({ muted, interactive, selected: interactive && id === selectedId })}
         >
-          {!muted && (
-            <FileIcon className={fileTreeIconStyles({ kind: 'file' })} aria-hidden />
-          )}
-          {item.label}
-        </div>
+          <TreeItemContent>
+            {!muted && <FileIcon className={fileTreeIconStyles({ kind: 'file' })} aria-hidden />}
+            {item.label}
+          </TreeItemContent>
+        </TreeItem>
       );
     });
 
   return (
-    <div {...props} className={fileTreeStyles({ className })}>
+    <Tree
+      {...props}
+      aria-label={ariaLabel}
+      defaultExpandedKeys={defaultExpandedKeys ?? openFolders(items)}
+      className={fileTreeStyles({ className })}
+    >
       {render(items)}
-    </div>
+    </Tree>
   );
 }
