@@ -21,6 +21,7 @@ import {
   BLStack,
   BLTabs,
   BLToast,
+  BLTooltip,
   BLTypography,
   blToastQueue,
   type BLDropdownItem,
@@ -762,6 +763,30 @@ export const demos: Record<string, Demo[]> = {
             ))}
           </BLCluster>
         </>
+      ),
+    },
+  ],
+  tooltip: [
+    {
+      id: 'default.tsx',
+      render: () => (
+        <BLTooltip content="Add a new member">
+          <BLIconButton aria-label="Add member" level="outline">
+            <PlusIcon />
+          </BLIconButton>
+        </BLTooltip>
+      ),
+    },
+    {
+      id: 'placements.tsx',
+      render: () => (
+        <BLCluster gap="3">
+          {(['top', 'right', 'bottom', 'left'] as const).map((placement) => (
+            <BLTooltip key={placement} content={`Tooltip ${placement}`} placement={placement}>
+              <BLButton level="outline">{placement}</BLButton>
+            </BLTooltip>
+          ))}
+        </BLCluster>
       ),
     },
   ],

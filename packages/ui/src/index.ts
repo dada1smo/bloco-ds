@@ -39,3 +39,4 @@ export { BLInput, type BLInputProps } from './input';
 export { BLToast, blToastQueue, type BLToastProps, type BLToastData } from './toast';
 export { BLTabs, type BLTabsProps, type BLTabsItem } from './tabs';
 export { BLBadge, type BLBadgeProps } from './badge';
+export { BLTooltip, type BLTooltipProps } from './tooltip';
