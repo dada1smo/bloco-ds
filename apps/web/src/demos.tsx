@@ -2,12 +2,13 @@ import { FileDashedIcon, GlobeIcon, PlusIcon, UsersIcon } from '@phosphor-icons/
 import type { ReactNode } from 'react';
 import {
   BLAccordion, BLButton, BLButtonGroup, BLCluster, BLDropdown, BLGrid, BLIconButton, BLInput, BLModal, BLSelect, BLSidebar, BLStack,
-  BLTypography, type BLDropdownItem,
+  BLToast, BLTypography, blToastQueue, type BLDropdownItem,
 } from '@bloco/ui';
 
 const levels = ['solid', 'outline', 'subtle'] as const;
 const colors = ['primary', 'accent'] as const;
 const sizes = ['sm', 'md', 'lg'] as const;
+const kinds = ['info', 'success', 'warning', 'error'] as const;
 const typeSet = [
   'heading-07', 'heading-06', 'heading-05', 'heading-04', 'heading-03', 'heading-02', 'heading-01',
   'heading-compact-02', 'heading-compact-01', 'body-02', 'body-01', 'body-compact-02', 'body-compact-01',
@@ -397,6 +398,41 @@ export const demos: Record<string, Demo[]> = {
             { cols: 2, element: <BLButton slot="close">Discard</BLButton> },
           ]}
         />
+      ),
+    },
+  ],
+  toast: [
+    {
+      id: 'default.tsx',
+      render: () => (
+        <>
+          <BLToast />
+          <BLButton
+            level="outline"
+            onPress={() => blToastQueue.add({ title: 'Draft saved', description: 'Your changes are stored.' }, { timeout: 5000 })}
+          >
+            Show toast
+          </BLButton>
+        </>
+      ),
+    },
+    {
+      id: 'kinds.tsx',
+      render: () => (
+        <>
+          <BLToast />
+          <BLCluster gap="3">
+            {kinds.map((kind) => (
+              <BLButton
+                key={kind}
+                level="outline"
+                onPress={() => blToastQueue.add({ title: `${kind[0].toUpperCase()}${kind.slice(1)} toast`, kind }, { timeout: 5000 })}
+              >
+                {kind}
+              </BLButton>
+            ))}
+          </BLCluster>
+        </>
       ),
     },
   ],
