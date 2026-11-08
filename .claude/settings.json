@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm --filter ./packages/ui exec tsc --noEmit*)",
+      "Bash(pnpm --filter ./apps/web exec tsc --noEmit*)",
+      "Bash(pnpm --filter @bloco/web exec tsc --noEmit*)",
+      "Bash(pnpm exec tsc --noEmit*)",
+      "Bash(pnpm -r exec tsc --noEmit*)",
+      "Bash(pnpm build*)",
+      "Bash(pnpm test*)",
+      "Bash(pnpm test:coverage*)",
+      "Bash(pnpm -v)",
+      "Bash(pnpm install*)",
+      "Bash(sed *)",
+      "Bash(perl *)"
+    ]
+  }
+}
