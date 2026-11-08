@@ -32,7 +32,10 @@ Local: `packages/ui/src/{component-name}/`
 ## Antes de começar
 
 1. Se o nome ou os variants não vierem no pedido, pergunte (nome, elemento HTML base, variants e valores).
-2. Leia `packages/ui/src/theme.css` e use apenas tokens existentes (`primary`, `accent`, `on-primary`, `accent-text`, ...). Não invente cores.
+2. Leia os partials em `packages/ui/src/theme/` e use **apenas tokens semânticos** (`primary`, `on-primary`, `accent-text`, `foreground`, `text-body`, ...) — regras em `docs/architecture/theming.md` (ADR 0002):
+   - Proibido em `.styles.ts`: `slate-*`, `amber-*`, `primary-500`, hex, rgb, `[#…]` e opacidade em cor semântica (`/10`, `/70`).
+   - Faltou um token? Crie-o no partial da categoria, com comentário de uma linha dizendo quando usar, a partir da paleta do Tailwind.
+   - Altura de controle e raio usam tokens; gap e padding podem usar a escala do Tailwind.
 3. Confirme que não existe já um componente equivalente em `packages/ui/src`.
 4. **Primitivos primeiro:** sempre tente compor com o que já existe, nesta ordem:
    1. Componentes e primitivos criados dentro do bloco-ds (`packages/ui/src` e demais pacotes em `packages/*`; ex.: `Button`, importado do arquivo interno `../button/Button`).

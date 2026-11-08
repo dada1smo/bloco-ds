@@ -1,0 +1,14 @@
+# Decisões de arquitetura (ADRs)
+
+Uma decisão por arquivo: `NNNN-titulo-em-kebab.md`, numeração sequencial, nunca renumerar.
+Para criar: copie [template.md](template.md).
+
+Status: `Proposta` → `Aceita` → (`Substituída por NNNN` | `Rejeitada`). Um ADR aceito não é editado; mudou a decisão, escreva um novo e marque o antigo como substituído.
+
+## Índice
+
+| # | Decisão | Status |
+|---|---|---|
+| [0001](0001-registrar-decisoes-de-arquitetura.md) | Registrar decisões de arquitetura | Aceita |
+| [0002](0002-tokens-semanticos-sobre-tailwind.md) | Usar tokens semânticos sobre a paleta do Tailwind | Aceita |
+| [0003](0003-react-aria-components-como-base.md) | Usar react-aria-components como base dos componentes | Proposta |

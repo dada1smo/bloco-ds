@@ -14,7 +14,8 @@ pnpm workspace (`packages/*`, `apps/*`). No test runner or linter is configured.
 
 - `packages/ui` (`@bloco/ui`, private, consumed as source: `main` points to `src/index.ts`) — the design system. React 19, Tailwind v4, `class-variance-authority`, Phosphor icons.
 - `apps/web` (`@bloco/web`) — Vite + react-router demo/catalog. `src/demos.tsx` maps `folder -> [{ id, ... }]`; `App.tsx` builds the sidebar file tree from it and routes to `/components/<folder>/<id>`. A new component needs a demo entry here to show up.
-- `packages/ui/src/theme.css` — design tokens (exported as `@bloco/ui/theme.css`). Primary = slate, accent = amber, with semantic tokens (`on-primary`, `accent-text`, …). Use existing tokens only; do not invent colors.
+- `packages/ui/src/theme.css` — design tokens entry (exported as `@bloco/ui/theme.css`); it only imports partials from `packages/ui/src/theme/` (`palette.css`, `color.css`, `typography.css`). Primary = slate, accent = amber.
+- Tokens (ADR 0002, [docs/architecture/theming.md](docs/architecture/theming.md)): components use **only semantic tokens** (`primary`, `on-primary`, `accent-text`, `foreground`, `text-body`, …). No `slate-*`/`amber-*`/`primary-500`, hex, arbitrary colors or opacity modifiers on semantic colors (`/10`, `/70`) in `*.styles.ts`. Missing token → add it to its category partial with a one-line usage comment, from the Tailwind palette. Existing components migrate incrementally when touched.
 
 ### Component conventions (`packages/ui/src/<kebab-name>/`)
 

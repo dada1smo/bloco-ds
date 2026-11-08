@@ -1,75 +1,8 @@
+/* Ponto de entrada dos tokens (ADR 0002). Cada categoria vive num partial em ./theme/. */
 @import "@fontsource-variable/archivo";
 @import "@fontsource/space-mono/400.css";
 @import "@fontsource/space-mono/700.css";
 
-/* Paleta: slate = primary, amber = accent (cores padrão do Tailwind). */
-@theme inline {
-  --color-primary-50: var(--color-slate-50);
-  --color-primary-100: var(--color-slate-100);
-  --color-primary-200: var(--color-slate-200);
-  --color-primary-300: var(--color-slate-300);
-  --color-primary-400: var(--color-slate-400);
-  --color-primary-500: var(--color-slate-500);
-  --color-primary-600: var(--color-slate-600);
-  --color-primary-700: var(--color-slate-700);
-  --color-primary-800: var(--color-slate-800);
-  --color-primary-900: var(--color-slate-900);
-  --color-primary-950: var(--color-slate-950);
-
-  --color-accent-50: var(--color-amber-50);
-  --color-accent-100: var(--color-amber-100);
-  --color-accent-200: var(--color-amber-200);
-  --color-accent-300: var(--color-amber-300);
-  --color-accent-400: var(--color-amber-400);
-  --color-accent-500: var(--color-amber-500);
-  --color-accent-600: var(--color-amber-600);
-  --color-accent-700: var(--color-amber-700);
-  --color-accent-800: var(--color-amber-800);
-  --color-accent-900: var(--color-amber-900);
-  --color-accent-950: var(--color-amber-950);
-
-  /* papéis semânticos: mudam com light/dark */
-  --color-primary: var(--primary);
-  --color-on-primary: var(--on-primary);
-  --color-accent: var(--accent);
-  --color-on-accent: var(--on-accent);
-  --color-accent-text: var(--accent-text);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
-  /* font-sans é o padrão do ds (o preflight aplica no html) */
-  --font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Space Mono", ui-monospace, monospace;
-
-  /* tipografia semântica: gera text-caption, text-body, ... (tamanho + line-height) */
-  --text-caption: var(--text-base);
-  --text-caption--line-height: var(--text-base--line-height);
-  --text-body: var(--text-lg);
-  --text-body--line-height: var(--text-lg--line-height);
-  --text-interactive: var(--text-xl);
-  --text-interactive--line-height: var(--text-xl--line-height);
-  --text-subtitle: var(--text-2xl);
-  --text-subtitle--line-height: var(--text-2xl--line-height);
-  --text-title: var(--text-4xl);
-  --text-title--line-height: var(--text-4xl--line-height);
-  --text-headline: var(--text-8xl);
-  --text-headline--line-height: var(--text-8xl--line-height);
-}
-
-/* Segue o sistema; `.light` / `.dark` no <html> forçam um modo. */
-:root {
-  color-scheme: light dark;
-  --primary: light-dark(var(--color-slate-900), var(--color-slate-100));
-  --on-primary: light-dark(var(--color-slate-50), var(--color-slate-900));
-  --accent: light-dark(var(--color-amber-500), var(--color-amber-400));
-  --on-accent: var(--color-amber-950);
-  --accent-text: light-dark(var(--color-amber-700), var(--color-amber-400));
-  --background: light-dark(var(--color-white), var(--color-slate-950));
-  --foreground: light-dark(var(--color-slate-900), var(--color-slate-50));
-}
-.light {
-  color-scheme: light;
-}
-.dark {
-  color-scheme: dark;
-}
+@import "./theme/palette.css";
+@import "./theme/color.css";
+@import "./theme/typography.css";

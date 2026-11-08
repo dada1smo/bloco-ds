@@ -1,0 +1,35 @@
+/* Tokens semânticos de cor. Componentes usam só estes. */
+@theme inline {
+  /* Ação principal: fundo de botão sólido, foco. */
+  --color-primary: var(--primary);
+  /* Texto e ícone sobre `primary`. */
+  --color-on-primary: var(--on-primary);
+  /* Ação de destaque: fundo de botão accent. */
+  --color-accent: var(--accent);
+  /* Texto e ícone sobre `accent`. */
+  --color-on-accent: var(--on-accent);
+  /* Texto em cor de destaque sobre `background` (contraste garantido). */
+  --color-accent-text: var(--accent-text);
+  /* Fundo da página e das superfícies. */
+  --color-background: var(--background);
+  /* Texto principal. */
+  --color-foreground: var(--foreground);
+}
+
+/* Segue o sistema; `.light` / `.dark` no <html> forçam um modo. */
+:root {
+  color-scheme: light dark;
+  --primary: light-dark(var(--color-slate-900), var(--color-slate-100));
+  --on-primary: light-dark(var(--color-slate-50), var(--color-slate-900));
+  --accent: light-dark(var(--color-amber-500), var(--color-amber-400));
+  --on-accent: var(--color-amber-950);
+  --accent-text: light-dark(var(--color-amber-700), var(--color-amber-400));
+  --background: light-dark(var(--color-white), var(--color-slate-950));
+  --foreground: light-dark(var(--color-slate-900), var(--color-slate-50));
+}
+.light {
+  color-scheme: light;
+}
+.dark {
+  color-scheme: dark;
+}
