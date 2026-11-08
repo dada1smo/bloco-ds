@@ -1,5 +1,6 @@
 import {
   FileDashedIcon,
+  FolderIcon,
   GlobeIcon,
   PlusIcon,
   UsersIcon,
@@ -17,6 +18,8 @@ import {
   BLGrid,
   BLIconButton,
   BLInput,
+  BLNavigationTree,
+  BLNavigationTreeItem,
   BLModal,
   BLSelect,
   BLSidebar,
@@ -424,6 +427,50 @@ export const demos: Record<string, Demo[]> = {
           allowsMultipleExpanded
           items={accordionItems}
         />
+      ),
+    },
+  ],
+  'navigation-tree': [
+    {
+      id: 'default.tsx',
+      render: () => (
+        <BLNavigationTree aria-label="Components" className="w-sidebar">
+          <BLNavigationTreeItem title="Inputs" id="inputs">
+            <BLNavigationTreeItem title="Button" href="/components/button/default.tsx" />
+            <BLNavigationTreeItem title="Checkbox" href="/components/checkbox/default.tsx" />
+          </BLNavigationTreeItem>
+          <BLNavigationTreeItem title="Layout" id="layout">
+            <BLNavigationTreeItem title="Grid" href="/components/grid/default.tsx" />
+          </BLNavigationTreeItem>
+          <BLNavigationTreeItem title="Table" href="/components/table/default.tsx" />
+        </BLNavigationTree>
+      ),
+    },
+    {
+      id: 'current.tsx',
+      render: () => (
+        <BLNavigationTree
+          aria-label="Components"
+          className="w-sidebar"
+          selectedRoute="/components/button/default.tsx"
+          defaultExpandedKeys={['inputs']}
+        >
+          <BLNavigationTreeItem title="Inputs" id="inputs">
+            <BLNavigationTreeItem title="Button" href="/components/button/default.tsx" />
+            <BLNavigationTreeItem title="Checkbox" href="/components/checkbox/default.tsx" />
+          </BLNavigationTreeItem>
+          <BLNavigationTreeItem title="Table" href="/components/table/default.tsx" />
+        </BLNavigationTree>
+      ),
+    },
+    {
+      id: 'icons.tsx',
+      render: () => (
+        <BLNavigationTree aria-label="Components" className="w-sidebar" defaultExpandedKeys={['inputs']}>
+          <BLNavigationTreeItem title="Inputs" id="inputs" icon={<FolderIcon />}>
+            <BLNavigationTreeItem title="Button" href="/components/button/default.tsx" icon={<FileDashedIcon />} />
+          </BLNavigationTreeItem>
+        </BLNavigationTree>
       ),
     },
   ],

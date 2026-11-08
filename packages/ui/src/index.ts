@@ -2,10 +2,11 @@ export { BLButton, type BLButtonProps } from './button';
 export { BLThemeSwitch, type BLTheme } from './theme-switch';
 export { BLTypography, type BLTypographyProps } from './typography';
 export {
-  BLFileTree,
-  type BLFileTreeProps,
-  type BLFileTreeItem,
-} from './file-tree';
+  BLNavigationTree,
+  BLNavigationTreeItem,
+  type BLNavigationTreeProps,
+  type BLNavigationTreeItemProps,
+} from './navigation-tree';
 export {
   BLAccordion,
   type BLAccordionProps,
@@ -48,3 +49,6 @@ export {
 } from './table';
 export { BLCheckbox, type BLCheckboxProps } from './checkbox';
 export { BLForm, type BLFormProps } from './form';
+
+// Wires `href` of BLNavigationTree (and other link components) to a client router.
+export { RouterProvider as BLRouterProvider } from 'react-aria-components';

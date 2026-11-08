@@ -1,26 +1,15 @@
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { BLFileTree, BLSidebar, BLStack, BLThemeSwitch, type BLFileTreeItem } from '@bloco/ui';
+import {
+  BLNavigationTree,
+  BLNavigationTreeItem,
+  BLRouterProvider,
+  BLSidebar,
+  BLStack,
+  BLThemeSwitch,
+} from '@bloco/ui';
 import { demos } from './demos';
 
 const base = '/components';
-
-const items: BLFileTreeItem[] = [
-  {
-    type: 'folder',
-    label: 'components',
-    open: true,
-    items: Object.entries(demos).map(([folder, files]) => ({
-      type: 'folder',
-      label: folder,
-      open: folder === 'button',
-      items: files.map(({ id }) => ({
-        type: 'file',
-        id: `${folder}/${id}`,
-        label: id,
-      })),
-    })),
-  },
-];
 
 export function App() {
   const { pathname } = useLocation();
@@ -32,27 +21,43 @@ export function App() {
         <h1 className="text-heading-04">bloco-ds</h1>
         <BLThemeSwitch />
       </header>
-      <BLSidebar
-        side={
-          <BLFileTree
-            items={items}
-            selectedId={decodeURIComponent(pathname).slice(base.length + 1)}
-            onSelect={(id) => navigate(`${base}/${id}`)}
-          />
-        }
-      >
-        <BLStack gap="4">
-          <Routes>
-            <Route path="/" element={<Navigate to={`${base}/button/levels.tsx`} replace />} />
-            {Object.entries(demos).flatMap(([folder, files]) =>
-              files.map(({ id, render }) => (
-                <Route key={`${folder}/${id}`} path={`${base}/${folder}/${id}`} element={render()} />
-              )),
-            )}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </BLStack>
-      </BLSidebar>
+      <BLRouterProvider navigate={navigate}>
+        <BLSidebar
+          side={
+            <BLNavigationTree
+              aria-label="Components"
+              selectedRoute={pathname}
+              defaultExpandedKeys={['components', pathname.split('/')[2] ?? 'button']}
+            >
+              <BLNavigationTreeItem title="components" id="components">
+                {Object.entries(demos).map(([folder, files]) => (
+                  <BLNavigationTreeItem key={folder} title={folder} id={folder}>
+                    {files.map(({ id }) => (
+                      <BLNavigationTreeItem key={id} title={id} href={`${base}/${folder}/${id}`} />
+                    ))}
+                  </BLNavigationTreeItem>
+                ))}
+              </BLNavigationTreeItem>
+            </BLNavigationTree>
+          }
+        >
+          <BLStack gap="4">
+            <Routes>
+              <Route path="/" element={<Navigate to={`${base}/button/levels.tsx`} replace />} />
+              {Object.entries(demos).flatMap(([folder, files]) =>
+                files.map(({ id, render }) => (
+                  <Route
+                    key={`${folder}/${id}`}
+                    path={`${base}/${folder}/${id}`}
+                    element={render()}
+                  />
+                )),
+              )}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </BLStack>
+        </BLSidebar>
+      </BLRouterProvider>
     </main>
   );
 }

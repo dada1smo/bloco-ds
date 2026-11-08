@@ -10,7 +10,7 @@ Tabela de dados: mostra registros em linhas e atributos em colunas, para ler, co
 ## Quando não usar
 
 - Itens com um único atributo ou conteúdo livre → uma lista simples ou `BLStack`.
-- Estrutura hierárquica → `BLFileTree`.
+- Estrutura hierárquica → `BLNavigationTree`.
 - Alinhar blocos de layout em colunas → `BLGrid`.
 
 ## Semântica e acessibilidade

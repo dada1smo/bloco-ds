@@ -8,7 +8,7 @@ Lista de seções com título que expandem e recolhem o próprio conteúdo. Por 
 
 ## Quando não usar
 
-- Hierarquia navegável (pastas, árvore) → `BLFileTree`.
+- Hierarquia navegável (pastas, árvore) → `BLNavigationTree`.
 - Conteúdo que todo mundo precisa ver → deixe aberto na página.
 - Ações escondidas → `BLDropdown`.
 

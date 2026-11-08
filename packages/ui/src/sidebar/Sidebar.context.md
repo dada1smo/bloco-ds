@@ -28,7 +28,7 @@ Demais props: as de `<div>`; `className` é repassado por último.
 
 ## Composição
 
-- Com `BLFileTree` no `side` e um `BLStack` no conteúdo.
+- Com `BLNavigationTree` no `side` e um `BLStack` no conteúdo.
 - O espaço entre trilho e conteúdo acompanha o gutter do `BLGrid`.
 
 ## Decisões
@@ -38,9 +38,9 @@ Demais props: as de `<div>`; `className` é repassado por último.
 ## Exemplo
 
 ```tsx
-import { BLFileTree, BLSidebar, BLStack } from '@bloco/ui';
+import { BLNavigationTree, BLNavigationTreeItem, BLSidebar, BLStack } from '@bloco/ui';
 
-<BLSidebar side={<nav aria-label="Componentes"><BLFileTree items={items} /></nav>}>
+<BLSidebar side={<nav aria-label="Componentes"><BLNavigationTree><BLNavigationTreeItem title="Button" href="/button" /></BLNavigationTree></nav>}>
   <BLStack>{page}</BLStack>
 </BLSidebar>
 ```

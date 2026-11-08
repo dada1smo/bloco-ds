@@ -9,7 +9,7 @@ Monorepo pnpm (`packages/*`, `apps/*`).
 
 `@bloco/ui` é consumido **como código-fonte**: `main`/`types` apontam para `src/index.ts`, sem etapa de build. Por isso o app usa `@source "../../../packages/ui/src"` no CSS, para o Tailwind enxergar as classes do pacote.
 
-O design system tem três camadas, com dependência só para baixo: **foundations** (tokens), **components** (blocos base) e **patterns** (exemplos de composição, sempre composable) — [ADR 0011](../decisions/0011-tres-camadas-do-design-system.md).
+O design system tem três camadas, com dependência só para baixo: **foundations** (tokens), **components** (blocos base) e **patterns** (exemplos de composição, sempre composable) — [ADR 0011](../decisions/0011-tres-camadas-do-design-system.md). Patterns ficam em `packages/ui/patterns/<nome>/` (`.pattern.md` + `.example.tsx`), fora do `index.ts` — [ADR 0012](../decisions/0012-estrutura-da-camada-de-patterns.md).
 
 Entradas públicas do pacote: `@bloco/ui` (componentes `BL*`) e `@bloco/ui/theme.css` (tokens).
 

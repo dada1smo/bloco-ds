@@ -20,3 +20,4 @@ Status: `Proposta` → `Aceita` → (`Substituída por NNNN` | `Rejeitada`). Um 
 | [0009](0009-documento-de-contexto-por-componente.md) | Manter um documento de contexto por componente | Aceita |
 | [0010](0010-padrao-de-form-fields.md) | Padronizar form fields com FieldLabel, FieldHelperText e FieldFeedback | Aceita |
 | [0011](0011-tres-camadas-do-design-system.md) | Organizar o design system em três camadas: foundations, components e patterns | Aceita |
+| [0012](0012-estrutura-da-camada-de-patterns.md) | Documentar patterns em `packages/ui/patterns/` como markdown com exemplo tipado | Proposta |
