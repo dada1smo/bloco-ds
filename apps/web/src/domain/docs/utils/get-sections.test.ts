@@ -29,8 +29,8 @@ describe('getSections', () => {
     expect(getSections(md)).toEqual({
       intro: 'Dispara uma ação.',
       sections: [
-        { title: 'Quando usar', body: '- Ação na tela.' },
-        { title: 'Decisões', body: 'Texto com ## no meio.' },
+        { id: 'quando-usar', title: 'Quando usar', body: '- Ação na tela.' },
+        { id: 'decisoes', title: 'Decisões', body: 'Texto com ## no meio.' },
       ],
     });
   });

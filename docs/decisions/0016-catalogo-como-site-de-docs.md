@@ -24,19 +24,21 @@ type Doc = {
   layer: 'foundations' | 'components' | 'patterns';
   context?: string; // X.context.md / pattern.md importado com ?raw
   props?: { name; type; default?; description }[];
-  examples: { title; description?; render }[];
+  examples: { title; description?; render; code? }[]; // code = ?raw do arquivo do exemplo
 };
 ```
 
 Cada `Doc` fica no seu próprio arquivo, `domain/docs/data/<layer>/<slug>.tsx`. Constantes usadas por mais de uma página vão para `data/shared.tsx`. `data/docs.ts` registra as páginas na ordem da sidebar.
 
-**Anatomia da página** (`DocsPage`, uma página rolável, sem tabs):
+**Anatomia da página** (`DocsPage`, uma página rolável, sem tabs, no formato de React Aria e Primer):
 
-1. Título.
-2. Intro: o texto do `.md` entre o `# título` e o primeiro `##`.
-3. Exemplos: cada um com título, uma descrição opcional de uma frase e o preview. O primeiro é sempre `Default`.
-4. Props: tabela com prop, tipo, default e descrição.
-5. As seções `##` do `.md` (Quando usar, Quando não usar, Semântica e acessibilidade, Composição, Decisões…), renderizadas como markdown. `API` e `Exemplo` ficam de fora, porque a tabela de props e os exemplos ocupam esse lugar.
+1. Cabeçalho: badge da camada, título, intro (o texto do `.md` entre o `# título` e o primeiro `##`) e, em componentes, o snippet de import com botão de copiar.
+2. Exemplos: cada um com título, uma descrição opcional de uma frase, o preview e, quando houver `code`, o código-fonte com botão de copiar. O primeiro é sempre `Default`. Cada exemplo vive no seu arquivo em `domain/docs/examples/<layer>/<slug>/<nome>.tsx`, importado como componente e com `?raw`, então o código mostrado é o que roda.
+3. Uso: `Quando usar` e `Quando não usar` do `.md` como dois cartões lado a lado (faça / não faça).
+4. As demais seções `##` do `.md` (Semântica e acessibilidade, Composição, Decisões…), na ordem do arquivo. `API` e `Exemplo` ficam de fora, porque a tabela de props e os exemplos ocupam esse lugar.
+5. Props: tabela com prop, tipo, default e descrição.
+
+O índice "Nesta página" fica no `sidebarRight` do `BLAppShell`, com âncoras para os `h2`; `getOutline` gera os ids da página e do índice. Abaixo de `xl` ele some, como toda sidebar direita do shell.
 
 Uma parte sem dados não aparece na página.
 

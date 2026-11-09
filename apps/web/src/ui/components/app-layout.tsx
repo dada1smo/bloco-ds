@@ -11,10 +11,10 @@ function MenuToggle() {
   );
 }
 
-export type AppLayoutProps = { title: string; sidebar: ReactNode; children: ReactNode };
+export type AppLayoutProps = { title: string; sidebar: ReactNode; aside?: ReactNode; children: ReactNode };
 
-// Shell do app: header (menu, título, tema), sidebar recebida pronta e a área de conteúdo.
-export function AppLayout({ title, sidebar, children }: AppLayoutProps) {
+// Shell do app: header (menu, título, tema), sidebar recebida pronta, aside opcional à direita e a área de conteúdo.
+export function AppLayout({ title, sidebar, aside, children }: AppLayoutProps) {
   return (
     <BLAppShell
       header={
@@ -27,6 +27,7 @@ export function AppLayout({ title, sidebar, children }: AppLayoutProps) {
         </BLCluster>
       }
       sidebarLeft={sidebar}
+      sidebarRight={aside}
     >
       <div className="p-6">{children}</div>
     </BLAppShell>

@@ -1,4 +1,5 @@
 import { HeaderExample } from '../../../../../../../packages/ui/patterns/header/Header.example';
+import code from '../../../../../../../packages/ui/patterns/header/Header.example.tsx?raw';
 import type { Doc } from '../../types/doc';
 
 export const headerDoc: Doc = {
@@ -9,6 +10,7 @@ export const headerDoc: Doc = {
     {
       title: 'Default',
       render: () => <HeaderExample />,
+      code,
     },
   ],
 };

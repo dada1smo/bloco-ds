@@ -11,11 +11,21 @@ O catálogo segue a [ADR 0016](../../../docs/decisions/0016-catalogo-como-site-d
 apps/web/src/domain/docs/
   types/doc.ts                 Doc, DocExample, DocProp
   data/<layer>/<slug>.tsx      um Doc por arquivo (layer: foundations | components | patterns)
+  examples/<layer>/<slug>/<nome>.tsx   um exemplo por arquivo; o código dele aparece na página
   data/shared.tsx              constantes usadas por mais de uma página
   data/docs.ts                 registro: ordem da sidebar
 ```
 
-O template já monta a página: título, intro e seções do `.md`, exemplos e props. A skill só escreve o `Doc`; não mexa em `DocsPage` para atender um componente.
+O template já monta a página, no formato de React Aria e Primer:
+
+- Cabeçalho: badge da camada, título, intro do `.md` e, em componentes, o snippet `import { BL{title} } from '@bloco/ui'`.
+- Exemplos: preview e, abaixo dele, o código-fonte com botão de copiar.
+- Uso: `## Quando usar` e `## Quando não usar` do context como cartões faça / não faça. Use esses títulos exatos; outro título vira uma seção comum.
+- Demais seções do `.md`, na ordem do arquivo.
+- Props por último.
+- Índice "Nesta página" no `sidebarRight` do shell.
+
+A skill só escreve o `Doc` e os arquivos de exemplo. Não mexa em `DocsPage` para atender um componente.
 
 ## Antes de escrever
 
@@ -26,24 +36,27 @@ O template já monta a página: título, intro e seções do `.md`, exemplos e p
 ## O arquivo do `Doc`
 
 ```tsx
-import { BLInput, BLCluster } from '@bloco/ui';
 import context from '../../../../../../../packages/ui/src/input/Input.context.md?raw';
+import { InputDefault } from '../../examples/components/input/default';
+import defaultCode from '../../examples/components/input/default?raw';
 import type { Doc } from '../../types/doc';
 
 export const inputDoc: Doc = {
   slug: 'input',          // pasta do componente, kebab-case
-  title: 'Input',         // PascalCase, sem BL; é o nome na sidebar
+  title: 'Input',         // PascalCase, sem BL; é o nome na sidebar e o do snippet de import
   layer: 'components',
   context,
   props: [ /* ver Props */ ],
-  examples: [ /* ver Exemplos */ ],
+  examples: [
+    { title: 'Default', render: () => <InputDefault />, code: defaultCode },
+  ],
 };
 ```
 
 - Nome do export: `{camelSlug}Doc`.
 - Página nova: crie o arquivo e registre o `Doc` em `data/docs.ts`, na posição da ordem de `packages/ui/src/index.ts` dentro da camada.
 - `context`: import com `?raw` do `.md` do item (pattern: `packages/ui/patterns/{name}/{name}.pattern.md`). As seções `API` e `Exemplo` não aparecem na página, porque `props` e `examples` ocupam esse lugar.
-- Pattern: o exemplo `Default` renderiza `<{PatternName}Example />`, importado por caminho relativo; não há `props`.
+- Pattern: o exemplo `Default` renderiza `<{PatternName}Example />` e usa como `code` o `{PatternName}.example.tsx?raw`, ambos importados por caminho relativo. Não há `props` nem arquivo em `examples/`.
 
 ## Props
 
@@ -80,6 +93,29 @@ Regras:
 - Cada exemplo cabe numa tela e não depende de outro.
 - Exemplos migrados do catálogo antigo que fogem destas regras (como `div` com `flex` em Button) são corrigidos ao refazer a página.
 
+## Arquivo do exemplo
+
+Cada exemplo de componente fica em `examples/components/<slug>/<nome>.tsx`, com nome em kebab-case do `title` (`default.tsx`, `levels.tsx`, `with-icon.tsx`). O arquivo é importado duas vezes no `Doc`: como componente, em `render`, e com `?raw`, em `code`. A página mostra o arquivo inteiro, então ele é escrito para ser copiado:
+
+```tsx
+import { BLButton, BLCluster } from '@bloco/ui';
+
+export function ButtonSizes() {
+  return (
+    <BLCluster gap="2">
+      <BLButton size="sm">Small</BLButton>
+      <BLButton size="md">Medium</BLButton>
+      <BLButton size="lg">Large</BLButton>
+    </BLCluster>
+  );
+}
+```
+
+- Um export nomeado `{Title}{Exemplo}` (`ButtonSizes`), sem props.
+- Autocontido: importa só `@bloco/ui`, `@phosphor-icons/react` e `react`. Não importa `../shared` nem outro exemplo. Por isso, prefira valores literais a `.map` sobre constantes: o código fica mais legível.
+- Estado (`useState`) e handlers ficam dentro do componente do exemplo.
+- Foundations (tabelas de tokens) podem ficar com `render` inline e sem `code`, porque o código delas não é para copiar.
+
 ## Layout dos exemplos
 
 Componha **sempre** com os componentes de layout do DS (ADR 0008). Nunca use `div` com `flex`/`grid`/`gap-*` à mão:
@@ -94,7 +130,7 @@ Componha **sempre** com os componentes de layout do DS (ADR 0008). Nunca use `di
 
 ## Dados
 
-- Constantes usadas por mais de uma página ficam em `data/shared.tsx`. As de uma página só ficam no arquivo dela.
+- Constantes usadas por mais de uma página de foundations ficam em `data/shared.tsx`. Exemplos de componente não usam `shared`, porque são autocontidos.
 - Textos dos exemplos em inglês, curtos e realistas (`Country`, `Brazil`). Títulos e descrições dos exemplos também em inglês. O conteúdo do context continua no idioma dele.
 
 ## Verificação
@@ -104,6 +140,8 @@ Componha **sempre** com os componentes de layout do DS (ADR 0008). Nunca use `di
   - a sidebar mostra o `title`;
   - a intro e as seções do context aparecem;
   - a tabela de props bate com `X.tsx`;
-  - cada exemplo carrega sem erro no console;
+  - cada exemplo carrega sem erro no console, e o código mostrado embaixo é o do arquivo;
+  - o índice à direita lista as seções, e as âncoras rolam até elas;
+  - `Quando usar` / `Quando não usar` aparecem como cartões;
   - foco e teclado funcionam nos exemplos interativos.
 - O `{ComponentName}.context.md` e a página citam os mesmos recursos.

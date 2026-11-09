@@ -2,7 +2,8 @@ import type { ReactNode } from 'react';
 
 export type DocLayer = 'foundations' | 'components' | 'patterns';
 
-export type DocExample = { title: string; description?: string; render: () => ReactNode };
+// `code`: o `?raw` do arquivo do exemplo, mostrado abaixo do preview.
+export type DocExample = { title: string; description?: string; render: () => ReactNode; code?: string };
 
 export type DocProp = { name: string; type: string; default?: string; description: string };
 

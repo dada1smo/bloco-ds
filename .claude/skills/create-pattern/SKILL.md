@@ -93,4 +93,4 @@ Seções sem conteúdo real (ex.: "Variações") podem ser omitidas; as demais f
 - Os links para `X.context.md` e ADRs abrem (o arquivo está em `packages/ui/patterns/{pattern-name}/`, então `../../src/` e `../../../../docs/decisions/`).
 - O trecho do `.pattern.md` bate com o `.example.tsx`.
 - `pnpm --filter ./packages/ui exec tsc --noEmit` e `pnpm build` passam.
-- A demo aparece em `/components/patterns/{pattern-name}.tsx` no `pnpm dev`.
+- A página aparece em `/patterns/{pattern-name}` no `pnpm dev`, com o código do `.example.tsx` abaixo do preview (`code` = o `.example.tsx` com `?raw`, ver `/create-component-docs`).
