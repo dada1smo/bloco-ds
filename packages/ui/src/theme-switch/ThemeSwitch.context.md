@@ -1,6 +1,6 @@
 # BLThemeSwitch
 
-Botão que alterna entre tema claro e escuro da aplicação inteira e lembra a escolha.
+Botão de ícone que alterna entre tema claro e escuro da aplicação inteira e lembra a escolha.
 
 ## Quando usar
 
@@ -8,12 +8,12 @@ Botão que alterna entre tema claro e escuro da aplicação inteira e lembra a e
 
 ## Quando não usar
 
-- Alternar qualquer outro estado → `BLButton` com estado próprio.
+- Alternar qualquer outro estado → `BLIconButton` com estado próprio.
 
 ## Semântica e acessibilidade
 
-- Elemento: `<button>` via `BLButton`.
-- O texto mostra o tema atual ("Claro"/"Escuro"); o `aria-label` descreve a ação ("Mudar para tema escuro"). Ambos em português, fixos.
+- Elemento: `<button>` via `BLIconButton`.
+- O ícone mostra o tema atual (sol = claro, lua = escuro); o `aria-label` descreve a ação ("Mudar para tema escuro"), em português, fixo.
 
 ## Comportamento
 
@@ -22,7 +22,7 @@ Botão que alterna entre tema claro e escuro da aplicação inteira e lembra a e
 
 ## API
 
-Props do `BLButton` (exceto `as`). `onPress` é chamado antes da troca de tema. O `level` padrão é `outline`.
+Props do `BLButton` (exceto `as` e `children`). `onPress` é chamado antes da troca de tema. O padrão é `level="subtle"` e `color="accent"`.
 
 ## Exemplo
 

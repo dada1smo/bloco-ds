@@ -1,5 +1,5 @@
 export { BLButton, type BLButtonProps } from './button';
-export { BLThemeSwitch, type BLTheme } from './theme-switch';
+export { BLThemeSwitch, type BLTheme, type BLThemeSwitchProps } from './theme-switch';
 export { BLTypography, type BLTypographyProps } from './typography';
 export {
   BLNavigationTree,

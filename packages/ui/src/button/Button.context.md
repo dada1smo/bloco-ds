@@ -1,6 +1,6 @@
 # BLButton
 
-Dispara uma ação ou navega. É o controle pressionável base do DS: os outros componentes que precisam de um botão (`BLIconButton`, `BLThemeSwitch`, o gatilho do `BLDropdown`) são construídos sobre ele.
+Dispara uma ação ou navega. É o controle pressionável base do DS: os outros componentes que precisam de um botão (`BLIconButton`, o gatilho do `BLDropdown`) são construídos sobre ele.
 
 ## Quando usar
 

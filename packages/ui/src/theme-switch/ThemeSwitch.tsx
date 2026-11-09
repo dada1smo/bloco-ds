@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Button, type ButtonProps } from '../button/Button';
+import { MoonIcon, SunIcon } from '@phosphor-icons/react';
+import type { ButtonProps } from '../button/Button';
+import { IconButton } from '../icon-button/IconButton';
 
 export type Theme = 'light' | 'dark';
 
@@ -11,7 +13,9 @@ function getInitialTheme(): Theme {
   return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
-export function ThemeSwitch({ onPress, ...props }: Extract<ButtonProps, { as?: 'button' }>) {
+export type ThemeSwitchProps = Omit<Extract<ButtonProps, { as?: 'button' }>, 'children'>;
+
+export function ThemeSwitch({ onPress, ...props }: ThemeSwitchProps) {
   const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
   useEffect(() => {
@@ -21,10 +25,12 @@ export function ThemeSwitch({ onPress, ...props }: Extract<ButtonProps, { as?: '
   }, [theme]);
 
   const next = theme === 'dark' ? 'light' : 'dark';
+  const Icon = theme === 'dark' ? MoonIcon : SunIcon;
 
   return (
-    <Button
-      level="outline"
+    <IconButton
+      level="subtle"
+      color="accent"
       aria-label={`Mudar para tema ${next === 'dark' ? 'escuro' : 'claro'}`}
       {...props}
       onPress={(e) => {
@@ -32,7 +38,7 @@ export function ThemeSwitch({ onPress, ...props }: Extract<ButtonProps, { as?: '
         setTheme(next);
       }}
     >
-      {theme === 'dark' ? 'Escuro' : 'Claro'}
-    </Button>
+      <Icon aria-hidden />
+    </IconButton>
   );
 }

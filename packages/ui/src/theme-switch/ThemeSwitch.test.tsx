@@ -16,7 +16,7 @@ describe('ThemeSwitch', () => {
   it('starts from the system preference when nothing is stored', () => {
     prefersDark(true);
     render(<ThemeSwitch />);
-    expect(screen.getByRole('button', { name: 'Mudar para tema claro' })).toHaveTextContent('Escuro');
+    expect(screen.getByRole('button', { name: 'Mudar para tema claro' })).toBeInTheDocument();
     expect(document.documentElement).toHaveClass('dark');
   });
 
@@ -24,7 +24,7 @@ describe('ThemeSwitch', () => {
     prefersDark(true);
     localStorage.setItem('theme', 'light');
     render(<ThemeSwitch />);
-    expect(screen.getByRole('button')).toHaveTextContent('Claro');
+    expect(screen.getByRole('button', { name: 'Mudar para tema escuro' })).toBeInTheDocument();
   });
 
   it('toggles, persists the theme and calls onPress', async () => {
@@ -36,6 +36,6 @@ describe('ThemeSwitch', () => {
     expect(localStorage.getItem('theme')).toBe('dark');
     expect(document.documentElement).toHaveClass('dark');
     expect(document.documentElement).not.toHaveClass('light');
-    expect(screen.getByRole('button')).toHaveTextContent('Escuro');
+    expect(screen.getByRole('button', { name: 'Mudar para tema claro' })).toBeInTheDocument();
   });
 });
