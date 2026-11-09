@@ -1,52 +1,43 @@
 import { render, screen, within } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { describe, expect, it, vi } from 'vitest';
-import { Table } from './Table';
+import { describe, expect, it } from 'vitest';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './Table';
 
-const columns = [
-  { id: 'name', title: 'Name', isRowHeader: true, allowsSorting: true },
-  { id: 'role', title: 'Role' },
-];
-const rows = [
-  { id: 'ana', name: 'Ana', role: 'Designer' },
-  { id: 'bruno', name: 'Bruno', role: 'Engineer' },
-];
+function Team({ className }: { className?: string }) {
+  return (
+    <Table aria-label="Team" className={className}>
+      <TableHead>
+        <TableRow>
+          <TableHeader>Name</TableHeader>
+          <TableHeader>Role</TableHeader>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TableHeader scope="row">Ana</TableHeader>
+          <TableCell>Designer</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  );
+}
 
 describe('Table', () => {
-  it('renders columns, rows and row headers', () => {
-    render(<Table aria-label="Team" columns={columns} rows={rows} />);
-    expect(screen.getByRole('grid', { name: 'Team' })).toBeInTheDocument();
-    expect(screen.getAllByRole('columnheader').map((c) => c.textContent)).toEqual(['Name', 'Role']);
-    expect(screen.getByRole('rowheader', { name: 'Ana' })).toBeInTheDocument();
-    expect(within(screen.getAllByRole('row')[2]).getByRole('gridcell')).toHaveTextContent('Engineer');
+  it('renders a static native table', () => {
+    render(<Team />);
+    const table = screen.getByRole('table', { name: 'Team' });
+    expect(within(table).getAllByRole('columnheader').map((c) => c.textContent)).toEqual(['Name', 'Role']);
+    expect(within(table).getByRole('rowheader', { name: 'Ana' })).toBeInTheDocument();
+    expect(within(table).getByRole('cell', { name: 'Designer' })).toBeInTheDocument();
   });
 
-  it('reports sort changes and shows the sort direction', async () => {
-    const onSortChange = vi.fn();
-    render(
-      <Table
-        aria-label="Team"
-        columns={columns}
-        rows={rows}
-        sortDescriptor={{ column: 'name', direction: 'ascending' }}
-        onSortChange={onSortChange}
-      />,
-    );
-    const name = screen.getByRole('columnheader', { name: 'Name' });
-    expect(name).toHaveAttribute('aria-sort', 'ascending');
-    await userEvent.click(name);
-    expect(onSortChange).toHaveBeenCalledWith({ column: 'name', direction: 'descending' });
-  });
-
-  it('moves focus between cells with arrow keys', async () => {
-    render(<Table aria-label="Team" columns={columns} rows={rows} />);
-    await userEvent.tab();
-    await userEvent.keyboard('{ArrowDown}');
-    expect(screen.getAllByRole('row')[2]).toHaveFocus();
+  it('is not a keyboard stop', () => {
+    render(<Team />);
+    expect(screen.queryByRole('grid')).not.toBeInTheDocument();
+    expect(screen.getByRole('table')).not.toHaveAttribute('tabindex');
   });
 
   it('passes className to the root', () => {
-    render(<Table aria-label="Team" columns={columns} rows={rows} className="consumer" />);
-    expect(screen.getByRole('grid').parentElement).toHaveClass('consumer');
+    render(<Team className="consumer" />);
+    expect(screen.getByRole('table').parentElement).toHaveClass('consumer');
   });
 });

@@ -1,8 +1,17 @@
 import ReactMarkdown, { type Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { BLStack, BLTypography } from '@bloco/ui';
+import {
+  BLStack,
+  BLTable,
+  BLTableBody,
+  BLTableCell,
+  BLTableHead,
+  BLTableHeader,
+  BLTableRow,
+  BLTypography,
+} from '@bloco/ui';
 
-// Elementos do markdown -> tipografia do DS. Tabelas GFM viram tabela nativa com tokens.
+// Elementos do markdown -> tipografia do DS. Tabelas GFM viram BLTable.
 const components: Components = {
   h2: ({ children }) => <BLTypography as="h2" variant="heading-04">{children}</BLTypography>,
   h3: ({ children }) => <BLTypography as="h3" variant="heading-02">{children}</BLTypography>,
@@ -20,9 +29,12 @@ const components: Components = {
       {children}
     </a>
   ),
-  table: ({ children }) => <table className="w-full border-collapse text-left text-body-compact-01 text-primary">{children}</table>,
-  th: ({ children }) => <th className="border-b border-strong py-2 pr-4 text-heading-compact-01">{children}</th>,
-  td: ({ children }) => <td className="border-b border-subtle py-2 pr-4 align-top">{children}</td>,
+  table: ({ children }) => <BLTable>{children}</BLTable>,
+  thead: ({ children }) => <BLTableHead>{children}</BLTableHead>,
+  tbody: ({ children }) => <BLTableBody>{children}</BLTableBody>,
+  tr: ({ children }) => <BLTableRow>{children}</BLTableRow>,
+  th: ({ children }) => <BLTableHeader>{children}</BLTableHeader>,
+  td: ({ children }) => <BLTableCell>{children}</BLTableCell>,
 };
 
 export function Markdown({ children }: { children: string }) {

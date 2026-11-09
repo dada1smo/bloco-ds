@@ -12,7 +12,7 @@ Superfície que agrupa conteúdo relacionado sobre um mesmo assunto (um projeto,
 - O card inteiro leva a outra página, sem ações internas → `BLAnchorCard`.
 - Conteúdo que expande e recolhe → `BLAccordion`.
 - Diálogo ou confirmação → `BLModal`.
-- Dados tabulares comparáveis entre linhas → `BLTable`.
+- Dados tabulares comparáveis entre linhas → `BLTable` (leitura) ou `BLRichTable` (ordenar, selecionar).
 - Só para dar espaçamento ou colunas → `BLStack`, `BLCluster`, `BLGrid`.
 
 ## Semântica e acessibilidade

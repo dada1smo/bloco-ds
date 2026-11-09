@@ -1,15 +1,17 @@
-import { BLStack, BLTable, BLTypography } from '@bloco/ui';
+import {
+  BLStack,
+  BLTable,
+  BLTableBody,
+  BLTableCell,
+  BLTableHead,
+  BLTableHeader,
+  BLTableRow,
+  BLTypography,
+} from '@bloco/ui';
 import { Markdown } from '@/ui/components/markdown';
 import { Preview } from '@/ui/components/preview';
 import type { Doc } from '../types/doc';
 import { getSections } from '../utils/get-sections';
-
-const propColumns = [
-  { id: 'name', title: 'Prop', isRowHeader: true },
-  { id: 'type', title: 'Tipo' },
-  { id: 'default', title: 'Default' },
-  { id: 'description', title: 'Descrição' },
-];
 
 const code = (text?: string) =>
   text && (
@@ -51,17 +53,26 @@ export function DocsPage({ doc }: { doc: Doc }) {
           <BLTypography as="h2" variant="heading-04">
             Props
           </BLTypography>
-          <BLTable
-            aria-label={`Props de ${doc.title}`}
-            columns={propColumns}
-            rows={doc.props.map((p) => ({
-              id: p.name,
-              name: code(p.name),
-              type: code(p.type),
-              default: code(p.default) ?? '—',
-              description: p.description,
-            }))}
-          />
+          <BLTable aria-label={`Props de ${doc.title}`}>
+            <BLTableHead>
+              <BLTableRow>
+                <BLTableHeader>Prop</BLTableHeader>
+                <BLTableHeader>Tipo</BLTableHeader>
+                <BLTableHeader>Default</BLTableHeader>
+                <BLTableHeader>Descrição</BLTableHeader>
+              </BLTableRow>
+            </BLTableHead>
+            <BLTableBody>
+              {doc.props.map((p) => (
+                <BLTableRow key={p.name}>
+                  <BLTableHeader scope="row">{code(p.name)}</BLTableHeader>
+                  <BLTableCell>{code(p.type)}</BLTableCell>
+                  <BLTableCell>{code(p.default) ?? '—'}</BLTableCell>
+                  <BLTableCell>{p.description}</BLTableCell>
+                </BLTableRow>
+              ))}
+            </BLTableBody>
+          </BLTable>
         </BLStack>
       )}
 

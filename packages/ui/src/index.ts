@@ -51,10 +51,24 @@ export { BLAnchorCard, type BLAnchorCardProps } from './anchor-card';
 export { BLTooltip, type BLTooltipProps } from './tooltip';
 export {
   BLTable,
+  BLTableHead,
+  BLTableBody,
+  BLTableRow,
+  BLTableHeader,
+  BLTableCell,
   type BLTableProps,
-  type BLTableColumn,
-  type BLTableRow,
+  type BLTableHeadProps,
+  type BLTableBodyProps,
+  type BLTableRowProps,
+  type BLTableHeaderProps,
+  type BLTableCellProps,
 } from './table';
+export {
+  BLRichTable,
+  type BLRichTableProps,
+  type BLRichTableColumn,
+  type BLRichTableRow,
+} from './rich-table';
 export { BLCheckbox, type BLCheckboxProps } from './checkbox';
 export { BLSwitch, type BLSwitchProps } from './switch';
 export { BLForm, type BLFormProps } from './form';

@@ -1,58 +1,19 @@
-import { useState } from 'react';
-import { BLBadge, BLStack, BLTable, BLTypography, type BLTableRow } from '@bloco/ui';
+import {
+  BLBadge,
+  BLTable,
+  BLTableBody,
+  BLTableCell,
+  BLTableHead,
+  BLTableHeader,
+  BLTableRow,
+} from '@bloco/ui';
 import type { Doc } from '../../types/doc';
-import { sizes } from '../shared';
 
-const tableColumns = [
-  { id: 'name', title: 'Name', isRowHeader: true, allowsSorting: true },
-  { id: 'role', title: 'Role', allowsSorting: true },
-  { id: 'status', title: 'Status' },
+const members = [
+  { name: 'Ana Souza', role: 'Designer', status: <BLBadge status="success">Active</BLBadge> },
+  { name: 'Bruno Lima', role: 'Engineer', status: <BLBadge status="warning">Invited</BLBadge> },
+  { name: 'Carla Dias', role: 'Product manager', status: <BLBadge>Inactive</BLBadge> },
 ];
-
-const tableRows: BLTableRow[] = [
-  {
-    id: '1',
-    name: 'Ana Souza',
-    role: 'Designer',
-    status: <BLBadge status="success">Active</BLBadge>,
-  },
-  {
-    id: '2',
-    name: 'Bruno Lima',
-    role: 'Engineer',
-    status: <BLBadge status="warning">Invited</BLBadge>,
-  },
-  {
-    id: '3',
-    name: 'Carla Dias',
-    role: 'Product manager',
-    status: <BLBadge>Inactive</BLBadge>,
-  },
-];
-
-function SortableTable() {
-  const [sort, setSort] = useState<{
-    column: string | number;
-    direction: 'ascending' | 'descending';
-  }>({
-    column: 'name',
-    direction: 'ascending',
-  });
-  const rows = [...tableRows].sort((a, b) => {
-    const order = String(a[sort.column]).localeCompare(String(b[sort.column]));
-    return sort.direction === 'ascending' ? order : -order;
-  });
-  return (
-    <BLTable
-      className="max-w-reading"
-      aria-label="Team members"
-      columns={tableColumns}
-      rows={rows}
-      sortDescriptor={sort}
-      onSortChange={setSort}
-    />
-  );
-}
 
 export const tableDoc: Doc = {
   slug: 'table',
@@ -61,39 +22,27 @@ export const tableDoc: Doc = {
   examples: [
     {
       title: 'Default',
+      description: 'Static, read-only table. For sorting or row selection, use RichTable.',
       render: () => (
-        <BLTable
-          className="max-w-reading"
-          aria-label="Team members"
-          columns={tableColumns}
-          rows={tableRows}
-        />
+        <BLTable className="max-w-reading" aria-label="Team members">
+          <BLTableHead>
+            <BLTableRow>
+              <BLTableHeader>Name</BLTableHeader>
+              <BLTableHeader>Role</BLTableHeader>
+              <BLTableHeader>Status</BLTableHeader>
+            </BLTableRow>
+          </BLTableHead>
+          <BLTableBody>
+            {members.map((m) => (
+              <BLTableRow key={m.name}>
+                <BLTableHeader scope="row">{m.name}</BLTableHeader>
+                <BLTableCell>{m.role}</BLTableCell>
+                <BLTableCell>{m.status}</BLTableCell>
+              </BLTableRow>
+            ))}
+          </BLTableBody>
+        </BLTable>
       ),
-    },
-    {
-      title: 'Sizes',
-      render: () => (
-        <BLStack gap="6">
-          {sizes.map((size) => (
-            <BLStack key={size} gap="2">
-              <BLTypography variant="code-01" font="mono">
-                {size}
-              </BLTypography>
-              <BLTable
-                className="max-w-reading"
-                aria-label={`Team members, ${size}`}
-                size={size}
-                columns={tableColumns}
-                rows={tableRows}
-              />
-            </BLStack>
-          ))}
-        </BLStack>
-      ),
-    },
-    {
-      title: 'Sortable',
-      render: () => <SortableTable />,
     },
   ],
 };

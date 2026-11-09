@@ -1,61 +1,67 @@
 # BLTable
 
-Tabela de dados: mostra registros em linhas e atributos em colunas, para ler, comparar e ordenar valores.
+Tabela estática: apresenta conteúdo tabular só para leitura, em linhas e colunas, com o `<table>` nativo.
 
 ## Quando usar
 
-- Listas de registros com os mesmos atributos (membros, pedidos, arquivos) que o usuário compara linha a linha.
-- O usuário precisa ordenar por uma coluna.
+- Referência e documentação: tabela de props, tokens, atalhos, comparativos.
+- Conteúdo vindo de markdown ou de outra fonte que já chega como linhas e células.
+- Qualquer tabela em que o usuário só lê; não ordena, não seleciona e não age sobre linhas.
 
 ## Quando não usar
 
-- Itens com um único atributo ou conteúdo livre → uma lista simples ou `BLStack`.
-- Estrutura hierárquica → `BLNavigationTree`.
+- Ordenar, selecionar linhas ou navegar célula a célula pelo teclado → `BLRichTable`.
+- Itens com um único atributo → uma lista simples ou `BLStack`.
 - Alinhar blocos de layout em colunas → `BLGrid`.
 
 ## Semântica e acessibilidade
 
-- Elementos: RAC `Table` (`<table>` com role `grid`), `columnheader`, `row`, `gridcell`; a coluna com `isRowHeader` vira `rowheader` e nomeia a linha para leitores de tela.
-- Teclado: Tab entra na tabela; setas movem entre linhas e células; Enter/Espaço numa coluna ordenável alterna a ordem. Colunas ordenadas expõem `aria-sort`.
-- Do consumidor: `aria-label` quando não há título visível; marcar uma coluna com `isRowHeader`.
+- Elementos nativos: `BLTable` → `<table>` (role `table`), `BLTableHead` → `<thead>`, `BLTableBody` → `<tbody>`, `BLTableRow` → `<tr>`, `BLTableHeader` → `<th>`, `BLTableCell` → `<td>`.
+- Não é interativa: não entra na ordem de Tab; leitores de tela navegam com os comandos de tabela deles.
+- Do consumidor: `aria-label` ou `<caption>` quando não há título visível; `BLTableHeader` com `scope="row"` na célula que nomeia a linha.
 
 ## API
 
-| Prop | Valores (default) | Significado |
-|---|---|---|
-| `columns` | `{ id, title, isRowHeader?, allowsSorting? }[]` | Colunas, na ordem de exibição. `allowsSorting` torna o cabeçalho clicável para ordenar. |
-| `rows` | `{ id, [columnId]: ReactNode }[]` | Uma entrada por linha; cada chave com o `id` de uma coluna é o conteúdo da célula. |
-| `size` | `sm` \| `md` \| `lg` (`lg`) | Altura das linhas: `sm` para tabelas densas, `lg` para leitura confortável. |
-| `sortDescriptor` / `onSortChange` | `{ column, direction }` | Ordenação controlada: a tabela só informa a mudança; quem usa ordena `rows` e devolve o descritor. |
-| `aria-label` | string | Nome acessível da tabela. |
+Composição por partes, uma para cada elemento nativo; cada parte aceita os atributos do elemento correspondente e `className`.
 
-Demais props: as do RAC `Table` (ex.: `selectionMode`, `onRowAction`); `className` vai para o contêiner raiz.
+| Parte | Significado |
+|---|---|
+| `BLTable` | Raiz. `className` vai para o contêiner que rola na horizontal; demais props vão para o `<table>`. |
+| `BLTableHead` / `BLTableBody` | Grupo de cabeçalho e grupo de dados. |
+| `BLTableRow` | Uma linha. |
+| `BLTableHeader` | Célula de cabeçalho: de coluna dentro de `BLTableHead`, de linha com `scope="row"`. |
+| `BLTableCell` | Célula de dado. |
 
 ## Composição
 
-- Células aceitam qualquer nó: `BLBadge` para status, `BLIconButton` ou `BLDropdown` para ações da linha.
+- Células aceitam qualquer nó (`BLBadge`, código, links).
 - A tabela rola na horizontal dentro do próprio contêiner quando não cabe; a largura vem do pai.
+- Mapeia um para um com o markdown GFM (`table`, `thead`, `tbody`, `tr`, `th`, `td`).
 
 ## Decisões
 
-- API por dados (`columns`/`rows`), como `BLTabs`, para manter o markup do RAC interno.
-- Do Carbon, ficaram só tamanhos e ordenação. Seleção por checkbox, linhas expansíveis, zebra, toolbar, busca e paginação ficaram de fora; `selectionMode` do RAC funciona por clique, mas sem checkbox.
-- Ordenação não ordena os dados sozinha: a regra de ordem (texto, número, data) é do consumidor.
+- Separada de `BLRichTable` porque tabela de leitura não deve ser um `grid` interativo: vira parada de teclado e muda o que o leitor de tela anuncia.
+- API por composição, e não por dados, para receber conteúdo que já chega como elementos (markdown) e manter o HTML nativo.
+- É a base visual das tabelas do DS: `BLRichTable` reaproveita estes estilos e só soma os estados interativos.
+- Sem tamanhos por enquanto: usa a altura de linha padrão (a maior), pensada para leitura.
 
 ## Exemplo
 
 ```tsx
-import { BLTable } from '@bloco/ui';
+import { BLTable, BLTableBody, BLTableCell, BLTableHead, BLTableHeader, BLTableRow } from '@bloco/ui';
 
-<BLTable
-  aria-label="Team members"
-  columns={[
-    { id: 'name', title: 'Name', isRowHeader: true },
-    { id: 'role', title: 'Role' },
-  ]}
-  rows={[
-    { id: '1', name: 'Ana Souza', role: 'Designer' },
-    { id: '2', name: 'Bruno Lima', role: 'Engineer' },
-  ]}
-/>
+<BLTable aria-label="Team members">
+  <BLTableHead>
+    <BLTableRow>
+      <BLTableHeader>Name</BLTableHeader>
+      <BLTableHeader>Role</BLTableHeader>
+    </BLTableRow>
+  </BLTableHead>
+  <BLTableBody>
+    <BLTableRow>
+      <BLTableHeader scope="row">Ana Souza</BLTableHeader>
+      <BLTableCell>Designer</BLTableCell>
+    </BLTableRow>
+  </BLTableBody>
+</BLTable>
 ```

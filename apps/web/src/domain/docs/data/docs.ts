@@ -25,6 +25,7 @@ import { anchorCardDoc } from './components/anchor-card';
 import { toastDoc } from './components/toast';
 import { tooltipDoc } from './components/tooltip';
 import { tableDoc } from './components/table';
+import { richTableDoc } from './components/rich-table';
 import { typographyDoc } from './components/typography';
 import { headerDoc } from './patterns/header';
 import type { Doc } from '../types/doc';
@@ -58,6 +59,7 @@ export const docs: Doc[] = [
   toastDoc,
   tooltipDoc,
   tableDoc,
+  richTableDoc,
   typographyDoc,
   headerDoc,
 ];
