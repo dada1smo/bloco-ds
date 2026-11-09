@@ -1,6 +1,7 @@
 import ReactMarkdown, { type Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import {
+  BLLink,
   BLStack,
   BLTable,
   BLTableBody,
@@ -24,11 +25,7 @@ const components: Components = {
     </BLTypography>
   ),
   pre: ({ children }) => <pre className="overflow-x-auto bg-layer-01 p-4">{children}</pre>,
-  a: ({ children, href }) => (
-    <a className="text-link-primary underline" href={href}>
-      {children}
-    </a>
-  ),
+  a: ({ children, href }) => <BLLink href={href}>{children}</BLLink>,
   table: ({ children }) => <BLTable>{children}</BLTable>,
   thead: ({ children }) => <BLTableHead>{children}</BLTableHead>,
   tbody: ({ children }) => <BLTableBody>{children}</BLTableBody>,

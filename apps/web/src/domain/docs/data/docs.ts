@@ -22,6 +22,7 @@ import { tabsDoc } from './components/tabs';
 import { badgeDoc } from './components/badge';
 import { cardDoc } from './components/card';
 import { anchorCardDoc } from './components/anchor-card';
+import { linkDoc } from './components/link';
 import { toastDoc } from './components/toast';
 import { tooltipDoc } from './components/tooltip';
 import { tableDoc } from './components/table';
@@ -56,6 +57,7 @@ export const docs: Doc[] = [
   badgeDoc,
   cardDoc,
   anchorCardDoc,
+  linkDoc,
   toastDoc,
   tooltipDoc,
   tableDoc,

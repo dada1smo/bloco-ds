@@ -48,6 +48,7 @@ export { BLTabs, type BLTabsProps, type BLTabsItem } from './tabs';
 export { BLBadge, type BLBadgeProps } from './badge';
 export { BLCard, type BLCardProps } from './card';
 export { BLAnchorCard, type BLAnchorCardProps } from './anchor-card';
+export { BLLink, type BLLinkProps } from './link';
 export { BLTooltip, type BLTooltipProps } from './tooltip';
 export {
   BLTable,
