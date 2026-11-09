@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "pnpm --filter @bloco/web dev",
     "build": "pnpm --filter @bloco/web build",
-    "test": "pnpm --filter @bloco/ui test",
+    "test": "pnpm -r --if-present test",
     "test:coverage": "pnpm --filter @bloco/ui test:coverage"
   },
   "devDependencies": {

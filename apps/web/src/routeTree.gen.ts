@@ -10,52 +10,49 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ComponentsRouteImport } from './routes/components'
-import { Route as ComponentsFolderIdRouteImport } from './routes/components.$folder.$id'
+import { Route as PagesRouteImport } from './routes/_pages'
+import { Route as PagesComponentsFolderIdRouteImport } from './routes/_pages/components/$folder.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ComponentsRoute = ComponentsRouteImport.update({
-  id: '/components',
-  path: '/components',
+const PagesRoute = PagesRouteImport.update({
+  id: '/_pages',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ComponentsFolderIdRoute = ComponentsFolderIdRouteImport.update({
-  id: '/$folder/$id',
-  path: '/$folder/$id',
-  getParentRoute: () => ComponentsRoute,
+const PagesComponentsFolderIdRoute = PagesComponentsFolderIdRouteImport.update({
+  id: '/components/$folder/$id',
+  path: '/components/$folder/$id',
+  getParentRoute: () => PagesRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/components': typeof ComponentsRouteWithChildren
-  '/components/$folder/$id': typeof ComponentsFolderIdRoute
+  '/components/$folder/$id': typeof PagesComponentsFolderIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/components': typeof ComponentsRouteWithChildren
-  '/components/$folder/$id': typeof ComponentsFolderIdRoute
+  '/components/$folder/$id': typeof PagesComponentsFolderIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/components': typeof ComponentsRouteWithChildren
-  '/components/$folder/$id': typeof ComponentsFolderIdRoute
+  '/_pages': typeof PagesRouteWithChildren
+  '/_pages/components/$folder/$id': typeof PagesComponentsFolderIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/components' | '/components/$folder/$id'
+  fullPaths: '/' | '/components/$folder/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/components' | '/components/$folder/$id'
-  id: '__root__' | '/' | '/components' | '/components/$folder/$id'
+  to: '/' | '/components/$folder/$id'
+  id: '__root__' | '/' | '/_pages' | '/_pages/components/$folder/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ComponentsRoute: typeof ComponentsRouteWithChildren
+  PagesRoute: typeof PagesRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -67,38 +64,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/components': {
-      id: '/components'
-      path: '/components'
-      fullPath: '/components'
-      preLoaderRoute: typeof ComponentsRouteImport
+    '/_pages': {
+      id: '/_pages'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof PagesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/components/$folder/$id': {
-      id: '/components/$folder/$id'
-      path: '/$folder/$id'
+    '/_pages/components/$folder/$id': {
+      id: '/_pages/components/$folder/$id'
+      path: '/components/$folder/$id'
       fullPath: '/components/$folder/$id'
-      preLoaderRoute: typeof ComponentsFolderIdRouteImport
-      parentRoute: typeof ComponentsRoute
+      preLoaderRoute: typeof PagesComponentsFolderIdRouteImport
+      parentRoute: typeof PagesRoute
     }
   }
 }
 
-interface ComponentsRouteChildren {
-  ComponentsFolderIdRoute: typeof ComponentsFolderIdRoute
+interface PagesRouteChildren {
+  PagesComponentsFolderIdRoute: typeof PagesComponentsFolderIdRoute
 }
 
-const ComponentsRouteChildren: ComponentsRouteChildren = {
-  ComponentsFolderIdRoute: ComponentsFolderIdRoute,
+const PagesRouteChildren: PagesRouteChildren = {
+  PagesComponentsFolderIdRoute: PagesComponentsFolderIdRoute,
 }
 
-const ComponentsRouteWithChildren = ComponentsRoute._addFileChildren(
-  ComponentsRouteChildren,
-)
+const PagesRouteWithChildren = PagesRoute._addFileChildren(PagesRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ComponentsRoute: ComponentsRouteWithChildren,
+  PagesRoute: PagesRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

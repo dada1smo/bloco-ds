@@ -18,7 +18,7 @@ Leia, nesta ordem:
 1. `{ComponentName}.tsx` — elemento base, componente RAC usado, props e defaults.
 2. `{ComponentName}.styles.ts` — nomes e valores dos variants (só para saber o que existe; o context não descreve aparência).
 3. `{ComponentName}.test.tsx` — o comportamento que está garantido.
-4. A entrada do componente em `apps/web/src/demos.tsx` — como ele é usado de fato.
+4. A entrada do componente em `apps/web/src/domain/demo/data/demos.tsx` — como ele é usado de fato.
 5. Os ADRs que o afetam (`docs/decisions/`) e componentes parecidos do DS, para escrever "quando não usar".
 
 Se já existe um context, atualize-o: mantenha o que continua verdadeiro e corrija o que o código mudou.

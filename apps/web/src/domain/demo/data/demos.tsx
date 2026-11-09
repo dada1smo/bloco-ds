@@ -41,7 +41,8 @@ import {
   type BLDropdownItem,
   type BLTableRow,
 } from '@bloco/ui';
-import { HeaderExample } from '../../../packages/ui/patterns/header/Header.example';
+import { HeaderExample } from '../../../../../../packages/ui/patterns/header/Header.example';
+import type { Demo } from '../types/demo';
 
 const levels = ['solid', 'outline', 'subtle'] as const;
 const colors = ['primary', 'accent'] as const;
@@ -366,8 +367,6 @@ function ShellRail() {
     </nav>
   );
 }
-
-export type Demo = { id: string; render: () => ReactNode };
 
 // Pasta -> arquivos: cada arquivo é uma demo exibida no painel.
 export const demos: Record<string, Demo[]> = {

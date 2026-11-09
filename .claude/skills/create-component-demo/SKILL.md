@@ -1,11 +1,11 @@
 ---
 name: create-component-demo
-description: Cria ou atualiza as demos de um componente do design system no catálogo (apps/web/src/demos.tsx) seguindo o conjunto padrão de demos e compondo com os componentes de layout do DS. Use ao pedir "criar demo", "página de demo", "adicionar ao catálogo", ou como passo da skill create-component.
+description: Cria ou atualiza as demos de um componente do design system no catálogo (apps/web/src/domain/demo/data/demos.tsx) seguindo o conjunto padrão de demos e compondo com os componentes de layout do DS. Use ao pedir "criar demo", "página de demo", "adicionar ao catálogo", ou como passo da skill create-component.
 ---
 
 # Criar as demos de um componente
 
-O catálogo é `apps/web/src/demos.tsx`: `folder -> Demo[]`, com `Demo = { id, render }`. `src/routes/components.tsx` monta a árvore lateral por esse mapa e roteia para `/components/<folder>/<id>`. Sem entrada ali o componente não aparece.
+O catálogo é `apps/web/src/domain/demo/data/demos.tsx`: `folder -> Demo[]`, com `Demo = { id, render }`. `src/domain/demo/components/DemoNavigation.tsx` monta a árvore lateral por esse mapa e roteia para `/components/<folder>/<id>`. Sem entrada ali o componente não aparece.
 
 ## Antes de escrever
 

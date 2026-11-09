@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { HeadContent, Outlet, Scripts, createRootRoute } from '@tanstack/react-router';
-import appCss from '../index.css?url';
+import appCss from '@/ui/styles/index.css?url';
 
 // aplica o tema salvo antes do primeiro paint (evita flash)
 const themeScript = `try {

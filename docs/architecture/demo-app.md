@@ -1,16 +1,30 @@
 # App de demonstração e starter (`apps/web`)
 
-TanStack Start em SPA mode, rotas por arquivo — [ADR 0014](../decisions/0014-tanstack-start-no-app.md).
+TanStack Start em SPA mode, rotas por arquivo ([ADR 0014](../decisions/0014-tanstack-start-no-app.md)), organizado em quatro camadas: `routes`, `domain`, `ui` e `global` ([ADR 0015](../decisions/0015-camadas-do-app-web.md)).
 
-- `vite.config.ts` — plugin `tanstackStart({ spa: { enabled: true } })`, React e Tailwind.
+- `vite.config.ts` — plugin `tanstackStart({ spa: { enabled: true } })`, React, Tailwind e `resolve.tsconfigPaths` (alias `@/*` → `src/*`).
 - `src/router.tsx` — `getRouter()` e registro de tipos. `src/routeTree.gen.ts` é gerado; não edite.
-- `src/routes/__root.tsx` — o documento: `<head>` (meta, `index.css`), script que aplica o tema salvo antes do primeiro paint, `<Scripts/>`. Pré-renderizado no build: não use `window`/`localStorage` no render.
-- `src/routes/index.tsx` — redireciona para a primeira demo.
-- `src/routes/components.tsx` — layout do catálogo: `BLAppShell` + `BLNavigationTree` gerada a partir de `demos`, `BLRouterProvider` ligado ao roteador, `<Outlet/>`.
-- `src/routes/components.$folder.$id.tsx` — renderiza a demo `demos[folder]` com aquele `id`; inexistente volta para `/`.
-- `src/index.css` importa Tailwind e `@bloco/ui/theme.css`, e declara `@source` para o pacote `ui`.
-- `src/demos.tsx` exporta `demos: Record<pasta, Demo[]>`, com `Demo = { id, render }`.
+- `src/layers.test.ts` — falha se um import quebrar a regra de dependência entre camadas.
 
-Para um componente novo aparecer no catálogo, adicione uma entrada em `demos.tsx`. Para uma página nova, crie um arquivo em `src/routes/`.
+## routes
 
-Scripts: `pnpm dev`, `pnpm build` (build + `tsc`), `pnpm --filter @bloco/web preview`.
+- `routes/__root.tsx` — o documento: `<head>` (meta, `@/ui/styles/index.css`), script que aplica o tema salvo antes do primeiro paint, `<Scripts/>`. É pré-renderizado no build, então não use `window`/`localStorage` no render.
+- `routes/index.tsx` — redireciona para a primeira demo.
+- `routes/_pages.tsx` — layout pathless: `BLRouterProvider` ligado ao roteador, mais `AppLayout` com `DemoNavigation` na sidebar e `<Outlet/>`.
+- `routes/_pages/components/$folder.$id.tsx` — renderiza a demo `demos[folder]` com aquele `id`; se ela não existir, volta para `/`.
+
+## domain/demo
+
+- `data/demos.tsx` exporta `demos: Record<pasta, Demo[]>`.
+- `types/demo.ts` — `Demo = { id, render }`.
+- `utils/find-demo.ts` — `findDemo(folder, id)`.
+- `components/DemoNavigation.tsx` — a árvore lateral (foundations / components / patterns) gerada a partir de `demos`.
+
+## ui
+
+- `components/AppLayout.tsx` — `BLAppShell` com header (toggle de menu, título, `BLThemeSwitch`), a sidebar recebida por prop e a área de conteúdo.
+- `styles/index.css` — importa Tailwind e `@bloco/ui/theme.css`, e declara `@source` para o pacote `ui`.
+
+Para um componente novo aparecer no catálogo, adicione uma entrada em `domain/demo/data/demos.tsx`. Para uma página nova, crie um arquivo em `routes/_pages/` que componha peças de `domain` e `ui`.
+
+Scripts: `pnpm dev`, `pnpm build` (build + `tsc`), `pnpm --filter @bloco/web test`, `pnpm --filter @bloco/web preview`.

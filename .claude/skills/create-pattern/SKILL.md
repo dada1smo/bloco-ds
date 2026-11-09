@@ -14,7 +14,7 @@ O leitor principal é uma IA que precisa **montar uma tela** combinando componen
 ## Antes de escrever
 
 1. Leia `packages/ui/patterns/README.md` (se existir). Se o pattern já existe ou se sobrepõe a outro, atualize-o em vez de criar um novo.
-2. Leia o `X.context.md` e o `X.tsx` de cada componente envolvido, e as entradas deles em `apps/web/src/demos.tsx`.
+2. Leia o `X.context.md` e o `X.tsx` de cada componente envolvido, e as entradas deles em `apps/web/src/domain/demo/data/demos.tsx`.
 3. Leia os ADRs que afetam a composição: [0008](../../../docs/decisions/0008-grid-e-layout.md) (layout e espaçamento), [0010](../../../docs/decisions/0010-padrao-de-form-fields.md) (campos) e outros que se apliquem.
 
 Se a composição só funciona com uma prop, variant ou estilo novo, pare: isso é mudança de componente (`/create-component`), não pattern. Se uma intenção não estiver clara, pergunte em vez de inventar.
@@ -25,8 +25,8 @@ Se a composição só funciona com uma prop, variant ou estilo novo, pare: isso 
 2. `{PatternName}.example.tsx`: exporta `{PatternName}Example`, um componente sem props que monta a composição de referência. Importa só de `@bloco/ui`; layout só por `BLGrid`, `BLStack`, `BLCluster` e `BLSidebar`; `className` apenas para posicionar no grid, como no `Form.context.md`. Conteúdo realista e curto, em inglês, como nas demos.
 3. `{pattern-name}.pattern.md` pelo template abaixo.
 4. Uma linha em `packages/ui/patterns/README.md` (crie o arquivo se não existir, com um título e uma frase apontando para o ADR 0012): `- [{Nome}]({pattern-name}/{pattern-name}.pattern.md) — {problema que resolve}`.
-5. Só no primeiro pattern: adicione `"patterns"` ao `include` de `packages/ui/tsconfig.json` e `@source "../../../packages/ui/patterns";` em `apps/web/src/index.css`, ao lado do `@source` de `src`.
-6. Demo: em `apps/web/src/demos.tsx`, pasta `patterns` (crie se não existir), uma entrada `{ id: '{pattern-name}.tsx', render: () => <{PatternName}Example /> }`, importando por caminho relativo (`../../../packages/ui/patterns/{pattern-name}/{PatternName}.example`). Variações relevantes podem virar entradas extras.
+5. Só no primeiro pattern: adicione `"patterns"` ao `include` de `packages/ui/tsconfig.json` e `@source "../../../../../packages/ui/patterns";` em `apps/web/src/ui/styles/index.css`, ao lado do `@source` de `src`.
+6. Demo: em `apps/web/src/domain/demo/data/demos.tsx`, pasta `patterns` (crie se não existir), uma entrada `{ id: '{pattern-name}.tsx', render: () => <{PatternName}Example /> }`, importando por caminho relativo (`../../../../../../packages/ui/patterns/{pattern-name}/{PatternName}.example`). Variações relevantes podem virar entradas extras.
 
 ## Regras
 
