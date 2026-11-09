@@ -9,7 +9,7 @@ TanStack Start em SPA mode, rotas por arquivo ([ADR 0014](../decisions/0014-tans
 ## routes
 
 - `routes/__root.tsx` — o documento: `<head>` (meta, `@/ui/styles/index.css`), script que aplica o tema salvo antes do primeiro paint, `<Scripts/>`. É pré-renderizado no build, então não use `window`/`localStorage` no render.
-- `routes/index.tsx` — redireciona para a primeira demo.
+- `routes/_pages/index.tsx` — home (`/`), só marcação com componentes do DS, dentro do layout.
 - `routes/_pages.tsx` — layout pathless: `BLRouterProvider` ligado ao roteador, mais `AppLayout` com `DemoNavigation` na sidebar e `<Outlet/>`.
 - `routes/_pages/components/$folder.$id.tsx` — renderiza a demo `demos[folder]` com aquele `id`; se ela não existir, volta para `/`.
 

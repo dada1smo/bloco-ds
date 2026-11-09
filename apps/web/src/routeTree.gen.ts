@@ -9,18 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
 import { Route as PagesRouteImport } from './routes/_pages'
+import { Route as PagesIndexRouteImport } from './routes/_pages/index'
 import { Route as PagesComponentsFolderIdRouteImport } from './routes/_pages/components/$folder.$id'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PagesRoute = PagesRouteImport.update({
   id: '/_pages',
   getParentRoute: () => rootRouteImport,
+} as any)
+const PagesIndexRoute = PagesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PagesRoute,
 } as any)
 const PagesComponentsFolderIdRoute = PagesComponentsFolderIdRouteImport.update({
   id: '/components/$folder/$id',
@@ -29,17 +29,17 @@ const PagesComponentsFolderIdRoute = PagesComponentsFolderIdRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof PagesIndexRoute
   '/components/$folder/$id': typeof PagesComponentsFolderIdRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/': typeof PagesIndexRoute
   '/components/$folder/$id': typeof PagesComponentsFolderIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/_pages': typeof PagesRouteWithChildren
+  '/_pages/': typeof PagesIndexRoute
   '/_pages/components/$folder/$id': typeof PagesComponentsFolderIdRoute
 }
 export interface FileRouteTypes {
@@ -47,29 +47,28 @@ export interface FileRouteTypes {
   fullPaths: '/' | '/components/$folder/$id'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/components/$folder/$id'
-  id: '__root__' | '/' | '/_pages' | '/_pages/components/$folder/$id'
+  id: '__root__' | '/_pages' | '/_pages/' | '/_pages/components/$folder/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   PagesRoute: typeof PagesRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_pages': {
       id: '/_pages'
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof PagesRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_pages/': {
+      id: '/_pages/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof PagesIndexRouteImport
+      parentRoute: typeof PagesRoute
     }
     '/_pages/components/$folder/$id': {
       id: '/_pages/components/$folder/$id'
@@ -82,17 +81,18 @@ declare module '@tanstack/react-router' {
 }
 
 interface PagesRouteChildren {
+  PagesIndexRoute: typeof PagesIndexRoute
   PagesComponentsFolderIdRoute: typeof PagesComponentsFolderIdRoute
 }
 
 const PagesRouteChildren: PagesRouteChildren = {
+  PagesIndexRoute: PagesIndexRoute,
   PagesComponentsFolderIdRoute: PagesComponentsFolderIdRoute,
 }
 
 const PagesRouteWithChildren = PagesRoute._addFileChildren(PagesRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   PagesRoute: PagesRouteWithChildren,
 }
 export const routeTree = rootRouteImport

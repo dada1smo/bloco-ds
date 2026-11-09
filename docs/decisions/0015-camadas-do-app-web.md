@@ -39,7 +39,7 @@ Estrutura atual:
 
 ```
 apps/web/src/
-  routes/__root.tsx, index.tsx, _pages.tsx, _pages/components/$folder.$id.tsx
+  routes/__root.tsx, _pages.tsx, _pages/index.tsx, _pages/components/$folder.$id.tsx
   domain/demo/{data/demos.tsx, types/demo.ts, utils/find-demo.ts, components/DemoNavigation.tsx}
   ui/{components/AppLayout.tsx, styles/index.css}
 ```
