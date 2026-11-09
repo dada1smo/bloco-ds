@@ -4,7 +4,7 @@ TanStack Start em SPA mode, rotas por arquivo ([ADR 0014](../decisions/0014-tans
 
 - `vite.config.ts` — plugin `tanstackStart({ spa: { enabled: true } })`, React, Tailwind e `resolve.tsconfigPaths` (alias `@/*` → `src/*`).
 - `src/router.tsx` — `getRouter()` e registro de tipos. `src/routeTree.gen.ts` é gerado; não edite.
-- `src/layers.test.ts` — falha se um import quebrar a regra de dependência entre camadas.
+- `src/layers.test.ts` — falha se um import quebrar a regra de dependência entre camadas ou se um arquivo fugir da nomenclatura (kebab-case em `ui`, `domain` e `global`). A regra completa de nomes está na [ADR 0015](../decisions/0015-camadas-do-app-web.md).
 
 ## routes
 
@@ -18,11 +18,11 @@ TanStack Start em SPA mode, rotas por arquivo ([ADR 0014](../decisions/0014-tans
 - `data/demos.tsx` exporta `demos: Record<pasta, Demo[]>`.
 - `types/demo.ts` — `Demo = { id, render }`.
 - `utils/find-demo.ts` — `findDemo(folder, id)`.
-- `components/DemoNavigation.tsx` — a árvore lateral (foundations / components / patterns) gerada a partir de `demos`.
+- `components/demo-navigation.tsx` — a árvore lateral (foundations / components / patterns) gerada a partir de `demos`.
 
 ## ui
 
-- `components/AppLayout.tsx` — `BLAppShell` com header (toggle de menu, título, `BLThemeSwitch`), a sidebar recebida por prop e a área de conteúdo.
+- `components/app-layout.tsx` — `BLAppShell` com header (toggle de menu, título, `BLThemeSwitch`), a sidebar recebida por prop e a área de conteúdo.
 - `styles/index.css` — importa Tailwind e `@bloco/ui/theme.css`, e declara `@source` para o pacote `ui`.
 
 Para um componente novo aparecer no catálogo, adicione uma entrada em `domain/demo/data/demos.tsx`. Para uma página nova, crie um arquivo em `routes/_pages/` que componha peças de `domain` e `ui`.

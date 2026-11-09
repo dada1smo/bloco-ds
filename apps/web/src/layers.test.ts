@@ -29,6 +29,14 @@ function violations(file: string, source: string) {
   return found;
 }
 
+// Nomenclatura (ADR 0015): arquivos de ui, domain e global em kebab-case.
+const kebab = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+
+function badName(file: string) {
+  const name = file.split('/').at(-1)!.replace(/\.(test\.)?tsx?$/, '');
+  return kebab.test(name) ? null : name;
+}
+
 describe('camadas do app', () => {
   it('finds the source files', () => {
     expect(Object.keys(files).length).toBeGreaterThan(0);
@@ -36,6 +44,17 @@ describe('camadas do app', () => {
 
   it.each(Object.keys(files).filter((f) => f.split('/')[1] in allowed))('%s respeita a regra de dependência', (file) => {
     expect(violations(file, files[file])).toEqual([]);
+  });
+
+  it.each(Object.keys(files).filter((f) => ['ui', 'domain', 'global'].includes(f.split('/')[1])))('%s segue a nomenclatura', (file) => {
+    expect(badName(file)).toBeNull();
+  });
+
+  it('detects bad names', () => {
+    expect(badName('./domain/demo/components/DemoNavigation.tsx')).toBe('DemoNavigation');
+    expect(badName('./ui/components/AppSidebar.tsx')).toBe('AppSidebar');
+    expect(badName('./domain/demo/components/demo-navigation.tsx')).toBeNull();
+    expect(badName('./ui/components/app-sidebar.tsx')).toBeNull();
   });
 
   it('detects violations', () => {

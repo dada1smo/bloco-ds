@@ -15,10 +15,22 @@
 |---|---|---|
 | `routes` | Roteamento e renderização final: rotas, hierarquia, layouts compartilhados. O arquivo só tem `createFileRoute`, `beforeLoad`/loader/params/redirect e composição de componentes de `domain` e `ui`. Nenhum componente, hook ou regra é declarado nele. | `routes/_pages.tsx` |
 | `domain` | Regras de negócio do app, com uma pasta por domínio: componentes, hooks, types, utils e dados daquele domínio. | `domain/demo/` |
-| `ui` | Componentes "burros" e reutilizáveis no app, compostos com componentes do DS, mais os estilos e o tema próprios do app (`ui/styles/`). | `ui/components/AppLayout.tsx` |
+| `ui` | Componentes "burros" e reutilizáveis no app, compostos com componentes do DS, mais os estilos e o tema próprios do app (`ui/styles/`). | `ui/components/app-layout.tsx` |
 | `global` | Definições globais: auth, clients, providers. A pasta só é criada no primeiro uso. | `global/auth/` |
 
-**Organização interna.** `routes` segue as rotas por arquivo do TanStack Start. As outras camadas (e cada domínio dentro de `domain`) usam `components/`, `hooks/`, `utils/`, `types/`, além de `data/` e `styles/` quando fizer sentido. Componentes do app ficam em arquivos PascalCase, sem o prefixo `BL`.
+**Organização interna.** `routes` segue as rotas por arquivo do TanStack Start. As outras camadas (e cada domínio dentro de `domain`) usam `components/`, `hooks/`, `utils/`, `types/`, além de `data/` e `styles/` quando fizer sentido.
+
+**Nomenclatura.** Os componentes do app não usam o prefixo `BL`. Cada camada tem a sua regra:
+
+| Camada | Componente | Arquivo |
+|---|---|---|
+| `ui` | Nome de mercado para um componente "burro", pelo papel na tela e sem termo de negócio: `AppSidebar`, `AppLayout`, `PageHeader`. | `components/app-sidebar.tsx` |
+| `domain` | `{Domínio}{Classificação, se houver}{O que é}`: `DemoNavigation`, `DemoComponentTable`. | `components/demo-component-table.tsx` |
+| `global` | Igual a `domain`, com a área no lugar do domínio: `AuthProvider`, `ApiClient`. | `auth/auth-provider.tsx` |
+
+Todo arquivo de `ui`, `domain` e `global` fica em kebab-case, componente ou não: `app-sidebar.tsx`, `find-demo.ts`, `use-theme.ts`.
+
+Nomes de componentes, funções e consts são curtos e objetivos: verbo + substantivo (`getDemos`, `findDemo`), com no máximo três palavras. O escopo já dá contexto, então o nome não o repete: em `domain/demo/utils/`, use `findDemo` e não `findDemoByFolderAndId`. Hooks usam `use` + substantivo (`useDemos`). Booleans começam com `is`/`has`/`can`.
 
 **Layouts.** Um layout compartilhado é uma rota de layout pathless: `routes/_pages.tsx` envolve `routes/_pages/**` sem entrar na URL.
 
@@ -40,8 +52,8 @@ Estrutura atual:
 ```
 apps/web/src/
   routes/__root.tsx, _pages.tsx, _pages/index.tsx, _pages/components/$folder.$id.tsx
-  domain/demo/{data/demos.tsx, types/demo.ts, utils/find-demo.ts, components/DemoNavigation.tsx}
-  ui/{components/AppLayout.tsx, styles/index.css}
+  domain/demo/{data/demos.tsx, types/demo.ts, utils/find-demo.ts, components/demo-navigation.tsx}
+  ui/{components/app-layout.tsx, styles/index.css}
 ```
 
 ## Alternativas consideradas
@@ -54,7 +66,7 @@ apps/web/src/
 
 ## Consequências
 
-- Caminhos movidos: `src/demos.tsx` → `src/domain/demo/data/demos.tsx`; `src/index.css` → `src/ui/styles/index.css`; `routes/components.tsx` → `routes/_pages.tsx` (layout) + `domain/demo/components/DemoNavigation.tsx` + `ui/components/AppLayout.tsx`; `routes/components.$folder.$id.tsx` → `routes/_pages/components/$folder.$id.tsx`. As URLs não mudam. As ADRs 0012 e 0014 citam os caminhos antigos; vale o que está aqui.
+- Caminhos movidos: `src/demos.tsx` → `src/domain/demo/data/demos.tsx`; `src/index.css` → `src/ui/styles/index.css`; `routes/components.tsx` → `routes/_pages.tsx` (layout) + `domain/demo/components/demo-navigation.tsx` + `ui/components/app-layout.tsx`; `routes/components.$folder.$id.tsx` → `routes/_pages/components/$folder.$id.tsx`. As URLs não mudam. As ADRs 0012 e 0014 citam os caminhos antigos; vale o que está aqui.
 - Alias `@/*` → `src/*` no `tsconfig.json` do app, lido pelo Vite via `resolve.tsconfigPaths`.
 - `apps/web` passa a ter Vitest (`vitest.config.ts` próprio, sem o plugin do Start), e `pnpm test` na raiz roda os testes de todos os pacotes.
 - As skills `create-component-demo`, `create-component`, `create-component-context` e `create-pattern` apontam para os novos caminhos.

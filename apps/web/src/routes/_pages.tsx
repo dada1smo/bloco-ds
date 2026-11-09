@@ -1,7 +1,7 @@
 import { Outlet, createFileRoute, useLocation, useNavigate } from '@tanstack/react-router';
 import { BLRouterProvider } from '@bloco/ui';
-import { DemoNavigation } from '@/domain/demo/components/DemoNavigation';
-import { AppLayout } from '@/ui/components/AppLayout';
+import { DemoNavigation } from '@/domain/demo/components/demo-navigation';
+import { AppLayout } from '@/ui/components/app-layout';
 
 // Layout pathless (ADR 0015): envolve as páginas sem entrar na URL.
 export const Route = createFileRoute('/_pages')({ component: PagesLayout });
