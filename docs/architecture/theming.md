@@ -187,7 +187,7 @@ A largura vem do tipo de conteúdo, não da página.
 | `max-w-reading` | 768px | formulário, configurações, coluna única |
 | `max-w-page` | 1584px | página; o `BLGrid` já aplica |
 | `w-sidebar` | 288px | trilho lateral; o `BLSidebar` e o `BLAppShell` já aplicam |
-| `h-header` | 48px | header do app; o `BLAppShell` já aplica |
+| `h-header` | 64px | header do app; o `BLAppShell` já aplica |
 | `w-rail` | 48px | sidebar recolhida só com ícones; o `BLAppShell` já aplica |
 
 ### Primitivas

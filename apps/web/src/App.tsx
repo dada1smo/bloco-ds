@@ -11,9 +11,19 @@ import { demos } from './demos';
 
 const base = '/components';
 
+// As três camadas do DS na mesma árvore; toda pasta que não é foundations nem patterns é componente.
+const entries = Object.entries(demos);
+const layers = [
+  { id: 'foundations', folders: entries.filter(([f]) => f === 'foundations') },
+  { id: 'components', folders: entries.filter(([f]) => f !== 'foundations' && f !== 'patterns') },
+  { id: 'patterns', folders: entries.filter(([f]) => f === 'patterns') },
+];
+const layerOf = (folder: string) => (folder === 'foundations' || folder === 'patterns' ? folder : 'components');
+
 export function App() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const folder = pathname.split('/')[2] ?? 'button';
 
   return (
     <main className="min-h-screen bg-background p-8 font-sans text-primary">
@@ -25,19 +35,27 @@ export function App() {
         <BLSidebar
           side={
             <BLNavigationTree
-              aria-label="Components"
+              aria-label="Design system"
               selectedRoute={pathname}
-              defaultExpandedKeys={['components', pathname.split('/')[2] ?? 'button']}
+              defaultExpandedKeys={[layerOf(folder), folder]}
             >
-              <BLNavigationTreeItem title="components" id="components">
-                {Object.entries(demos).map(([folder, files]) => (
-                  <BLNavigationTreeItem key={folder} title={folder} id={folder}>
-                    {files.map(({ id }) => (
-                      <BLNavigationTreeItem key={id} title={id} href={`${base}/${folder}/${id}`} />
-                    ))}
-                  </BLNavigationTreeItem>
-                ))}
-              </BLNavigationTreeItem>
+              {layers.map(({ id, folders }) => (
+                <BLNavigationTreeItem key={id} title={id} id={id}>
+                  {folders.map(([name, files]) => {
+                    const items = files.map(({ id: file }) => (
+                      <BLNavigationTreeItem key={file} title={file} href={`${base}/${name}/${file}`} />
+                    ));
+                    // foundations e patterns listam os arquivos direto; components agrupa por pasta
+                    return id === 'components' ? (
+                      <BLNavigationTreeItem key={name} title={name} id={name}>
+                        {items}
+                      </BLNavigationTreeItem>
+                    ) : (
+                      items
+                    );
+                  })}
+                </BLNavigationTreeItem>
+              ))}
             </BLNavigationTree>
           }
         >

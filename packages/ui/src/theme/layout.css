@@ -28,8 +28,8 @@
 
 /* Casco da aplicação (BLAppShell). */
 @theme inline {
-  /* 48px: altura do header do app shell. */
-  --spacing-header: calc(var(--spacing) * 12);
+  /* 64px: altura do header do app shell. */
+  --spacing-header: calc(var(--spacing) * 16);
   /* 48px: sidebar recolhida em modo trilho (só ícones). */
   --spacing-rail: calc(var(--spacing) * 12);
 }

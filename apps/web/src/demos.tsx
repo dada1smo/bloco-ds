@@ -41,6 +41,7 @@ import {
   type BLDropdownItem,
   type BLTableRow,
 } from '@bloco/ui';
+import { HeaderExample } from '../../../packages/ui/patterns/header/Header.example';
 
 const levels = ['solid', 'outline', 'subtle'] as const;
 const colors = ['primary', 'accent'] as const;
@@ -1333,4 +1334,5 @@ export const demos: Record<string, Demo[]> = {
       ),
     },
   ],
+  patterns: [{ id: 'header.tsx', render: () => <HeaderExample /> }],
 };
