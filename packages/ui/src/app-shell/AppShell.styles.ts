@@ -11,7 +11,7 @@ export const appShellMainStyles = cva('col-start-2 row-start-2 overflow-auto');
 
 // Hierarquia: a esquerda (principal) sai do grid abaixo de lg; a direita (secundária) já abaixo de xl.
 // A célula é a pegada no grid e anima a largura; abaixo do breakpoint fica só a pegada recolhida.
-export const appShellCellStyles = cva('relative row-start-2 motion-safe:transition-[width] motion-safe:duration-200', {
+export const appShellCellStyles = cva('relative row-start-2 bg-inherit motion-safe:transition-[width] motion-safe:duration-200', {
   variants: {
     side: { left: 'col-start-1 lg:overflow-hidden', right: 'col-start-3 xl:overflow-hidden' },
     collapsible: { offcanvas: 'w-0', icon: 'w-rail', none: 'w-sidebar' },
@@ -26,7 +26,7 @@ export const appShellCellStyles = cva('relative row-start-2 motion-safe:transiti
 // O painel guarda o conteúdo. Abaixo do breakpoint vira overlay sobre o content e desliza (offcanvas) ou alarga (icon).
 // offcanvas/none mantêm w-sidebar enquanto a célula anima, para o conteúdo não quebrar linha no meio da transição.
 export const appShellPanelStyles = cva(
-  'group flex h-full flex-col overflow-x-hidden overflow-y-auto border-subtle bg-layer-01 motion-safe:transition-[width,translate] motion-safe:duration-200',
+  'group flex h-full flex-col overflow-x-hidden overflow-y-auto border-subtle bg-inherit motion-safe:transition-[width,translate] motion-safe:duration-200',
   {
     variants: {
       side: {

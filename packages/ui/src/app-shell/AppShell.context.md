@@ -61,6 +61,7 @@ Fora de um `BLAppShell`, o hook lança erro. O painel de cada sidebar também ex
 
 - O AppShell só reserva espaço e não impõe componentes (nem o botão de alternar), para servir a qualquer aplicação. A API das sidebars segue o `SidebarProvider`/`useSidebar` do shadcn, adaptada a dois lados.
 - A sidebar direita é secundária: sai do grid em `xl`, antes da esquerda (`lg`), mas continua controlável pelo hook enquanto está em overlay.
+- As sidebars não têm cor de fundo própria: herdam o fundo do casco, para a aplicação decidir. Para destacá-las, o conteúdo da sidebar define o próprio fundo (ocupando a altura toda) ou a aplicação muda o fundo do casco. Em overlay o painel continua opaco, porque herda o fundo do casco.
 - O estado no grid e o estado em overlay são separados. Assim a sidebar começa aberta no desktop e fechada em telas menores, sem depender da largura da tela no primeiro render.
 - A largura anima ao abrir e fechar. Por isso o modo `offcanvas` recolhido usa largura zero com `inert`, e não `display: none`. O conteúdo mantém a largura final durante a transição para não quebrar linhas no meio dela.
 - Ficam de fora: fechar o overlay com Esc ou clique fora, atalho de teclado, persistência do estado e as variantes `floating`/`inset` do shadcn. O [ADR 0008](../../../../docs/decisions/0008-grid-e-layout.md) tinha deixado a sidebar à direita para depois; ela chega aqui, no casco da aplicação.
