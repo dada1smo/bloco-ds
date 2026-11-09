@@ -1,6 +1,6 @@
 # Componentes
 
-Local: `packages/ui/src/<kebab-name>/`
+Local: `packages/ui/src/components/<kebab-name>/`
 
 ```
 button/

@@ -1,4 +1,4 @@
-import context from '../../../../../../../packages/ui/src/button/Button.context.md?raw';
+import context from '../../../../../../../packages/ui/src/components/button/Button.context.md?raw';
 import { ButtonDefault } from '../../examples/components/button/default';
 import defaultCode from '../../examples/components/button/default?raw';
 import { ButtonLevels } from '../../examples/components/button/levels';

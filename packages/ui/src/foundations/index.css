@@ -1,0 +1,9 @@
+/* Ponto de entrada das foundations (ADR 0006, 0017). Cada categoria vive num partial nesta pasta. */
+@import "@fontsource-variable/archivo";
+@import "@fontsource/space-mono/400.css";
+@import "@fontsource/space-mono/700.css";
+
+@import "./color.css";
+@import "./typography.css";
+@import "./spacing.css";
+@import "./layout.css";

@@ -36,7 +36,7 @@ A skill só escreve o `Doc` e os arquivos de exemplo. Não mexa em `DocsPage` pa
 ## O arquivo do `Doc`
 
 ```tsx
-import context from '../../../../../../../packages/ui/src/input/Input.context.md?raw';
+import context from '../../../../../../../packages/ui/src/components/input/Input.context.md?raw';
 import { InputDefault } from '../../examples/components/input/default';
 import defaultCode from '../../examples/components/input/default?raw';
 import type { Doc } from '../../types/doc';
@@ -55,7 +55,7 @@ export const inputDoc: Doc = {
 
 - Nome do export: `{camelSlug}Doc`.
 - Página nova: crie o arquivo e registre o `Doc` em `data/docs.ts`, na posição da ordem de `packages/ui/src/index.ts` dentro da camada.
-- `context`: import com `?raw` do `.md` do item (pattern: `packages/ui/patterns/{name}/{name}.pattern.md`). As seções `API` e `Exemplo` não aparecem na página, porque `props` e `examples` ocupam esse lugar.
+- `context`: import com `?raw` do `.md` do item (pattern: `packages/ui/src/patterns/{name}/{name}.pattern.md`). As seções `API` e `Exemplo` não aparecem na página, porque `props` e `examples` ocupam esse lugar.
 - Pattern: o exemplo `Default` renderiza `<{PatternName}Example />` e usa como `code` o `{PatternName}.example.tsx?raw`, ambos importados por caminho relativo. Não há `props` nem arquivo em `examples/`.
 
 ## Props

@@ -7,7 +7,7 @@
   "types": "src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./theme.css": "./src/theme.css"
+    "./foundations.css": "./src/foundations/index.css"
   },
   "peerDependencies": {
     "react": "^19.0.0"

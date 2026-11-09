@@ -1,55 +1,55 @@
-export { BLButton, type BLButtonProps } from './button';
-export { BLThemeSwitch, type BLTheme, type BLThemeSwitchProps } from './theme-switch';
-export { BLTypography, type BLTypographyProps } from './typography';
+export { BLButton, type BLButtonProps } from './components/button';
+export { BLThemeSwitch, type BLTheme, type BLThemeSwitchProps } from './components/theme-switch';
+export { BLTypography, type BLTypographyProps } from './components/typography';
 export {
   BLNavigationTree,
   BLNavigationTreeItem,
   type BLNavigationTreeProps,
   type BLNavigationTreeItemProps,
-} from './navigation-tree';
+} from './components/navigation-tree';
 export {
   BLAccordion,
   type BLAccordionProps,
   type BLAccordionItem,
-} from './accordion';
+} from './components/accordion';
 export {
   BLDropdown,
   type BLDropdownProps,
   type BLDropdownItem,
-} from './dropdown';
-export { BLModal, type BLModalProps } from './modal';
-export { BLIconButton, type BLIconButtonProps } from './icon-button';
+} from './components/dropdown';
+export { BLModal, type BLModalProps } from './components/modal';
+export { BLIconButton, type BLIconButtonProps } from './components/icon-button';
 export {
   BLButtonGroup,
   type BLButtonGroupProps,
   type BLButtonGroupItem,
-} from './button-group';
+} from './components/button-group';
 export {
   BLSelect,
   type BLSelectProps,
   type BLSelectOption,
-} from './select';
-export { BLGrid, type BLGridProps } from './grid';
-export { BLStack, type BLStackProps } from './stack';
-export { BLCluster, type BLClusterProps } from './cluster';
-export { BLSidebar, type BLSidebarProps } from './sidebar';
+} from './components/select';
+export { BLGrid, type BLGridProps } from './components/grid';
+export { BLStack, type BLStackProps } from './components/stack';
+export { BLCluster, type BLClusterProps } from './components/cluster';
+export { BLSidebar, type BLSidebarProps } from './components/sidebar';
 export {
   BLAppShell,
   useBLAppShell,
   type BLAppShellProps,
   type BLAppShellSidebarState,
-} from './app-shell';
-export { BLFieldLabel, type BLFieldLabelProps } from './field-label';
-export { BLFieldHelperText, type BLFieldHelperTextProps } from './field-helper-text';
-export { BLFieldFeedback, type BLFieldFeedbackProps } from './field-feedback';
-export { BLInput, type BLInputProps } from './input';
-export { BLToast, blToastQueue, type BLToastProps, type BLToastData } from './toast';
-export { BLTabs, type BLTabsProps, type BLTabsItem } from './tabs';
-export { BLBadge, type BLBadgeProps } from './badge';
-export { BLCard, type BLCardProps } from './card';
-export { BLAnchorCard, type BLAnchorCardProps } from './anchor-card';
-export { BLLink, type BLLinkProps } from './link';
-export { BLTooltip, type BLTooltipProps } from './tooltip';
+} from './components/app-shell';
+export { BLFieldLabel, type BLFieldLabelProps } from './components/field-label';
+export { BLFieldHelperText, type BLFieldHelperTextProps } from './components/field-helper-text';
+export { BLFieldFeedback, type BLFieldFeedbackProps } from './components/field-feedback';
+export { BLInput, type BLInputProps } from './components/input';
+export { BLToast, blToastQueue, type BLToastProps, type BLToastData } from './components/toast';
+export { BLTabs, type BLTabsProps, type BLTabsItem } from './components/tabs';
+export { BLBadge, type BLBadgeProps } from './components/badge';
+export { BLCard, type BLCardProps } from './components/card';
+export { BLAnchorCard, type BLAnchorCardProps } from './components/anchor-card';
+export { BLLink, type BLLinkProps } from './components/link';
+export { BLTooltip, type BLTooltipProps } from './components/tooltip';
 export {
   BLTable,
   BLTableHead,
@@ -63,16 +63,16 @@ export {
   type BLTableRowProps,
   type BLTableHeaderProps,
   type BLTableCellProps,
-} from './table';
+} from './components/table';
 export {
   BLRichTable,
   type BLRichTableProps,
   type BLRichTableColumn,
   type BLRichTableRow,
-} from './rich-table';
-export { BLCheckbox, type BLCheckboxProps } from './checkbox';
-export { BLSwitch, type BLSwitchProps } from './switch';
-export { BLForm, type BLFormProps } from './form';
+} from './components/rich-table';
+export { BLCheckbox, type BLCheckboxProps } from './components/checkbox';
+export { BLSwitch, type BLSwitchProps } from './components/switch';
+export { BLForm, type BLFormProps } from './components/form';
 
 // Wires `href` of BLNavigationTree (and other link components) to a client router.
 export { RouterProvider as BLRouterProvider } from 'react-aria-components';

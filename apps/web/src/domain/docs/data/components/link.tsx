@@ -1,6 +1,6 @@
 import { BLLink, BLTypography } from '@bloco/ui';
 import type { Doc } from '../../types/doc';
-import context from '../../../../../../../packages/ui/src/link/Link.context.md?raw';
+import context from '../../../../../../../packages/ui/src/components/link/Link.context.md?raw';
 
 export const linkDoc: Doc = {
   slug: 'link',

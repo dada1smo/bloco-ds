@@ -29,7 +29,7 @@ Catálogo como site de docs, uma página por item do DS ([ADR 0016](../decisions
 - `components/app-layout.tsx` — `BLAppShell` com header (toggle de menu, título, `BLThemeSwitch`), a sidebar recebida por prop e a área de conteúdo.
 - `components/markdown.tsx` — `Markdown`: `react-markdown` + `remark-gfm` com a tipografia do DS.
 - `components/preview.tsx` — `Preview`: a moldura de um exemplo.
-- `styles/index.css` — importa Tailwind e `@bloco/ui/theme.css`, e declara `@source` para o pacote `ui`.
+- `styles/index.css` — importa Tailwind e `@bloco/ui/foundations.css`, e declara `@source` para o pacote `ui`.
 
 Para um componente novo aparecer no catálogo, crie a página dele com `/create-component-docs`. Para uma página nova, crie um arquivo em `routes/_pages/` que componha peças de `domain` e `ui`.
 

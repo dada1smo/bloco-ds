@@ -2,7 +2,7 @@
 
 Decisões: [ADR 0005](../decisions/0005-tres-camadas-de-tokens.md) (camadas), [ADR 0006](../decisions/0006-foundations-carbon.md) (modelo Carbon) e [ADR 0007](../decisions/0007-densidade-aberta.md) (densidade aberta, corpo de 20px) e [ADR 0008](../decisions/0008-grid-e-layout.md) (grid e primitivas de layout). O [ADR 0002](../decisions/0002-tokens-semanticos-sobre-tailwind.md) é o histórico.
 
-Fonte única: `packages/ui/src/theme.css` (export `@bloco/ui/theme.css`). Ele só importa as fontes e os partials de `packages/ui/src/theme/`:
+Fonte única: `packages/ui/src/foundations/index.css` (export `@bloco/ui/foundations.css`). Ele só importa as fontes e os partials de `packages/ui/src/foundations/`:
 
 | Partial | Conteúdo |
 |---|---|
@@ -11,14 +11,14 @@ Fonte única: `packages/ui/src/theme.css` (export `@bloco/ui/theme.css`). Ele s�
 | `spacing.css` | alturas de controle (`control-xs..xl`) e `shadow-floating` |
 | `layout.css` | breakpoints do grid 2x, larguras de container (`reading`, `page`, `sidebar`) e medidas do app shell (`header`, `rail`) |
 
-Categoria nova = partial novo + uma linha de `@import` no `theme.css`. Cada token leva, no partial, um comentário de uma linha dizendo quando usar.
+Categoria nova = partial novo + uma linha de `@import` no `foundations/index.css`. Cada token leva, no partial, um comentário de uma linha dizendo quando usar.
 
 ## Camadas
 
 | Camada | O que é | Onde | Quem lê |
 |---|---|---|---|
 | Primitiva | paleta e escalas do Tailwind (`slate-900`, `text-sm`, `--spacing`) | Tailwind | só a semântica |
-| Semântica | intenção, no vocabulário do Carbon (`layer-01`, `text-secondary`, `text-body-01`) | `packages/ui/src/theme/` | componentes |
+| Semântica | intenção, no vocabulário do Carbon (`layer-01`, `text-secondary`, `text-body-01`) | `packages/ui/src/foundations/` | componentes |
 | Componente (opcional) | valor de um único componente (`--bl-modal-enter-duration`) | `X.module.css` | só aquele componente |
 
 Valores semânticos sempre derivam da primitiva: cor = `var(--color-<tailwind>)`; o resto = `var(--text-sm)`, `var(--font-weight-semibold)` ou `calc(var(--spacing) * n)`.
@@ -217,7 +217,7 @@ O pai é dono do layout: o espaço entre irmãos é o `gap` do pai, e componente
 3. Token interativo ganha os estados usados (`-hover`, `-active`, `-selected`).
 4. Faltou um token? Ele entra no partial da categoria, com comentário, no mesmo PR que o usa, sempre a partir das primitivas do Tailwind.
 
-As regras 1 e 2 são verificadas por `packages/ui/src/theme/tokens.test.ts`, que roda em `pnpm test`.
+As regras 1 e 2 são verificadas por `packages/ui/src/foundations/tokens.test.ts`, que roda em `pnpm test`.
 
 ## ThemeSwitch
 

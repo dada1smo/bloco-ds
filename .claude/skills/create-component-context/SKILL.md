@@ -5,7 +5,7 @@ description: Cria ou atualiza o {ComponentName}.context.md de um componente do d
 
 # Criar o contexto de um componente
 
-Decisão: [ADR 0009](../../../docs/decisions/0009-documento-de-contexto-por-componente.md). Todo componente em `packages/ui/src/{component-name}/` tem `{ComponentName}.context.md` ao lado de `{ComponentName}.tsx`.
+Decisão: [ADR 0009](../../../docs/decisions/0009-documento-de-contexto-por-componente.md). Todo componente em `packages/ui/src/components/{component-name}/` tem `{ComponentName}.context.md` ao lado de `{ComponentName}.tsx`.
 
 ## Para quem
 
@@ -67,7 +67,7 @@ Demais props: as do {RAC `X` | elemento `<x>`}; `className` é repassado por úl
 
 ## Decisões
 
-- {escolha não óbvia e o porquê} ([ADR NNNN](../../../../docs/decisions/NNNN-....md))
+- {escolha não óbvia e o porquê} ([ADR NNNN](../../../../../docs/decisions/NNNN-....md))
 
 ## Exemplo
 
@@ -84,4 +84,4 @@ Seções sem conteúdo real (ex.: "Decisões" num componente trivial) podem ser 
 
 - Toda prop e variant citada existe no `.tsx`/`.styles.ts`, com o mesmo nome e default.
 - Todo componente citado em "Quando não usar" ou "Composição" existe em `packages/ui/src/index.ts`.
-- Os links relativos para ADRs abrem (o arquivo está em `packages/ui/src/{component-name}/`, então `../../../../docs/decisions/`).
+- Os links relativos para ADRs abrem (o arquivo está em `packages/ui/src/components/{component-name}/`, então `../../../../../docs/decisions/`).
