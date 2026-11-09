@@ -113,8 +113,10 @@ export { BLX, type BLXProps } from './{component-name}';
 
 Escreva `{ComponentName}.test.tsx` testando só comportamento (ver [ADR 0004](../../../docs/decisions/0004-testes-com-vitest.md)): `getByRole` + `userEvent`, callbacks, estado, `disabled`, ARIA, foco e repasse de `className`; nunca classes do DS, `toHaveStyle` ou snapshot.
 
-Crie as demos no catálogo (`apps/web/src/domain/demo/data/demos.tsx`) seguindo a skill `create-component-demo` ([SKILL.md](../create-component-demo/SKILL.md)): conjunto padrão de demos, compostas com os componentes de layout do DS.
+Escreva o context antes da página de docs: ela renderiza o `.md`.
 
 Escreva `{ComponentName}.context.md` seguindo a skill `create-component-context` ([SKILL.md](../create-component-context/SKILL.md), [ADR 0009](../../../docs/decisions/0009-documento-de-contexto-por-componente.md)), depois que a API e o teste estiverem prontos.
+
+Crie a página de docs (`apps/web/src/domain/docs/data/components/{component-name}.tsx`) seguindo a skill `create-component-docs` ([SKILL.md](../create-component-docs/SKILL.md), [ADR 0016](../../../docs/decisions/0016-catalogo-como-site-de-docs.md)): exemplos do conjunto padrão, props e o context ligado.
 
 Rode `pnpm --filter ./packages/ui exec tsc --noEmit` e `pnpm test:coverage` (mínimo 80%) e corrija erros.

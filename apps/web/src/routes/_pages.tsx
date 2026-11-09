@@ -1,6 +1,6 @@
 import { Outlet, createFileRoute, useLocation, useNavigate } from '@tanstack/react-router';
 import { BLRouterProvider } from '@bloco/ui';
-import { DemoNavigation } from '@/domain/demo/components/demo-navigation';
+import { DocsNavigation } from '@/domain/docs/components/docs-navigation';
 import { AppLayout } from '@/ui/components/app-layout';
 
 // Layout pathless (ADR 0015): envolve as páginas sem entrar na URL.
@@ -12,7 +12,7 @@ function PagesLayout() {
 
   return (
     <BLRouterProvider navigate={(to) => navigate({ to })}>
-      <AppLayout title="bloco-ds" sidebar={<DemoNavigation pathname={pathname} />}>
+      <AppLayout title="bloco-ds" sidebar={<DocsNavigation pathname={pathname} />}>
         <Outlet />
       </AppLayout>
     </BLRouterProvider>

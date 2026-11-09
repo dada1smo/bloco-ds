@@ -11,7 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PagesRouteImport } from './routes/_pages'
 import { Route as PagesIndexRouteImport } from './routes/_pages/index'
-import { Route as PagesComponentsFolderIdRouteImport } from './routes/_pages/components/$folder.$id'
+import { Route as PagesLayerSlugRouteImport } from './routes/_pages/$layer.$slug'
 
 const PagesRoute = PagesRouteImport.update({
   id: '/_pages',
@@ -22,32 +22,32 @@ const PagesIndexRoute = PagesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PagesRoute,
 } as any)
-const PagesComponentsFolderIdRoute = PagesComponentsFolderIdRouteImport.update({
-  id: '/components/$folder/$id',
-  path: '/components/$folder/$id',
+const PagesLayerSlugRoute = PagesLayerSlugRouteImport.update({
+  id: '/$layer/$slug',
+  path: '/$layer/$slug',
   getParentRoute: () => PagesRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof PagesIndexRoute
-  '/components/$folder/$id': typeof PagesComponentsFolderIdRoute
+  '/$layer/$slug': typeof PagesLayerSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof PagesIndexRoute
-  '/components/$folder/$id': typeof PagesComponentsFolderIdRoute
+  '/$layer/$slug': typeof PagesLayerSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_pages': typeof PagesRouteWithChildren
   '/_pages/': typeof PagesIndexRoute
-  '/_pages/components/$folder/$id': typeof PagesComponentsFolderIdRoute
+  '/_pages/$layer/$slug': typeof PagesLayerSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/components/$folder/$id'
+  fullPaths: '/' | '/$layer/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/components/$folder/$id'
-  id: '__root__' | '/_pages' | '/_pages/' | '/_pages/components/$folder/$id'
+  to: '/' | '/$layer/$slug'
+  id: '__root__' | '/_pages' | '/_pages/' | '/_pages/$layer/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -70,11 +70,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PagesIndexRouteImport
       parentRoute: typeof PagesRoute
     }
-    '/_pages/components/$folder/$id': {
-      id: '/_pages/components/$folder/$id'
-      path: '/components/$folder/$id'
-      fullPath: '/components/$folder/$id'
-      preLoaderRoute: typeof PagesComponentsFolderIdRouteImport
+    '/_pages/$layer/$slug': {
+      id: '/_pages/$layer/$slug'
+      path: '/$layer/$slug'
+      fullPath: '/$layer/$slug'
+      preLoaderRoute: typeof PagesLayerSlugRouteImport
       parentRoute: typeof PagesRoute
     }
   }
@@ -82,12 +82,12 @@ declare module '@tanstack/react-router' {
 
 interface PagesRouteChildren {
   PagesIndexRoute: typeof PagesIndexRoute
-  PagesComponentsFolderIdRoute: typeof PagesComponentsFolderIdRoute
+  PagesLayerSlugRoute: typeof PagesLayerSlugRoute
 }
 
 const PagesRouteChildren: PagesRouteChildren = {
   PagesIndexRoute: PagesIndexRoute,
-  PagesComponentsFolderIdRoute: PagesComponentsFolderIdRoute,
+  PagesLayerSlugRoute: PagesLayerSlugRoute,
 }
 
 const PagesRouteWithChildren = PagesRoute._addFileChildren(PagesRouteChildren)

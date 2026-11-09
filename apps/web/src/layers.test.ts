@@ -51,16 +51,16 @@ describe('camadas do app', () => {
   });
 
   it('detects bad names', () => {
-    expect(badName('./domain/demo/components/DemoNavigation.tsx')).toBe('DemoNavigation');
+    expect(badName('./domain/docs/components/DocsNavigation.tsx')).toBe('DocsNavigation');
     expect(badName('./ui/components/AppSidebar.tsx')).toBe('AppSidebar');
-    expect(badName('./domain/demo/components/demo-navigation.tsx')).toBeNull();
+    expect(badName('./domain/docs/components/docs-navigation.tsx')).toBeNull();
     expect(badName('./ui/components/app-sidebar.tsx')).toBeNull();
   });
 
   it('detects violations', () => {
-    expect(violations('./ui/components/A.tsx', "import { x } from '@/domain/demo/x';")).toHaveLength(1);
-    expect(violations('./domain/demo/a.ts', "import { x } from '../../ui/x';")).toHaveLength(1);
-    expect(violations('./domain/demo/a.ts', "import { x } from '@/domain/other/x';")).toEqual([]);
-    expect(violations('./routes/a.tsx', "import { x } from '@/domain/demo/x';")).toEqual([]);
+    expect(violations('./ui/components/A.tsx', "import { x } from '@/domain/docs/x';")).toHaveLength(1);
+    expect(violations('./domain/docs/a.ts', "import { x } from '../../ui/x';")).toHaveLength(1);
+    expect(violations('./domain/docs/a.ts', "import { x } from '@/domain/other/x';")).toEqual([]);
+    expect(violations('./routes/a.tsx', "import { x } from '@/domain/docs/x';")).toEqual([]);
   });
 });

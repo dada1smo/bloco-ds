@@ -24,3 +24,4 @@ Status: `Proposta` → `Aceita` → (`Substituída por NNNN` | `Rejeitada`). Um 
 | [0013](0013-espacamento-mais-aberto.md) | Subir um passo de espaçamento nos papéis de densidade | Aceita |
 | [0014](0014-tanstack-start-no-app.md) | Usar TanStack Start (SPA mode) como base do app de catálogo e starter | Proposta |
 | [0015](0015-camadas-do-app-web.md) | Organizar o app web em quatro camadas: routes, domain, ui e global | Proposta |
+| [0016](0016-catalogo-como-site-de-docs.md) | Organizar o catálogo como site de docs, com uma página por item do DS | Proposta |
