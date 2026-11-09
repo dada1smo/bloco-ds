@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority';
 
-export const inputFieldStyles = cva('group grid w-fit min-w-72 gap-2 font-sans');
+export const inputFieldStyles = cva('group grid w-fit min-w-72 gap-3 font-sans');
 
 // Campo no estilo Carbon: fundo `field`, só a borda de baixo
 export const inputStyles = cva([

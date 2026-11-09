@@ -1,11 +1,15 @@
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { ListIcon } from '@phosphor-icons/react';
 import {
+  BLAppShell,
+  BLCluster,
+  BLIconButton,
   BLNavigationTree,
   BLNavigationTreeItem,
   BLRouterProvider,
-  BLSidebar,
-  BLStack,
   BLThemeSwitch,
+  BLTypography,
+  useBLAppShell,
 } from '@bloco/ui';
 import { demos } from './demos';
 
@@ -20,20 +24,35 @@ const layers = [
 ];
 const layerOf = (folder: string) => (folder === 'foundations' || folder === 'patterns' ? folder : 'components');
 
+function MenuToggle() {
+  const { toggleSidebar } = useBLAppShell('left');
+  return (
+    <BLIconButton level="subtle" aria-label="Toggle navigation" onPress={toggleSidebar}>
+      <ListIcon />
+    </BLIconButton>
+  );
+}
+
+const header = (
+  <BLCluster gap="3" className="w-full flex-nowrap px-4">
+    <MenuToggle />
+    <BLTypography as="span" variant="heading-compact-02">
+      bloco-ds
+    </BLTypography>
+    <BLThemeSwitch className="ml-auto" />
+  </BLCluster>
+);
+
 export function App() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const folder = pathname.split('/')[2] ?? 'button';
 
   return (
-    <main className="min-h-screen bg-background p-8 font-sans text-primary">
-      <header className="mb-6 flex items-center justify-between">
-        <h1 className="text-heading-04">bloco-ds</h1>
-        <BLThemeSwitch />
-      </header>
       <BLRouterProvider navigate={navigate}>
-        <BLSidebar
-          side={
+        <BLAppShell
+          header={header}
+          sidebarLeft={
             <BLNavigationTree
               aria-label="Design system"
               selectedRoute={pathname}
@@ -59,7 +78,7 @@ export function App() {
             </BLNavigationTree>
           }
         >
-          <BLStack gap="4">
+          <div className="p-6">
             <Routes>
               <Route path="/" element={<Navigate to={`${base}/button/levels.tsx`} replace />} />
               {Object.entries(demos).flatMap(([folder, files]) =>
@@ -73,9 +92,8 @@ export function App() {
               )}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
-          </BLStack>
-        </BLSidebar>
+          </div>
+        </BLAppShell>
       </BLRouterProvider>
-    </main>
   );
 }

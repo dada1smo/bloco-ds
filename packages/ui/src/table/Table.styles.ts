@@ -8,7 +8,7 @@ export const tableStyles = cva(
 
 export const tableHeaderStyles = cva('bg-layer-02 text-label-01 text-primary');
 
-const cellBase = 'px-4 text-left align-middle outline-none data-focus-visible:-outline-offset-2 data-focus-visible:outline-2 data-focus-visible:outline-focus';
+const cellBase = 'px-6 text-left align-middle outline-none data-focus-visible:-outline-offset-2 data-focus-visible:outline-2 data-focus-visible:outline-focus';
 
 const cellSizes = {
   sm: 'h-control-sm',
@@ -21,7 +21,7 @@ export const tableColumnStyles = cva(
   { variants: { size: cellSizes }, defaultVariants: { size: 'lg' } },
 );
 
-export const tableColumnContentStyles = cva('flex items-center gap-3');
+export const tableColumnContentStyles = cva('flex items-center gap-4');
 
 export const tableSortIconStyles = cva('size-4 flex-none text-icon-primary');
 

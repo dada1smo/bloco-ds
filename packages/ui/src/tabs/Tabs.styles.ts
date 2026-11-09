@@ -9,8 +9,8 @@ export const tabListStyles = cva([
 ]);
 
 export const tabStyles = cva([
-  'flex min-h-control-lg cursor-pointer items-center border-b-2 border-transparent px-6 text-body-compact-01 whitespace-nowrap text-secondary outline-none',
-  'group-data-[orientation=vertical]:border-r-2 group-data-[orientation=vertical]:border-b-0 group-data-[orientation=vertical]:py-3',
+  'flex min-h-control-lg cursor-pointer items-center border-b-2 border-transparent px-8 text-body-compact-01 whitespace-nowrap text-secondary outline-none',
+  'group-data-[orientation=vertical]:border-r-2 group-data-[orientation=vertical]:border-b-0 group-data-[orientation=vertical]:py-4',
   'motion-safe:transition-colors data-hovered:bg-background-hover data-hovered:text-primary',
   'data-selected:border-interactive data-selected:text-primary',
   'data-disabled:cursor-not-allowed data-disabled:text-disabled data-disabled:data-hovered:bg-transparent',
@@ -18,5 +18,5 @@ export const tabStyles = cva([
 ]);
 
 export const tabPanelStyles = cva(
-  'p-6 text-secondary outline-none data-focus-visible:outline-2 data-focus-visible:outline-focus',
+  'p-8 text-secondary outline-none data-focus-visible:outline-2 data-focus-visible:outline-focus',
 );

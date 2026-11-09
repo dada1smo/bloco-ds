@@ -4,7 +4,7 @@ export const navigationTreeStyles = cva('max-w-104 text-body-compact-01 outline-
 
 // --tree-item-level comes from RAC (1 = root); each level indents 1.5rem
 export const navigationTreeItemStyles = cva([
-  'group flex min-h-control-xs items-center gap-3 px-2 ps-[calc((var(--tree-item-level)-1)*1.5rem+0.5rem)]',
+  'group flex min-h-control-xs items-center gap-4 px-3 ps-[calc((var(--tree-item-level)-1)*1.5rem+0.5rem)]',
   'cursor-default text-secondary outline-none data-hovered:bg-background-hover',
   'data-has-child-items:text-primary data-current-ancestor:text-primary',
   'data-current:bg-background-selected data-current:text-primary',
@@ -12,7 +12,7 @@ export const navigationTreeItemStyles = cva([
 ]);
 
 export const navigationTreeLinkStyles = cva(
-  'flex min-w-0 flex-1 cursor-pointer items-center gap-3 self-stretch text-inherit no-underline outline-none',
+  'flex min-w-0 flex-1 cursor-pointer items-center gap-4 self-stretch text-inherit no-underline outline-none',
 );
 
 export const navigationTreeChevronButtonStyles = cva(

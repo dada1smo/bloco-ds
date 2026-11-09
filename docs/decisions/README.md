@@ -21,3 +21,4 @@ Status: `Proposta` → `Aceita` → (`Substituída por NNNN` | `Rejeitada`). Um 
 | [0010](0010-padrao-de-form-fields.md) | Padronizar form fields com FieldLabel, FieldHelperText e FieldFeedback | Aceita |
 | [0011](0011-tres-camadas-do-design-system.md) | Organizar o design system em três camadas: foundations, components e patterns | Aceita |
 | [0012](0012-estrutura-da-camada-de-patterns.md) | Documentar patterns em `packages/ui/patterns/` como markdown com exemplo tipado | Proposta |
+| [0013](0013-espacamento-mais-aberto.md) | Subir um passo de espaçamento nos papéis de densidade | Aceita |

@@ -9,7 +9,7 @@ export const accordionItemStyles = cva('group border-t border-subtle first:borde
 export const accordionHeadingStyles = cva('m-0');
 
 export const accordionTriggerStyles = cva([
-  'flex min-h-control-lg w-full items-center justify-between gap-6 px-6 py-4 text-left text-body-01',
+  'flex min-h-control-lg w-full items-center justify-between gap-8 px-8 py-6 text-left text-body-01',
   'cursor-pointer outline-none data-hovered:bg-background-hover motion-safe:transition-colors',
   'data-focus-visible:-outline-offset-2 data-focus-visible:outline-2 data-focus-visible:outline-focus',
 ]);
@@ -23,4 +23,4 @@ export const accordionPanelStyles = cva(
   'h-(--disclosure-panel-height) overflow-clip motion-safe:transition-[height] motion-safe:duration-200',
 );
 
-export const accordionContentStyles = cva('px-6 pb-6 text-secondary');
+export const accordionContentStyles = cva('px-8 pb-8 text-secondary');

@@ -1,8 +1,8 @@
 import { cva } from 'class-variance-authority';
 
-export const checkboxFieldStyles = cva('group grid w-fit gap-2 font-sans');
+export const checkboxFieldStyles = cva('group grid w-fit gap-3 font-sans');
 
-export const checkboxStyles = cva('group/box flex cursor-pointer items-center gap-3 group-data-disabled:cursor-not-allowed');
+export const checkboxStyles = cva('group/box flex cursor-pointer items-center gap-4 group-data-disabled:cursor-not-allowed');
 
 // Box 20px: border-strong; filled with interactive when selected/indeterminate
 export const checkboxBoxStyles = cva([

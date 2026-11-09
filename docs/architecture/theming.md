@@ -132,15 +132,16 @@ Densidade aberta (ADR 0007). Cada espaço tem um papel; escolha o passo pelo pap
 
 | Papel | Passo | px |
 |---|---|---|
-| Entre linhas de texto empilhadas (título e descrição de uma opção) | `gap-1` | 4 |
-| Rótulo ↔ campo | `gap-2` | 8 |
-| Ícone ↔ texto, itens em linha | `gap-3` | 12 |
-| Padding horizontal de controle `sm` / `md` / `lg` | `px-4` / `px-6` / `px-8` | 16 / 24 / 32 |
-| Padding vertical de item de lista com mais de uma linha | `py-3` / `py-4` | 12 / 16 |
-| Padding de conteúdo em painel (accordion) | `px-6 pb-6` | 24 |
-| Padding de container (modal, card) | `p-8` | 32 |
-| Entre blocos de conteúdo | `gap-6` | 24 |
-| Entre seções de página | `gap-10` | 40 |
+| Entre linhas de texto empilhadas (título e descrição de uma opção) | `gap-2` | 8 |
+| Rótulo ↔ campo | `gap-3` | 12 |
+| Ícone ↔ texto, itens em linha | `gap-4` | 16 |
+| Padding horizontal de button `sm` / `md` / `lg` | `px-4` / `px-6` / `px-8` | 16 / 24 / 32 |
+| Padding horizontal de field de form e item de menu (input, select, dropdown) | `px-6` | 24 |
+| Padding vertical de item de lista com mais de uma linha | `py-4` / `py-6` | 16 / 24 |
+| Padding de conteúdo em painel (accordion) | `px-8 pb-8` | 32 |
+| Padding de container (modal, card) | `p-10` | 40 |
+| Entre blocos de conteúdo | `gap-8` | 32 |
+| Entre seções de página | `gap-12` | 48 |
 | Entre colunas de página | gutter do grid ([Layout](#layout)) | 16–40 |
 
 Ao portar um valor da densidade antiga (ADR 0006), use o passo seguinte da escala: `0.5→1`, `1→2`, `2→3`, `3→4`, `4→6`, `6→8`, `8→10`, `10→12`.
@@ -187,7 +188,7 @@ A largura vem do tipo de conteúdo, não da página.
 | `max-w-reading` | 768px | formulário, configurações, coluna única |
 | `max-w-page` | 1584px | página; o `BLGrid` já aplica |
 | `w-sidebar` | 288px | trilho lateral; o `BLSidebar` e o `BLAppShell` já aplicam |
-| `h-header` | 64px | header do app; o `BLAppShell` já aplica |
+| `h-header` | 72px | header do app; o `BLAppShell` já aplica |
 | `w-rail` | 48px | sidebar recolhida só com ícones; o `BLAppShell` já aplica |
 
 ### Primitivas

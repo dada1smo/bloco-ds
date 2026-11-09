@@ -1,8 +1,8 @@
 import { cva } from 'class-variance-authority';
 
-export const switchFieldStyles = cva('group grid w-fit gap-2 font-sans');
+export const switchFieldStyles = cva('group grid w-fit gap-3 font-sans');
 
-export const switchStyles = cva('group/box flex cursor-pointer items-center gap-3 group-data-disabled:cursor-not-allowed');
+export const switchStyles = cva('group/box flex cursor-pointer items-center gap-4 group-data-disabled:cursor-not-allowed');
 
 // Track 56x28: border-strong, filled with interactive when selected; thumb 20px sits at the end when selected
 export const switchTrackStyles = cva([

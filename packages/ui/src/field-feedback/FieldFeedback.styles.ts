@@ -1,6 +1,6 @@
 import { cva } from 'class-variance-authority';
 
-export const fieldFeedbackStyles = cva('flex items-start gap-2 text-helper-text-01', {
+export const fieldFeedbackStyles = cva('flex items-start gap-3 text-helper-text-01', {
   variants: {
     status: { error: 'text-error', success: 'text-helper' },
   },

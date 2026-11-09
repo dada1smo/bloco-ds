@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from 'class-variance-authority';
 
-const displayStyles = 'inline-flex items-center justify-center gap-3';
+const displayStyles = 'inline-flex items-center justify-center gap-4';
 const typographyStyles = 'font-sans text-body-compact-01 whitespace-nowrap';
 const shapeStyles = 'border';
 const interactionStyles =
