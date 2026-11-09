@@ -33,6 +33,12 @@ export { BLGrid, type BLGridProps } from './grid';
 export { BLStack, type BLStackProps } from './stack';
 export { BLCluster, type BLClusterProps } from './cluster';
 export { BLSidebar, type BLSidebarProps } from './sidebar';
+export {
+  BLAppShell,
+  useBLAppShell,
+  type BLAppShellProps,
+  type BLAppShellSidebarState,
+} from './app-shell';
 export { BLFieldLabel, type BLFieldLabelProps } from './field-label';
 export { BLFieldHelperText, type BLFieldHelperTextProps } from './field-helper-text';
 export { BLFieldFeedback, type BLFieldFeedbackProps } from './field-feedback';

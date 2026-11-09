@@ -1,12 +1,18 @@
 import {
+  ChartBarIcon,
   FileDashedIcon,
   FolderIcon,
+  GearIcon,
   GlobeIcon,
+  HouseIcon,
+  InfoIcon,
+  ListIcon,
   PlusIcon,
   UsersIcon,
 } from '@phosphor-icons/react';
 import { useState, type ReactNode } from 'react';
 import {
+  BLAppShell,
   BLAccordion,
   BLBadge,
   BLButton,
@@ -30,6 +36,7 @@ import {
   BLTooltip,
   BLTypography,
   blToastQueue,
+  useBLAppShell,
   type BLDropdownItem,
   type BLTableRow,
 } from '@bloco/ui';
@@ -48,13 +55,31 @@ const tableColumns = [
   { id: 'status', title: 'Status' },
 ];
 const tableRows: BLTableRow[] = [
-  { id: '1', name: 'Ana Souza', role: 'Designer', status: <BLBadge status="success">Active</BLBadge> },
-  { id: '2', name: 'Bruno Lima', role: 'Engineer', status: <BLBadge status="warning">Invited</BLBadge> },
-  { id: '3', name: 'Carla Dias', role: 'Product manager', status: <BLBadge>Inactive</BLBadge> },
+  {
+    id: '1',
+    name: 'Ana Souza',
+    role: 'Designer',
+    status: <BLBadge status="success">Active</BLBadge>,
+  },
+  {
+    id: '2',
+    name: 'Bruno Lima',
+    role: 'Engineer',
+    status: <BLBadge status="warning">Invited</BLBadge>,
+  },
+  {
+    id: '3',
+    name: 'Carla Dias',
+    role: 'Product manager',
+    status: <BLBadge>Inactive</BLBadge>,
+  },
 ];
 
 function SortableTable() {
-  const [sort, setSort] = useState<{ column: string | number; direction: 'ascending' | 'descending' }>({
+  const [sort, setSort] = useState<{
+    column: string | number;
+    direction: 'ascending' | 'descending';
+  }>({
     column: 'name',
     direction: 'ascending',
   });
@@ -250,6 +275,96 @@ const dropdownGroups: BLDropdownItem[][] = [
   [{ label: 'Delete', href: '#' }],
 ];
 
+// AppShell: só os componentes de dentro decidem o conteúdo; o toggle usa o hook do lado que controla.
+function ShellToggle({ side }: { side: 'left' | 'right' }) {
+  const { toggleSidebar, state } = useBLAppShell(side);
+  return (
+    <BLIconButton
+      level="subtle"
+      aria-label={`${state === 'expanded' ? 'Collapse' : 'Expand'} ${side} sidebar`}
+      onPress={toggleSidebar}
+    >
+      {side === 'left' ? <ListIcon /> : <InfoIcon />}
+    </BLIconButton>
+  );
+}
+
+function ShellHeader({
+  left = false,
+  right = false,
+}: {
+  left?: boolean;
+  right?: boolean;
+}) {
+  return (
+    <BLCluster gap="3" className="w-full flex-nowrap">
+      {left && <ShellToggle side="left" />}
+      <BLTypography variant="heading-compact-02" className={left ? '' : 'pl-4'}>
+        Acme
+      </BLTypography>
+      {right && (
+        <BLCluster className="ml-auto">
+          <ShellToggle side="right" />
+        </BLCluster>
+      )}
+    </BLCluster>
+  );
+}
+
+const shellNav = (
+  <BLNavigationTree aria-label="Main" className="py-2">
+    <BLNavigationTreeItem title="Overview" href="#overview" />
+    <BLNavigationTreeItem title="Projects" href="#projects" />
+    <BLNavigationTreeItem title="Settings" href="#settings" />
+  </BLNavigationTree>
+);
+
+const shellDetails = (
+  <BLStack gap="2" className="p-6">
+    <BLTypography variant="heading-compact-01">Details</BLTypography>
+    <BLTypography variant="body-compact-01">Owner: Ana Souza</BLTypography>
+    <BLTypography variant="body-compact-01">Updated 2 hours ago</BLTypography>
+  </BLStack>
+);
+
+const shellContent = (
+  <BLStack gap="4" className="p-6">
+    <BLTypography variant="heading-03">Projects</BLTypography>
+    <BLTypography variant="body-01">
+      The content area takes whatever space the sidebars leave.
+    </BLTypography>
+  </BLStack>
+);
+
+const railItems = [
+  { label: 'Home', icon: <HouseIcon /> },
+  { label: 'Reports', icon: <ChartBarIcon /> },
+  { label: 'Settings', icon: <GearIcon /> },
+];
+
+// Rail: recolhida mostra só ícones; expandida, ícone + rótulo.
+function ShellRail() {
+  const { state } = useBLAppShell('left');
+  return (
+    <nav aria-label="Main">
+      <BLStack gap="1">
+        {railItems.map(({ label, icon }) =>
+          state === 'collapsed' ? (
+            <BLIconButton key={label} level="subtle" aria-label={label}>
+              {icon}
+            </BLIconButton>
+          ) : (
+            <BLButton key={label} level="subtle" className="justify-start">
+              {icon}
+              {label}
+            </BLButton>
+          ),
+        )}
+      </BLStack>
+    </nav>
+  );
+}
+
 export type Demo = { id: string; render: () => ReactNode };
 
 // Pasta -> arquivos: cada arquivo é uma demo exibida no painel.
@@ -414,6 +529,55 @@ export const demos: Record<string, Demo[]> = {
       ),
     },
   ],
+  'app-shell': [
+    {
+      id: 'default.tsx',
+      render: () => (
+        <BLAppShell
+          className="h-96!"
+          header={<ShellHeader left right />}
+          sidebarLeft={shellNav}
+          sidebarRight={shellDetails}
+        >
+          {shellContent}
+        </BLAppShell>
+      ),
+    },
+    {
+      id: 'header-only.tsx',
+      render: () => (
+        <BLAppShell className="h-96!" header={<ShellHeader />}>
+          {shellContent}
+        </BLAppShell>
+      ),
+    },
+    {
+      id: 'icon.tsx',
+      render: () => (
+        <BLAppShell
+          className="h-96!"
+          header={<ShellHeader left />}
+          sidebarLeft={<ShellRail />}
+          leftCollapsible="icon"
+          defaultLeftOpen={false}
+        >
+          {shellContent}
+        </BLAppShell>
+      ),
+    },
+    {
+      id: 'right-only.tsx',
+      render: () => (
+        <BLAppShell
+          className="h-96!"
+          header={<ShellHeader right />}
+          sidebarRight={shellDetails}
+        >
+          {shellContent}
+        </BLAppShell>
+      ),
+    },
+  ],
   accordion: [
     {
       id: 'default.tsx',
@@ -436,13 +600,25 @@ export const demos: Record<string, Demo[]> = {
       render: () => (
         <BLNavigationTree aria-label="Components" className="w-sidebar">
           <BLNavigationTreeItem title="Inputs" id="inputs">
-            <BLNavigationTreeItem title="Button" href="/components/button/default.tsx" />
-            <BLNavigationTreeItem title="Checkbox" href="/components/checkbox/default.tsx" />
+            <BLNavigationTreeItem
+              title="Button"
+              href="/components/button/default.tsx"
+            />
+            <BLNavigationTreeItem
+              title="Checkbox"
+              href="/components/checkbox/default.tsx"
+            />
           </BLNavigationTreeItem>
           <BLNavigationTreeItem title="Layout" id="layout">
-            <BLNavigationTreeItem title="Grid" href="/components/grid/default.tsx" />
+            <BLNavigationTreeItem
+              title="Grid"
+              href="/components/grid/default.tsx"
+            />
           </BLNavigationTreeItem>
-          <BLNavigationTreeItem title="Table" href="/components/table/default.tsx" />
+          <BLNavigationTreeItem
+            title="Table"
+            href="/components/table/default.tsx"
+          />
         </BLNavigationTree>
       ),
     },
@@ -456,19 +632,40 @@ export const demos: Record<string, Demo[]> = {
           defaultExpandedKeys={['inputs']}
         >
           <BLNavigationTreeItem title="Inputs" id="inputs">
-            <BLNavigationTreeItem title="Button" href="/components/button/default.tsx" />
-            <BLNavigationTreeItem title="Checkbox" href="/components/checkbox/default.tsx" />
+            <BLNavigationTreeItem
+              title="Button"
+              href="/components/button/default.tsx"
+            />
+            <BLNavigationTreeItem
+              title="Checkbox"
+              href="/components/checkbox/default.tsx"
+            />
           </BLNavigationTreeItem>
-          <BLNavigationTreeItem title="Table" href="/components/table/default.tsx" />
+          <BLNavigationTreeItem
+            title="Table"
+            href="/components/table/default.tsx"
+          />
         </BLNavigationTree>
       ),
     },
     {
       id: 'icons.tsx',
       render: () => (
-        <BLNavigationTree aria-label="Components" className="w-sidebar" defaultExpandedKeys={['inputs']}>
-          <BLNavigationTreeItem title="Inputs" id="inputs" icon={<FolderIcon />}>
-            <BLNavigationTreeItem title="Button" href="/components/button/default.tsx" icon={<FileDashedIcon />} />
+        <BLNavigationTree
+          aria-label="Components"
+          className="w-sidebar"
+          defaultExpandedKeys={['inputs']}
+        >
+          <BLNavigationTreeItem
+            title="Inputs"
+            id="inputs"
+            icon={<FolderIcon />}
+          >
+            <BLNavigationTreeItem
+              title="Button"
+              href="/components/button/default.tsx"
+              icon={<FileDashedIcon />}
+            />
           </BLNavigationTreeItem>
         </BLNavigationTree>
       ),
@@ -590,7 +787,9 @@ export const demos: Record<string, Demo[]> = {
   checkbox: [
     {
       id: 'default.tsx',
-      render: () => <BLCheckbox label="Accept terms and conditions" name="terms" />,
+      render: () => (
+        <BLCheckbox label="Accept terms and conditions" name="terms" />
+      ),
     },
     {
       id: 'states.tsx',
@@ -600,7 +799,11 @@ export const demos: Record<string, Demo[]> = {
           <BLCheckbox label="Required" isRequired />
           <BLCheckbox label="Indeterminate" isIndeterminate />
           <BLCheckbox label="Error" isInvalid errorMessage="You must accept" />
-          <BLCheckbox label="Success" defaultSelected successMessage="Looks good" />
+          <BLCheckbox
+            label="Success"
+            defaultSelected
+            successMessage="Looks good"
+          />
           <BLCheckbox label="Disabled" isDisabled helperText="Locked" />
           <BLCheckbox label="Disabled checked" isDisabled defaultSelected />
         </BLCluster>
@@ -621,15 +824,36 @@ export const demos: Record<string, Demo[]> = {
     {
       id: 'default.tsx',
       render: () => (
-        <BLForm aria-label="Profile" className="max-w-prose" onSubmit={(e) => e.preventDefault()}>
+        <BLForm
+          aria-label="Profile"
+          className="max-w-prose"
+          onSubmit={(e) => e.preventDefault()}
+        >
           <BLInput className="w-full!" label="Name" name="name" isRequired />
-          <BLInput className="w-full!" label="Email" name="email" type="email" isRequired />
-          <BLCheckbox className="w-full!" label="Email me product updates" name="updates" />
+          <BLInput
+            className="w-full!"
+            label="Email"
+            name="email"
+            type="email"
+            isRequired
+          />
+          <BLCheckbox
+            className="w-full!"
+            label="Email me product updates"
+            name="updates"
+          />
           <BLButtonGroup
             aria-label="Form actions"
             role="group"
             items={[
-              { cols: 2, element: <BLButton type="reset" level="outline">Reset</BLButton> },
+              {
+                cols: 2,
+                element: (
+                  <BLButton type="reset" level="outline">
+                    Reset
+                  </BLButton>
+                ),
+              },
               { cols: 2, element: <BLButton type="submit">Save</BLButton> },
             ]}
           />
@@ -644,11 +868,22 @@ export const demos: Record<string, Demo[]> = {
           className="max-w-prose"
           validationErrors={{ email: 'This email is already registered' }}
         >
-          <BLInput className="w-full!" label="Email" name="email" type="email" defaultValue="ana@example.com" />
+          <BLInput
+            className="w-full!"
+            label="Email"
+            name="email"
+            type="email"
+            defaultValue="ana@example.com"
+          />
           <BLButtonGroup
             aria-label="Form actions"
             role="group"
-            items={[{ cols: 4, element: <BLButton type="submit">Create account</BLButton> }]}
+            items={[
+              {
+                cols: 4,
+                element: <BLButton type="submit">Create account</BLButton>,
+              },
+            ]}
           />
         </BLForm>
       ),
@@ -656,11 +891,31 @@ export const demos: Record<string, Demo[]> = {
     {
       id: 'composition.tsx',
       render: () => (
-        <BLForm aria-label="Account" gap="8" onSubmit={(e) => e.preventDefault()}>
+        <BLForm
+          aria-label="Account"
+          gap="8"
+          onSubmit={(e) => e.preventDefault()}
+        >
           <BLGrid>
-            <BLInput label="First name" name="first" isRequired className="w-full! min-w-0! col-span-4 lg:col-span-8" />
-            <BLInput label="Last name" name="last" isRequired className="w-full! min-w-0! col-span-4 lg:col-span-8" />
-            <BLInput label="Email" name="email" type="email" isRequired className="w-full! min-w-0! col-span-4 md:col-span-8 lg:col-span-10" />
+            <BLInput
+              label="First name"
+              name="first"
+              isRequired
+              className="w-full! min-w-0! col-span-4 lg:col-span-8"
+            />
+            <BLInput
+              label="Last name"
+              name="last"
+              isRequired
+              className="w-full! min-w-0! col-span-4 lg:col-span-8"
+            />
+            <BLInput
+              label="Email"
+              name="email"
+              type="email"
+              isRequired
+              className="w-full! min-w-0! col-span-4 md:col-span-8 lg:col-span-10"
+            />
             <BLSelect
               label="Country"
               name="country"
@@ -670,13 +925,24 @@ export const demos: Record<string, Demo[]> = {
                 { value: 'pt', label: 'Portugal' },
               ]}
             />
-            <BLCheckbox label="Email me product updates" name="updates" className="w-full! min-w-0! col-span-full" />
+            <BLCheckbox
+              label="Email me product updates"
+              name="updates"
+              className="w-full! min-w-0! col-span-full"
+            />
             <BLButtonGroup
               className="col-span-4 md:col-span-4 md:col-start-5 lg:col-span-6 lg:col-start-11"
               aria-label="Form actions"
               role="group"
               items={[
-                { cols: 2, element: <BLButton type="reset" level="outline">Reset</BLButton> },
+                {
+                  cols: 2,
+                  element: (
+                    <BLButton type="reset" level="outline">
+                      Reset
+                    </BLButton>
+                  ),
+                },
                 { cols: 2, element: <BLButton type="submit">Save</BLButton> },
               ]}
             />
@@ -963,7 +1229,11 @@ export const demos: Record<string, Demo[]> = {
       render: () => (
         <BLCluster gap="3">
           {(['top', 'right', 'bottom', 'left'] as const).map((placement) => (
-            <BLTooltip key={placement} content={`Tooltip ${placement}`} placement={placement}>
+            <BLTooltip
+              key={placement}
+              content={`Tooltip ${placement}`}
+              placement={placement}
+            >
               <BLButton level="outline">{placement}</BLButton>
             </BLTooltip>
           ))}
@@ -975,7 +1245,12 @@ export const demos: Record<string, Demo[]> = {
     {
       id: 'default.tsx',
       render: () => (
-        <BLTable className="max-w-reading" aria-label="Team members" columns={tableColumns} rows={tableRows} />
+        <BLTable
+          className="max-w-reading"
+          aria-label="Team members"
+          columns={tableColumns}
+          rows={tableRows}
+        />
       ),
     },
     {
@@ -987,7 +1262,13 @@ export const demos: Record<string, Demo[]> = {
               <BLTypography variant="code-01" font="mono">
                 {size}
               </BLTypography>
-              <BLTable className="max-w-reading" aria-label={`Team members, ${size}`} size={size} columns={tableColumns} rows={tableRows} />
+              <BLTable
+                className="max-w-reading"
+                aria-label={`Team members, ${size}`}
+                size={size}
+                columns={tableColumns}
+                rows={tableRows}
+              />
             </BLStack>
           ))}
         </BLStack>

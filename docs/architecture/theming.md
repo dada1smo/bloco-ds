@@ -9,7 +9,7 @@ Fonte única: `packages/ui/src/theme.css` (export `@bloco/ui/theme.css`). Ele s�
 | `color.css` | cor e tema: `background`, `layer-*`, `field-*`, bordas, texto, ícone, `interactive`, `accent`, `support-*`, foco; `.light` e `.dark` |
 | `typography.css` | `font-sans`, `font-mono` e o type set (`text-body-01`, `text-heading-03`…) |
 | `spacing.css` | alturas de controle (`control-xs..xl`) e `shadow-floating` |
-| `layout.css` | breakpoints do grid 2x e larguras de container (`reading`, `page`, `sidebar`) |
+| `layout.css` | breakpoints do grid 2x, larguras de container (`reading`, `page`, `sidebar`) e medidas do app shell (`header`, `rail`) |
 
 Categoria nova = partial novo + uma linha de `@import` no `theme.css`. Cada token leva, no partial, um comentário de uma linha dizendo quando usar.
 
@@ -186,7 +186,9 @@ A largura vem do tipo de conteúdo, não da página.
 | `max-w-prose` | 65ch | texto longo, documentação (do Tailwind) |
 | `max-w-reading` | 768px | formulário, configurações, coluna única |
 | `max-w-page` | 1584px | página; o `BLGrid` já aplica |
-| `w-sidebar` | 288px | trilho lateral; o `BLSidebar` já aplica |
+| `w-sidebar` | 288px | trilho lateral; o `BLSidebar` e o `BLAppShell` já aplicam |
+| `h-header` | 48px | header do app; o `BLAppShell` já aplica |
+| `w-rail` | 48px | sidebar recolhida só com ícones; o `BLAppShell` já aplica |
 
 ### Primitivas
 
@@ -198,6 +200,7 @@ O pai é dono do layout: o espaço entre irmãos é o `gap` do pai, e componente
 | `BLStack` | coluna com `gap` (padrão `6`) | campos de formulário, blocos de conteúdo, listas de cards |
 | `BLCluster` | linha que quebra, com `gap` (padrão `3`) | tags, toolbars, grupos de botões |
 | `BLSidebar` | trilho `w-sidebar` + conteúdo; empilha abaixo de `md` | navegação ao lado do conteúdo |
+| `BLAppShell` | tela cheia: header, sidebars esquerda/direita recolhíveis e content | casco da aplicação |
 
 `gap` de `BLStack` e `BLCluster` aceita `1 2 3 4 6 8 10 12`; escolha pelo papel na tabela [Densidade](#densidade).
 
