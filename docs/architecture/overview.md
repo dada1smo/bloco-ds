@@ -5,7 +5,7 @@ Monorepo pnpm (`packages/*`, `apps/*`).
 | Pacote | Papel |
 |---|---|
 | `packages/ui` (`@bloco/ui`) | O design system. React 19, Tailwind v4, `class-variance-authority`, Phosphor icons. |
-| `apps/web` (`@bloco/web`) | Catálogo/demo em Vite + react-router. |
+| `apps/web` (`@bloco/web`) | Catálogo e starter em TanStack Start (SPA mode) — [ADR 0014](../decisions/0014-tanstack-start-no-app.md). |
 
 `@bloco/ui` é consumido **como código-fonte**: `main`/`types` apontam para `src/index.ts`, sem etapa de build. Por isso o app usa `@source "../../../packages/ui/src"` no CSS, para o Tailwind enxergar as classes do pacote.
 

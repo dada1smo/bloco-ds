@@ -5,7 +5,7 @@ description: Cria ou atualiza as demos de um componente do design system no cat�
 
 # Criar as demos de um componente
 
-O catálogo é `apps/web/src/demos.tsx`: `folder -> Demo[]`, com `Demo = { id, render }`. `App.tsx` monta a árvore lateral por esse mapa e roteia para `/components/<folder>/<id>`. Sem entrada ali o componente não aparece.
+O catálogo é `apps/web/src/demos.tsx`: `folder -> Demo[]`, com `Demo = { id, render }`. `src/routes/components.tsx` monta a árvore lateral por esse mapa e roteia para `/components/<folder>/<id>`. Sem entrada ali o componente não aparece.
 
 ## Antes de escrever
 

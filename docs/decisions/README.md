@@ -22,3 +22,4 @@ Status: `Proposta` → `Aceita` → (`Substituída por NNNN` | `Rejeitada`). Um 
 | [0011](0011-tres-camadas-do-design-system.md) | Organizar o design system em três camadas: foundations, components e patterns | Aceita |
 | [0012](0012-estrutura-da-camada-de-patterns.md) | Documentar patterns em `packages/ui/patterns/` como markdown com exemplo tipado | Proposta |
 | [0013](0013-espacamento-mais-aberto.md) | Subir um passo de espaçamento nos papéis de densidade | Aceita |
+| [0014](0014-tanstack-start-no-app.md) | Usar TanStack Start (SPA mode) como base do app de catálogo e starter | Proposta |

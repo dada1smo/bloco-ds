@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, createFileRoute, useLocation, useNavigate } from '@tanstack/react-router';
 import { ListIcon } from '@phosphor-icons/react';
 import {
   BLAppShell,
@@ -11,9 +11,11 @@ import {
   BLTypography,
   useBLAppShell,
 } from '@bloco/ui';
-import { demos } from './demos';
+import { demos } from '../demos';
 
 const base = '/components';
+
+export const Route = createFileRoute('/components')({ component: CatalogLayout });
 
 // As três camadas do DS na mesma árvore; toda pasta que não é foundations nem patterns é componente.
 const entries = Object.entries(demos);
@@ -43,13 +45,13 @@ const header = (
   </BLCluster>
 );
 
-export function App() {
-  const { pathname } = useLocation();
+function CatalogLayout() {
+  const pathname = useLocation({ select: (l) => l.pathname });
   const navigate = useNavigate();
   const folder = pathname.split('/')[2] ?? 'button';
 
   return (
-      <BLRouterProvider navigate={navigate}>
+      <BLRouterProvider navigate={(to) => navigate({ to })}>
         <BLAppShell
           header={header}
           sidebarLeft={
@@ -79,19 +81,7 @@ export function App() {
           }
         >
           <div className="p-6">
-            <Routes>
-              <Route path="/" element={<Navigate to={`${base}/button/levels.tsx`} replace />} />
-              {Object.entries(demos).flatMap(([folder, files]) =>
-                files.map(({ id, render }) => (
-                  <Route
-                    key={`${folder}/${id}`}
-                    path={`${base}/${folder}/${id}`}
-                    element={render()}
-                  />
-                )),
-              )}
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
+            <Outlet />
           </div>
         </BLAppShell>
       </BLRouterProvider>

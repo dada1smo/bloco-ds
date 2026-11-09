@@ -1,5 +1,9 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from 'vite';
+import { tanstackStart } from '@tanstack/react-start/plugin/vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 
-export default defineConfig({ plugins: [react(), tailwindcss()] });
+// SPA mode (ADR 0014): só o shell do __root é pré-renderizado; as rotas rodam no cliente.
+export default defineConfig({
+  plugins: [tanstackStart({ spa: { enabled: true } }), react(), tailwindcss()],
+});
