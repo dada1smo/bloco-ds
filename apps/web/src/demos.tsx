@@ -30,6 +30,7 @@ import {
   BLSelect,
   BLSidebar,
   BLStack,
+  BLSwitch,
   BLTable,
   BLTabs,
   BLToast,
@@ -816,6 +817,35 @@ export const demos: Record<string, Demo[]> = {
           <BLCheckbox label="Email me product updates" defaultSelected />
           <BLCheckbox label="Email me billing alerts" />
           <BLCheckbox label="Send a weekly summary" />
+        </BLStack>
+      ),
+    },
+  ],
+  switch: [
+    {
+      id: 'default.tsx',
+      render: () => <BLSwitch label="Notifications" name="notifications" />,
+    },
+    {
+      id: 'states.tsx',
+      render: () => (
+        <BLCluster gap="6" className="items-start">
+          <BLSwitch label="Helper" helperText="Weekly email" />
+          <BLSwitch label="Required" isRequired />
+          <BLSwitch label="Error" isInvalid errorMessage="You must enable" />
+          <BLSwitch label="Success" defaultSelected successMessage="Looks good" />
+          <BLSwitch label="Disabled" isDisabled helperText="Locked" />
+          <BLSwitch label="Disabled on" isDisabled defaultSelected />
+        </BLCluster>
+      ),
+    },
+    {
+      id: 'composition.tsx',
+      render: () => (
+        <BLStack gap="3">
+          <BLSwitch label="Email me product updates" defaultSelected />
+          <BLSwitch label="Email me billing alerts" />
+          <BLSwitch label="Send a weekly summary" />
         </BLStack>
       ),
     },

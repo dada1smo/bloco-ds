@@ -54,6 +54,7 @@ export {
   type BLTableRow,
 } from './table';
 export { BLCheckbox, type BLCheckboxProps } from './checkbox';
+export { BLSwitch, type BLSwitchProps } from './switch';
 export { BLForm, type BLFormProps } from './form';
 
 // Wires `href` of BLNavigationTree (and other link components) to a client router.
