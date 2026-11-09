@@ -18,6 +18,7 @@ import {
   BLBadge,
   BLButton,
   BLButtonGroup,
+  BLAnchorCard,
   BLCard,
   BLCheckbox,
   BLCluster,
@@ -1269,6 +1270,49 @@ export const demos: Record<string, Demo[]> = {
             <BLCard key={name} role="listitem" padding="sm" description={name} metadata="Updated today" />
           ))}
         </BLStack>
+      ),
+    },
+  ],
+  'anchor-card': [
+    {
+      id: 'default.tsx',
+      render: () => (
+        <BLAnchorCard
+          className="max-w-reading"
+          href="#"
+          heading="Getting started"
+          description="Install the package and import the theme."
+        />
+      ),
+    },
+    {
+      id: 'rich.tsx',
+      render: () => (
+        <BLAnchorCard
+          className="max-w-reading"
+          href="#"
+          icon={<FolderIcon />}
+          heading="Project Alpha"
+          description="Internal dashboard for the billing team."
+          metadata={
+            <>
+              <BLBadge status="success">Active</BLBadge>
+              <span>Updated 2 days ago</span>
+            </>
+          }
+        />
+      ),
+    },
+    {
+      id: 'grid.tsx',
+      render: () => (
+        <BLGrid role="list">
+          {['Billing dashboard', 'Marketing site', 'Mobile app', 'Design system'].map((name) => (
+            <div key={name} role="listitem" className="col-span-4">
+              <BLAnchorCard href="#" heading={name} headingLevel={2} description="Updated today" />
+            </div>
+          ))}
+        </BLGrid>
       ),
     },
   ],

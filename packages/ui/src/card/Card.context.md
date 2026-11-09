@@ -9,6 +9,7 @@ Superfície que agrupa conteúdo relacionado sobre um mesmo assunto (um projeto,
 
 ## Quando não usar
 
+- O card inteiro leva a outra página, sem ações internas → `BLAnchorCard`.
 - Conteúdo que expande e recolhe → `BLAccordion`.
 - Diálogo ou confirmação → `BLModal`.
 - Dados tabulares comparáveis entre linhas → `BLTable`.
@@ -50,7 +51,7 @@ Demais props: as do elemento HTML; `className` é repassado por último e pode s
 - Referência: Primer Card, adaptado. API por props (como `BLModal`) em vez de subcomponentes (`Card.Heading`, `Card.Description`…), para manter a ordem e a semântica dos slots fixas.
 - Profundidade por camada, sem borda nem sombra, e cantos retos ([ADR 0006](../../../../docs/decisions/0006-foundations-carbon.md)); por isso `borderRadius` do Primer ficou de fora.
 - `padding` usa os nomes de tamanho do DS (`md`/`sm`/`none`) em vez de `normal`/`condensed`; `md` segue o padding de container da densidade aberta ([ADR 0007](../../../../docs/decisions/0007-densidade-aberta.md)).
-- Fora do escopo: `layout="compact"` do Primer e card inteiro clicável/link.
+- Fora do escopo: `layout="compact"` do Primer. Card inteiro como link é o `BLAnchorCard`, que reusa os mesmos slots.
 
 ## Exemplo
 

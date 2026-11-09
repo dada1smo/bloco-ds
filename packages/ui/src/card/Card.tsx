@@ -11,26 +11,31 @@ import {
   type CardStyleProps,
 } from './Card.styles';
 
-export type CardProps = Omit<HTMLAttributes<HTMLElement>, 'title'> &
-  CardStyleProps & {
+export type CardContentProps = {
+  heading?: ReactNode;
+  /** Pick by the page outline, not by size. */
+  headingLevel?: 2 | 3 | 4 | 5 | 6;
+  description?: ReactNode;
+  /** Decorative icon (hidden from assistive tech). */
+  icon?: ReactNode;
+  /** `alt` defaults to `''` (decorative). */
+  image?: { src: string; alt?: string };
+  /** A single control in the top-right corner; its label must name this card. */
+  action?: ReactNode;
+  /** Supplemental info at the bottom (date, author, badges). */
+  metadata?: ReactNode;
+  children?: ReactNode;
+};
+
+export type CardProps = Omit<HTMLAttributes<HTMLElement>, 'title' | 'children'> &
+  CardStyleProps &
+  CardContentProps & {
     /** `section` makes a standalone card a region landmark, named by `heading` (or `aria-label`). Keep `div` inside lists. */
     as?: 'div' | 'section';
-    heading?: ReactNode;
-    /** Pick by the page outline, not by size. */
-    headingLevel?: 2 | 3 | 4 | 5 | 6;
-    description?: ReactNode;
-    /** Decorative icon (hidden from assistive tech). */
-    icon?: ReactNode;
-    /** `alt` defaults to `''` (decorative). */
-    image?: { src: string; alt?: string };
-    /** A single control in the top-right corner; its label must name this card. */
-    action?: ReactNode;
-    /** Supplemental info at the bottom (date, author, badges). */
-    metadata?: ReactNode;
   };
 
-export function Card({
-  as: Component = 'div',
+/** Card slots in reading order; shared with `AnchorCard`. Internal, not exported from the package. */
+export function CardContent({
   heading,
   headingLevel = 3,
   description,
@@ -38,17 +43,13 @@ export function Card({
   image,
   action,
   metadata,
-  padding,
-  className,
   children,
-  ...props
-}: CardProps) {
-  const headingId = useId();
+  headingId,
+  descriptionId,
+}: CardContentProps & { headingId?: string; descriptionId?: string }) {
   const Heading = `h${headingLevel}` as const;
-  const labelledBy = Component === 'section' && heading && !props['aria-label'] ? headingId : undefined;
-
   return (
-    <Component aria-labelledby={labelledBy} {...props} className={cardStyles({ padding, className })}>
+    <>
       {image ? <img src={image.src} alt={image.alt ?? ''} className={cardImageStyles()} /> : null}
       {icon ? (
         <span aria-hidden className={cardIconStyles()}>
@@ -62,13 +63,43 @@ export function Card({
               {heading}
             </Heading>
           ) : null}
-          {description ? <p className={cardDescriptionStyles()}>{description}</p> : null}
+          {description ? (
+            <p id={descriptionId} className={cardDescriptionStyles()}>
+              {description}
+            </p>
+          ) : null}
         </div>
       ) : null}
       {/* after the heading so focus order follows reading order */}
       {action ? <div className={cardActionStyles()}>{action}</div> : null}
       {children}
       {metadata ? <div className={cardMetadataStyles()}>{metadata}</div> : null}
+    </>
+  );
+}
+
+export function Card({
+  as: Component = 'div',
+  heading,
+  headingLevel,
+  description,
+  icon,
+  image,
+  action,
+  metadata,
+  padding,
+  className,
+  children,
+  ...props
+}: CardProps) {
+  const headingId = useId();
+  const labelledBy = Component === 'section' && heading && !props['aria-label'] ? headingId : undefined;
+
+  return (
+    <Component aria-labelledby={labelledBy} {...props} className={cardStyles({ padding, className })}>
+      <CardContent
+        {...{ heading, headingLevel, description, icon, image, action, metadata, children, headingId }}
+      />
     </Component>
   );
 }
