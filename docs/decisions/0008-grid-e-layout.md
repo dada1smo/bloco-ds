@@ -10,7 +10,7 @@ O [0006](0006-foundations-carbon.md) só definiu os breakpoints do grid 2x do Ca
 ## Decisão
 
 - **Grid**: colunas do Carbon (4 no base, 8 a partir de `md`, 16 a partir de `lg`). Gutter e margem crescem por breakpoint, nos passos da nossa escala: 16px no base, 24px em `md`, 32px em `lg`/`xl`, 40px em `2xl`. Largura máxima de 1584px, centrada.
-- **Containers**: a largura depende do tipo de conteúdo, não da página. `max-w-prose` (65ch, do Tailwind) para texto longo, `max-w-reading` (768px) para formulário e coluna única, `max-w-page` (1584px) para a página. `w-sidebar` (288px) para trilho lateral.
+- **Containers**: a largura depende do tipo de conteúdo, não da página. `max-w-prose` (65ch, do Tailwind) para texto longo, `max-w-reading` (768px) para formulário e coluna única, `max-w-page` (1584px) para a página. `w-sidebar` (320px) para trilho lateral.
 - **Primitivas**: as quatro do designsystems.one (vindas do *Every Layout*) viram componentes: `BLGrid`, `BLStack`, `BLCluster` e `BLSidebar`. O pai é dono do layout pelo `gap`; componente não define a própria margem externa.
 - **Guarda**: `tokens.test.ts` proíbe breakpoint arbitrário (`min-[…]`, `max-[…]`) em `*.styles.ts`.
 

@@ -22,8 +22,8 @@
   --container-reading: var(--container-3xl);
   /* 1584px: largura máxima de página; usada pelo BLGrid. */
   --container-page: calc(var(--spacing) * 396);
-  /* 288px: trilho lateral (navegação) do BLSidebar. */
-  --container-sidebar: var(--container-2xs);
+  /* 320px: trilho lateral (navegação) do BLSidebar e sidebars do BLAppShell. */
+  --container-sidebar: var(--container-xs);
 }
 
 /* Casco da aplicação (BLAppShell). */
