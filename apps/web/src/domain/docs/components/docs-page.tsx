@@ -17,6 +17,7 @@ import { Markdown } from '@/ui/components/markdown';
 import { Preview } from '@/ui/components/preview';
 import type { Doc, DocLayer } from '../types/doc';
 import { getOutline } from '../utils/get-outline';
+import { DocsSection } from './docs-section';
 
 const layerLabels: Record<DocLayer, string> = {
   foundations: 'Foundation',
@@ -36,18 +37,6 @@ const code = (text?: string) =>
     </BLTypography>
   );
 
-// h2 com id: alvo das âncoras do índice lateral (TableOfContents).
-function Section({ id, title, className, children }: { id: string; title: string; className?: string; children: ReactNode }) {
-  return (
-    <BLStack gap="4" className={className}>
-      <BLTypography as="h2" variant="heading-04" id={id} className="scroll-mt-6">
-        {title}
-      </BLTypography>
-      {children}
-    </BLStack>
-  );
-}
-
 // Template da página (ADR 0016): cabeçalho, exemplos, uso (faça / não faça), seções do .md e props.
 // Partes sem dados não aparecem. Os ids vêm de getOutline, os mesmos do índice lateral.
 export function DocsPage({ doc }: { doc: Doc }) {
@@ -65,7 +54,7 @@ export function DocsPage({ doc }: { doc: Doc }) {
       </BLStack>
 
       {doc.examples.length > 0 && (
-        <Section id="exemplos" title="Exemplos">
+        <DocsSection id="exemplos" title="Exemplos">
           <BLStack gap="8">
             {doc.examples.map((example) => (
               <BLStack key={example.title} gap="3">
@@ -77,11 +66,11 @@ export function DocsPage({ doc }: { doc: Doc }) {
               </BLStack>
             ))}
           </BLStack>
-        </Section>
+        </DocsSection>
       )}
 
       {usage.length > 0 && (
-        <Section id="uso" title="Uso">
+        <DocsSection id="uso" title="Uso">
           <div className="grid gap-6 md:grid-cols-2">
             {usage.map((s) => (
               <BLCard key={s.id} heading={s.title} icon={usageIcons[s.title]}>
@@ -89,17 +78,17 @@ export function DocsPage({ doc }: { doc: Doc }) {
               </BLCard>
             ))}
           </div>
-        </Section>
+        </DocsSection>
       )}
 
       {rest.map((s) => (
-        <Section key={s.id} id={s.id} title={s.title} className="max-w-reading">
+        <DocsSection key={s.id} id={s.id} title={s.title} className="max-w-reading">
           <Markdown>{s.body}</Markdown>
-        </Section>
+        </DocsSection>
       ))}
 
       {doc.props && (
-        <Section id="props" title="Props">
+        <DocsSection id="props" title="Props">
           <BLTable aria-label={`Props de ${doc.title}`}>
             <BLTableHead>
               <BLTableRow>
@@ -120,7 +109,7 @@ export function DocsPage({ doc }: { doc: Doc }) {
               ))}
             </BLTableBody>
           </BLTable>
-        </Section>
+        </DocsSection>
       )}
     </BLStack>
   );

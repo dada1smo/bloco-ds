@@ -32,6 +32,10 @@ Todo arquivo de `ui`, `domain` e `global` fica em kebab-case, componente ou não
 
 Nomes de componentes, funções e consts são curtos e objetivos: verbo + substantivo (`getDemos`, `findDemo`), com no máximo três palavras. O escopo já dá contexto, então o nome não o repete: em `domain/demo/utils/`, use `findDemo` e não `findDemoByFolderAndId`. Hooks usam `use` + substantivo (`useDemos`). Booleans começam com `is`/`has`/`can`.
 
+**Componentização.** Prefira extrair componentes a acumular JSX: um trecho com papel próprio na tela (header, toggle, seção) vira um componente com nome, mesmo que só tenha um uso. Ex.: o header do `AppLayout` é `AppHeader`, não JSX inline na prop `header`.
+
+**Um componente por arquivo.** Cada arquivo de `ui`, `domain` e `global` (inclusive `data/` e `examples/`) declara no máximo um componente, por menor que seja; componentes auxiliares vão para arquivos próprios na mesma pasta (`app-header.tsx`, `menu-toggle.tsx`); nos exemplos de docs, as partes compartilhadas ficam ao lado (`examples/components/app-shell/shell-header.tsx`). Helpers que não são componentes (consts, funções minúsculas) podem ficar no arquivo. Verificado por `apps/web/src/layers.test.ts`.
+
 **Layouts.** Um layout compartilhado é uma rota de layout pathless: `routes/_pages.tsx` envolve `routes/_pages/**` sem entrar na URL.
 
 **Regra de dependência.** A seta significa "pode importar de":

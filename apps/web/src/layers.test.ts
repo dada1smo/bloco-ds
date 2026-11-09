@@ -37,6 +37,13 @@ function badName(file: string) {
   return kebab.test(name) ? null : name;
 }
 
+// Um componente por arquivo (ADR 0015): todo arquivo de ui, domain e global declara no máximo um componente.
+const component = /^(?:export )?(?:function [A-Z]|const [A-Z]\w*\s*=\s*(?:\(|function))/gm;
+
+function countComponents(source: string) {
+  return source.match(component)?.length ?? 0;
+}
+
 describe('camadas do app', () => {
   it('finds the source files', () => {
     expect(Object.keys(files).length).toBeGreaterThan(0);
@@ -48,6 +55,15 @@ describe('camadas do app', () => {
 
   it.each(Object.keys(files).filter((f) => ['ui', 'domain', 'global'].includes(f.split('/')[1])))('%s segue a nomenclatura', (file) => {
     expect(badName(file)).toBeNull();
+  });
+
+  it.each(Object.keys(files).filter((f) => ['ui', 'domain', 'global'].includes(f.split('/')[1]) && !f.includes('.test.')))('%s tem um componente só', (file) => {
+    expect(countComponents(files[file])).toBeLessThanOrEqual(1);
+  });
+
+  it('counts components', () => {
+    expect(countComponents('function A() {}\nexport function B() {}')).toBe(2);
+    expect(countComponents('export const A = () => null;\nconst b = () => null;')).toBe(1);
   });
 
   it('detects bad names', () => {

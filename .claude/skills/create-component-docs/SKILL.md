@@ -112,7 +112,7 @@ export function ButtonSizes() {
 ```
 
 - Um export nomeado `{Title}{Exemplo}` (`ButtonSizes`), sem props.
-- Autocontido: importa só `@bloco/ui`, `@phosphor-icons/react` e `react`. Não importa `../shared` nem outro exemplo. Por isso, prefira valores literais a `.map` sobre constantes: o código fica mais legível.
+- Autocontido: importa só `@bloco/ui`, `@phosphor-icons/react`, `react` e arquivos de partes da própria pasta. Um componente por arquivo (ADR 0015): uma parte usada por um exemplo (header, toggle, conteúdo) vai para um arquivo irmão (`examples/components/app-shell/shell-header.tsx`). Não importa `../shared` nem outro exemplo. Por isso, prefira valores literais a `.map` sobre constantes: o código fica mais legível.
 - Estado (`useState`) e handlers ficam dentro do componente do exemplo.
 - Foundations (tabelas de tokens) podem ficar com `render` inline e sem `code`, porque o código delas não é para copiar.
 
